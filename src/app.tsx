@@ -1,11 +1,12 @@
 import React from "react";
+import FormPages from "./pages/formPages";
 
 interface AppProps {}
 
 function App(props: AppProps) {
   return (
     <>
-      <h1>hello</h1>
+      <FormPages />
     </>
   );
 }
