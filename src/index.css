@@ -11,6 +11,13 @@
   border: solid 1px gray;
 }
 
+.formBox2 {
+  width: 400px;
+  border-radius: 10px;
+  height: 580px;
+  border: solid 1px gray;
+}
+
 a {
   text-decoration: none;
   color: unset;
