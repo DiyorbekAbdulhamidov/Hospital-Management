@@ -43,7 +43,7 @@ function SignIn(props: SignInProps) {
 
   const handleSignIn = () => {
     if (form.isValid()) {
-      toggle(); // Show loading overlay
+      toggle();
       axios
         .get("http://134.209.20.129:8082/user/auth/sign-in", {
           params: {
@@ -53,22 +53,17 @@ function SignIn(props: SignInProps) {
         })
         .then((response) => {
           console.log("User signed in successfully:", response.data);
-          // Handle successful sign-in here (e.g., set user session)
-          // You can also navigate to another page here if needed
-          toggle(); // Hide loading overlay
+
+          toggle();
         })
         .catch((error) => {
           console.error("Error signing in:", error);
-          // Handle sign-in errors here (e.g., show an error message)
-          // Clear the form or perform any other necessary actions
-          toggle(); // Hide loading overlay
+          toggle();
         });
     }
   };
 
-  useEffect(() => {
-    // You can add any additional logic here when the component mounts
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <>

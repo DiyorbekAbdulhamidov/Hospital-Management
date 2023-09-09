@@ -10,6 +10,7 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
+import { DateInput } from "@mantine/dates";
 import { notifications } from "@mantine/notifications";
 import { Box, Button, Flex, Paper, Text } from "@mantine/core";
 import { Link } from "react-router-dom";
@@ -26,21 +27,51 @@ function SignUp(props: SignUpProps) {
         password: form.values.password,
       })
       .then((response) => {
-        // Handle successful response here
         console.log("User signed up successfully:", response.data);
       })
       .catch((error) => {
-        // Handle errors here
-        console.error("Error signing up:", error);
+        console.error("Error signing:", error);
       });
   }, []);
 
   const form = useForm({
-    initialValues: { password: "", email: "" },
+    initialValues: {
+      fullName: "",
+      password: "",
+      email: "",
+      dateOfBirth: "",
+      phoneNumber: "",
+    },
     validate: {
-      password: (value) =>
-        value.length < 5 ? "Password must have at least 5 letters" : null,
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
+      fullName: (value) =>
+        value.length < 2
+          ? "Name must be at least 2 characters long and not blank"
+          : null,
+      password: (value) => {
+        const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+        if (!passwordRegex.test(value)) {
+          return "Password must have at least 8 characters, one uppercase letter, one lowercase letter, and one number";
+        }
+        return null;
+      },
+      email: (value) => {
+        return /^\S+@\S+$/.test(value) ? null : "Invalid email";
+      },
+      dateOfBirth: (value) => {
+        const parsedDate = new Date(value);
+        if (isNaN(parsedDate.getTime())) {
+          return "Invalid date";
+        }
+        return null;
+      },
+
+      phoneNumber: (value) => {
+        const phoneRegex = /^[0-9]{10}$/;
+        if (!phoneRegex.test(value)) {
+          return "Invalid phone number";
+        }
+        return null;
+      },
     },
   });
 
@@ -52,7 +83,22 @@ function SignUp(props: SignUpProps) {
       });
     } else if (errors.password) {
       notifications.show({
-        message: "Password must have at least 5 letters",
+        message: errors.password,
+        color: "red",
+      });
+    } else if (errors.fullName) {
+      notifications.show({
+        message: errors.fullName,
+        color: "red",
+      });
+    } else if (errors.dateOfBirth) {
+      notifications.show({
+        message: errors.dateOfBirth,
+        color: "red",
+      });
+    } else if (errors.phoneNumber) {
+      notifications.show({
+        message: errors.phoneNumber,
         color: "red",
       });
     }
@@ -72,7 +118,13 @@ function SignUp(props: SignUpProps) {
           toggle();
         })
         .catch((error) => {
-          console.error("Error signing up:", error);
+          if (error.response) {
+            console.error("Error signing up:", error.response.data);
+          } else if (error.request) {
+            console.error("No response received:", error.request);
+          } else {
+            console.error("Error setting up the request:", error.message);
+          }
           toggle();
         });
     }
@@ -81,7 +133,7 @@ function SignUp(props: SignUpProps) {
   return (
     <>
       <Box>
-        <Flex mt={100} justify="center" align="center">
+        <Flex mt={20} justify="center" align="center">
           <Paper className="formBox" shadow="xl" pos="relative">
             <Box mt={30}>
               <LoadingOverlay visible={visible} overlayBlur={2} />
@@ -98,22 +150,47 @@ function SignUp(props: SignUpProps) {
                 <TextInput
                   radius={70}
                   mt="sm"
-                  size="md"
+                  size="xs"
+                  label="fullName"
+                  placeholder="fullName"
+                  {...form.getInputProps("fullName")}
+                />
+                <TextInput
+                  radius={70}
+                  mt="sm"
+                  size="xs"
                   label="Email"
                   placeholder="Email"
                   {...form.getInputProps("email")}
                 />
                 <PasswordInput
                   mt={20}
-                  size="md"
+                  size="xs"
                   radius={70}
                   label="Password"
                   placeholder="Password"
                   {...form.getInputProps("password")}
                 />
+                <DateInput
+                  radius={70}
+                  size="xs"
+                  label="DateOfBirth"
+                  valueFormat="dd.mm.yyyy"
+                  placeholder="Date Of Your Birth (dd.mm.yyyy)"
+                  maw={400}
+                  mx="auto"
+                  {...form.getInputProps("dateOfBirth")}
+                />
 
+                <TextInput
+                  radius={70}
+                  mt="sm"
+                  size="xs"
+                  label="Phone Number"
+                  placeholder="Phone Number"
+                  {...form.getInputProps("phoneNumber")}
+                />
                 <Checkbox mt={15} label="Remember me" />
-
                 <Button
                   fz={25}
                   size="md"
