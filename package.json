@@ -16,7 +16,11 @@
     "@mantine/prism": "^6.0.20",
     "@mantine/spotlight": "^6.0.20",
     "@mantine/tiptap": "^6.0.20",
+<<<<<<< HEAD
     "@tabler/icons-react": "^2.33.0",
+=======
+    "@tabler/icons-react": "^2.34.0",
+>>>>>>> 2174547ceec4b7a61340f74c7a4aaebd79a2d14a
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -27,10 +31,15 @@
     "@types/node": "^16.18.46",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
+<<<<<<< HEAD
+=======
+    "axios": "^1.5.0",
+>>>>>>> 2174547ceec4b7a61340f74c7a4aaebd79a2d14a
     "dayjs": "^1.11.9",
     "embla-carousel-react": "^8.0.0-rc12",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.15.0",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
