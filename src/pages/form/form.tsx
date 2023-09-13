@@ -10,7 +10,7 @@ function Form(props: FormProps) {
     <>
       <Box>
         <Flex mt={100} justify="center" align="center">
-          <Paper className="formBox" shadow="xl">
+          <Paper className="formBoxmain" shadow="xl">
             <Box mt={130}>
               <Text ta="center" c="#2972FE" fw={600} fz={40}>
                 Doctor Q

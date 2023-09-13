@@ -10,6 +10,12 @@
   height: 720px;
   border: solid 1px gray;
 }
+.formBoxmain {
+  width: 400px;
+  border-radius: 10px;
+  height: 550px;
+  border: solid 1px gray;
+}
 
 .formBox2 {
   width: 400px;
@@ -30,4 +36,17 @@ a {
   background-color: black;
   transition: all 0.2s linear;
   color: white;
+}
+
+.gender {
+  margin-top: 20px;
+  font-family: sans-serif;
+  display: flex;
+  gap: 1rem;
+}
+
+.gender label {
+  gap: 5px;
+  display: flex;
+  align-items: center;
 }

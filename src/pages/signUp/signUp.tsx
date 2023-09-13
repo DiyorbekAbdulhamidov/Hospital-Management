@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 import { useForm } from "@mantine/form";
 import axios from "axios";
 import { useDisclosure } from "@mantine/hooks";
 import {
-  Checkbox,
   Group,
   LoadingOverlay,
   PasswordInput,
@@ -19,20 +19,7 @@ interface SignUpProps {}
 
 function SignUp(props: SignUpProps) {
   const [visible, { toggle }] = useDisclosure(false);
-
-  useEffect(() => {
-    axios
-      .post("http://134.209.20.129:8082/user/auth/sign-up", {
-        email: form.values.email,
-        password: form.values.password,
-      })
-      .then((response) => {
-        console.log("User signed up successfully:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error signing:", error);
-      });
-  }, []);
+  const [gender, setGender] = useState<string | null>(null);
 
   const form = useForm({
     initialValues: {
@@ -64,9 +51,8 @@ function SignUp(props: SignUpProps) {
         }
         return null;
       },
-
       phoneNumber: (value) => {
-        const phoneRegex = /^[0-9]{10}$/;
+        const phoneRegex = /^[0-9]{13}$/;
         if (!phoneRegex.test(value)) {
           return "Invalid phone number";
         }
@@ -105,12 +91,17 @@ function SignUp(props: SignUpProps) {
   };
 
   const handleSubmit = () => {
-    if (form.isValid()) {
+    if (form.isValid() && gender) {
       toggle();
       const userData = {
         email: form.values.email,
         password: form.values.password,
+        fullName: form.values.fullName,
+        dateOfBirth: form.values.dateOfBirth,
+        phoneNumber: form.values.phoneNumber,
+        gender: gender,
       };
+
       axios
         .post("http://134.209.20.129:8082/user/auth/sign-up", userData)
         .then((response) => {
@@ -133,9 +124,9 @@ function SignUp(props: SignUpProps) {
   return (
     <>
       <Box>
-        <Flex mt={20} justify="center" align="center">
+        <Flex mt={10} justify="center" align="center">
           <Paper className="formBox" shadow="xl" pos="relative">
-            <Box mt={30}>
+            <Box mt={10}>
               <LoadingOverlay visible={visible} overlayBlur={2} />
 
               <Text ta="center" c="#2972FE" fw={600} fz={40}>
@@ -172,10 +163,11 @@ function SignUp(props: SignUpProps) {
                   {...form.getInputProps("password")}
                 />
                 <DateInput
+                  mt="sm"
                   radius={70}
                   size="xs"
-                  label="DateOfBirth"
-                  valueFormat="dd.mm.yyyy"
+                  label="Date Of Birth"
+                  valueFormat="DD/MM/YYYY "
                   placeholder="Date Of Your Birth (dd.mm.yyyy)"
                   maw={400}
                   mx="auto"
@@ -190,7 +182,30 @@ function SignUp(props: SignUpProps) {
                   placeholder="Phone Number"
                   {...form.getInputProps("phoneNumber")}
                 />
-                <Checkbox mt={15} label="Remember me" />
+
+                <div className="gender">
+                  <span>Gender:</span>
+                  <label>
+                    <small>Male</small>
+                    <input
+                      type="radio"
+                      required
+                      name="gender"
+                      value="male"
+                      onChange={() => setGender("male")}
+                    />
+                  </label>
+                  <label>
+                    <small>Female</small>
+                    <input
+                      type="radio"
+                      required
+                      name="gender"
+                      value="female"
+                      onChange={() => setGender("female")}
+                    />
+                  </label>
+                </div>
                 <Button
                   fz={25}
                   size="md"
@@ -206,6 +221,7 @@ function SignUp(props: SignUpProps) {
             <Text ta="center" pt={20}>
               or continue with
             </Text>
+
             <Flex mt={20} justify="space-around">
               <Button
                 className="socialLink"

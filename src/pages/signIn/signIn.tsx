@@ -106,9 +106,9 @@ function SignIn(props: SignInProps) {
                   size="md"
                   w="100%"
                   radius={70}
-                  type="button" // Change to type="button"
+                  type="button"
                   mt="sm"
-                  onClick={handleSignIn} // Call your custom sign-in function
+                  onClick={handleSignIn}
                 >
                   Sign In
                 </Button>
