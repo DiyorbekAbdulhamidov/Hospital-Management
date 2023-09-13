@@ -3,45 +3,29 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.11.1",
-    "@mantine/carousel": "^6.0.20",
-    "@mantine/core": "^6.0.20",
-    "@mantine/dates": "^6.0.20",
-    "@mantine/dropzone": "^6.0.20",
-    "@mantine/form": "^6.0.20",
-    "@mantine/hooks": "^6.0.20",
-    "@mantine/modals": "^6.0.20",
     "@mantine/notifications": "^6.0.20",
-    "@mantine/nprogress": "^6.0.20",
-    "@mantine/prism": "^6.0.20",
-    "@mantine/spotlight": "^6.0.20",
-    "@mantine/tiptap": "^6.0.20",
-    "@tabler/icons-react": "^2.34.0",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@tiptap/extension-link": "^2.1.8",
-    "@tiptap/react": "^2.1.8",
-    "@tiptap/starter-kit": "^2.1.8",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.46",
-    "@types/react": "^18.2.21",
-    "@types/react-dom": "^18.2.7",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^13.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.13",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
     "axios": "^1.5.0",
-    "dayjs": "^1.11.9",
-    "embla-carousel-react": "^8.0.0-rc12",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0",
     "react-scripts": "5.0.1",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "store2": "^2.14.2",
+    "typescript": "^4.4.2",
+    "web-vitals": "^2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint ."
   },
   "eslintConfig": {
     "extends": [
@@ -60,5 +44,16 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.198",
+    "eslint": "^8.49.0",
+    "eslint-config-airbnb-typescript": "^17.1.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-unused-imports": "^3.0.0",
+    "prettier": "3.0.3"
   }
 }
