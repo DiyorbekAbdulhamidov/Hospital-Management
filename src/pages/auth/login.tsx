@@ -114,4 +114,4 @@ const Login: React.FunctionComponent<LoginProps> = () => {
   )
 }
 
-export default Login
+export default Login;
