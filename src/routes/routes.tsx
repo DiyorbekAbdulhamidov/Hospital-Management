@@ -8,7 +8,7 @@ const Routes = () => {
   return (
     <BrowserRouter>
       <BaseRoutes>
-        <Route path="/">
+        <Route path="/"  element={isUserAuthenticated ? <Navigate to="/" /> : <Navigate to="/auth/login" />}>
           {/* <Route index element={<Home />} /> */}
         </Route>
 
