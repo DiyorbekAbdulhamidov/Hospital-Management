@@ -103,7 +103,6 @@ const Login: React.FunctionComponent<LoginProps> = () => {
             <Title fw={400} ta="center" mt={20} fz={20}>
               Don't have an account?
               <Text span c="blue" inherit>
-                {' '}
                 <Link to="/signUp">Sign Up</Link>
               </Text>
             </Title>
