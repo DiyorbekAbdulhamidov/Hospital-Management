@@ -1,4 +1,3 @@
-// eslint-disable-next-line simple-import-sort/imports
 import store from 'store2'
 import config from '../config'
 import { Types } from '../modules/auth'

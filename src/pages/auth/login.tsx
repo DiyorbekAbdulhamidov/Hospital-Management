@@ -19,6 +19,9 @@ const Login: React.FunctionComponent<LoginProps> = () => {
     }
   })
 
+  console.log("login page");
+  
+
   const handleError = (errors: typeof form.errors) => {
     if (errors.name) {
       notifications.show({

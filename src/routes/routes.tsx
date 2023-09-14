@@ -9,7 +9,7 @@ const AppRoutes = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={isUserAuthenticated ? <Navigate to="/" /> : <Navigate to="/auth/login" />}>
-       
+
         </Route>
 
         <Route path="auth" element={isUserAuthenticated ? <Navigate to="/" /> : <Navigate to="/auth/login" />}>
