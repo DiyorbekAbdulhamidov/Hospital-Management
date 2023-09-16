@@ -16,7 +16,22 @@ const AppRoutes = () => {
           <Route path="/reset-password" element={<Auth.ResetPassword />} />
           <Route path="/verification/:email" element={<Auth.Verification />} />
           <Route path="/userPanel" element={<UserPanel />} />
-          <Route path="/settings" element={<Settings.MainSettings />} />
+          <Route
+            path="/userPanel/settings"
+            element={<Settings.MainSettings />}
+          />
+          <Route
+            path="/userPanel/settings/myProfile"
+            element={<Settings.MyProfile />}
+          />
+          <Route
+            path="/userPanel/settings/changePassword"
+            element={<Settings.ChangePassword />}
+          />
+          <Route
+            path="/userPanel/settings/changeEmail"
+            element={<Settings.ChangeEmail />}
+          />
         </Routes>
       </BrowserRouter>
     </>

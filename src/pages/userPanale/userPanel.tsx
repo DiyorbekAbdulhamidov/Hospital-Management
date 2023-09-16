@@ -8,7 +8,7 @@ import {
   Image,
   Menu,
 } from "@mantine/core";
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useState } from "react";
 import { IconExternalLink, IconLogout2 } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
 import { Burger } from "@mantine/core";
@@ -20,13 +20,12 @@ import { Link } from "react-router-dom";
 interface UserPanelProps {}
 
 const UserPanel: FunctionComponent<UserPanelProps> = () => {
-  const [showMenu, setShowMenu] = useState(
-    localStorage.getItem("showMenu") === "true" || false
-  );
+  const [showMenu, setShowMenu] = useState(false);
+  // localStorage.getItem("showMenu") === "true" || false
 
-  useEffect(() => {
-    localStorage.setItem("showMenu", showMenu.toString());
-  }, [showMenu]);
+  // useEffect(() => {
+  //   localStorage.setItem("showMenu", showMenu.toString());
+  // }, [showMenu]);
 
   const { email } = useParams();
   const [opened, { toggle }] = useDisclosure(true);
@@ -53,7 +52,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
               <Menu.Dropdown>
                 <Menu.Item component="a">
                   <Text fz={15} ta="center" c="gray">
-                    shaxzod@gmail.com
+                    {email}
                   </Text>
                 </Menu.Item>
 
@@ -103,7 +102,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
                   fz={25}
                   pt={30}
                 >
-                  <Link to="/settings">Profile Settingss</Link>
+                  <Link to="/userPanel/settings">Profile Settingss</Link>
                 </Text>
                 <Text
                   className="cursoreP"

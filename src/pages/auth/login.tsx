@@ -17,54 +17,51 @@ interface LoginProps {}
 
 const Login: React.FunctionComponent<LoginProps> = () => {
   const [loading, setLoading] = useState(false);
-  const toggle = () => setVisible((prevVisible: any) => !prevVisible);
+  const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
+
+  const toggle = () => {
+    setVisible((prevVisible) => !prevVisible);
+  };
 
   const form = useForm({
     initialValues: { password: "", email: "" },
     validate: {
       password: (value) =>
         value.length < 5 ? "Password must have at least 5 letters" : null,
-      email: (value) => {
-        if (!value) {
-          return "Email required";
-        } else if (value.length < 6 || !/^\S+@\S+$/.test(value)) {
-          return "Invalid email";
-        }
-        return null;
-      },
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
     },
   });
 
+  // const handleError = (errors: typeof form.errors) => {
+  //   if (errors.name) {
+  //     notifications.show({
+  //       message: "Please fill the name field",
+  //       color: "red",
+  //     });
+  //   } else if (errors.email) {
+  //     notifications.show({
+  //       message: "Please provide a valid email",
+  //       color: "red",
+  //     });
+  //   }
+  // };
+
   const handleSignIn = () => {
-    console.log(form.values.email);
-    console.log(form.values.password);
     if (form.isValid()) {
       setLoading(true);
       axios
         .post("http://134.209.20.129:8082/user/auth/sign-in", {
-          params: {
-            email: form.values.email,
-            password: form.values.password,
-          },
+          email: form.values.email,
+          password: form.values.password,
         })
         .then((response) => {
-          if (response.data.success) {
-            console.log("User signed in successfully", response.data.user);
-            console.error("Error signing in:", response.data.message);
-            notifications.show({
-              message: response.data.message,
-              color: "red",
-            });
-          }
+          console.log("User signed in successfully", response);
           setLoading(false);
+          navigate(`/userPanel`);
         })
         .catch((error) => {
           console.error("Error signing in:", error);
-          notifications.show({
-            message: "An error occurred while signing in.",
-            color: "red",
-          });
           setLoading(false);
         });
     } else {
@@ -129,7 +126,7 @@ const Login: React.FunctionComponent<LoginProps> = () => {
                   size="md"
                   w="100%"
                   radius={70}
-                  type="submit"
+                  type="button"
                   mt="sm"
                   onClick={handleSignIn}
                 >
@@ -182,6 +179,3 @@ const Login: React.FunctionComponent<LoginProps> = () => {
 };
 
 export default Login;
-function setVisible(arg0: (prevVisible: any) => boolean) {
-  throw new Error("Function not implemented.");
-}
