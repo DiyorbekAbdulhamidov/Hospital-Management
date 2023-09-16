@@ -40,7 +40,8 @@ a {
 .formBox {
   width: 400px;
   border-radius: 10px;
-  height: 720px;
+  height: auto;
+  padding-bottom: 10px;
   border: solid 1px gray;
 }
 .formBoxmain {
@@ -53,8 +54,9 @@ a {
 .formBox2 {
   width: 400px;
   border-radius: 10px;
-  height: 580px;
+  height: auto;
   border: solid 1px gray;
+  padding-bottom: 20px;
 }
 
 a {
@@ -148,4 +150,12 @@ a {
   cursor: pointer;
   width: 150px;
   margin-left: 120px;
+}
+
+.activeMenu {
+  color: red;
+}
+
+.cursoreP {
+  cursor: pointer;
 }

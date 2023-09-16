@@ -13,7 +13,7 @@ import {
 import { DateInput } from "@mantine/dates";
 import { notifications } from "@mantine/notifications";
 import { Box, Button, Flex, Paper, Text } from "@mantine/core";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useId } from "@mantine/hooks";
 import { IMaskInput } from "react-imask";
 import { format } from "date-fns";
@@ -57,6 +57,8 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
       },
     },
   });
+
+  const navigate = useNavigate();
 
   const handleError = (errors: typeof form.errors) => {
     if (errors.email) {
@@ -109,6 +111,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
         .then((response) => {
           console.log("User signed up successfully:", response.data);
           toggle();
+          navigate("/login"); // Use navigate to redirect to the /login page
         })
         .catch((error) => {
           if (error.response) {
