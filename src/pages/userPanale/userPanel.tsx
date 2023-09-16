@@ -17,6 +17,8 @@ import { Header, Text } from "@mantine/core";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 
+import { useAuth } from "../../modules/auth/context";
+
 interface UserPanelProps {}
 
 const UserPanel: FunctionComponent<UserPanelProps> = () => {
@@ -37,6 +39,8 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
     toggle();
   };
 
+  const { userDetails, logout } = useAuth();
+
   return (
     <Box>
       <Box>
@@ -53,7 +57,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
               <Menu.Dropdown>
                 <Menu.Item component="a">
                   <Text fz={15} ta="center" c="gray">
-                    shaxzod@gmail.com
+                    {userDetails?.email} 
                   </Text>
                 </Menu.Item>
 
@@ -70,7 +74,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
                   component="a"
                   target="_blank"
                 >
-                  <Link to="/login">Log out</Link>
+                  <Button onClick={logout}>Log out</Button>
                 </Menu.Item>
               </Menu.Dropdown>
             </Menu>
@@ -103,7 +107,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
                   fz={25}
                   pt={30}
                 >
-                  <Link to="/settings">Profile Settingss</Link>
+                  <Link to="/settings">Profile Settings</Link>
                 </Text>
                 <Text
                   className="cursoreP"
@@ -133,7 +137,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
                   fz={25}
                   pt={30}
                 >
-                  Spetialization
+                  Specialization
                 </Text>
               </Box>
             </Box>

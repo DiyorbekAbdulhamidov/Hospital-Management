@@ -12,10 +12,12 @@ import {
 import { notifications } from "@mantine/notifications";
 import { Box, Button, Flex, Paper, Text } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../modules/auth/context";
 
 interface LoginProps {}
 
 const Login: React.FunctionComponent<LoginProps> = () => {
+  const { login, saveUserDetails } = useAuth();
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
@@ -56,7 +58,11 @@ const Login: React.FunctionComponent<LoginProps> = () => {
           password: form.values.password,
         })
         .then((response) => {
-          console.log("User signed in successfully", response);
+          console.log("User signed in successfully", response.data.data.user);
+          login(response.data.data);
+          saveUserDetails(response.data.data.user);
+          navigate("/userPanel");
+
           setLoading(false);
         })
         .catch((error) => {
