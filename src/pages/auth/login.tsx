@@ -17,40 +17,43 @@ interface LoginProps {}
 
 const Login: React.FunctionComponent<LoginProps> = () => {
   const [loading, setLoading] = useState(false);
-  const toggle = () => setVisible((prevVisible: any) => !prevVisible);
+  const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
+
+  const toggle = () => {
+    setVisible((prevVisible) => !prevVisible);
+  };
 
   const form = useForm({
     initialValues: { password: "", email: "" },
     validate: {
-      password: value => (value.length < 5 ? 'Password must have at least 5 letters' : null),
-      email: value => (/^\S+@\S+$/.test(value) ? null : 'Invalid email')
-    }
-  })
+      password: (value) =>
+        value.length < 5 ? "Password must have at least 5 letters" : null,
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
+    },
+  });
 
   const handleError = (errors: typeof form.errors) => {
     if (errors.name) {
       notifications.show({
-        message: 'Please fill the name field',
-        color: 'red'
-      })
+        message: "Please fill the name field",
+        color: "red",
+      });
     } else if (errors.email) {
       notifications.show({
-        message: 'Please provide a valid email',
-        color: 'red'
-      })
+        message: "Please provide a valid email",
+        color: "red",
+      });
     }
-  }
+  };
 
   const handleSignIn = () => {
     if (form.isValid()) {
       setLoading(true);
       axios
-        .get("http://134.209.20.129:8082/user/auth/sign-in", {
-          params: {
-            email: form.values.email,
-            password: form.values.password,
-          },
+        .post("http://134.209.20.129:8082/user/auth/sign-in", {
+          email: form.values.email,
+          password: form.values.password,
         })
         .then((response) => {
           console.log("User signed in successfully", response);
@@ -139,24 +142,11 @@ const Login: React.FunctionComponent<LoginProps> = () => {
               or continue with
             </Text>
             <Flex mt={20} justify="space-around">
-              <Button
-                className="socialLink"
-                bg="white"
-                c="black"
-                fz={20}
-                w={150}
-              >
+              <Button className="socialLink" bg="white" c="black" fz={20} w={150}>
                 Facebook
               </Button>
               <Group position="center">
-                <Button
-                  className="socialLink"
-                  bg="white"
-                  c="black"
-                  fz={20}
-                  w={150}
-                  onClick={toggle}
-                >
+                <Button className="socialLink" bg="white" c="black" fz={20} w={150} onClick={toggle}>
                   Google
                 </Button>
               </Group>
@@ -175,6 +165,3 @@ const Login: React.FunctionComponent<LoginProps> = () => {
 };
 
 export default Login;
-function setVisible(arg0: (prevVisible: any) => boolean) {
-  throw new Error("Function not implemented.");
-}
