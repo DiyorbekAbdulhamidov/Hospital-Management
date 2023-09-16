@@ -1,11 +1,4 @@
-import {
-  Box,
-  Flex,
-  Group,
-  LoadingOverlay,
-  PinInput,
-  Text,
-} from "@mantine/core";
+import { Box, Flex, LoadingOverlay } from "@mantine/core";
 import { Link, useParams } from "react-router-dom"; // useParams ni import qo'shing
 import React, { useState, useRef, ChangeEvent, KeyboardEvent } from "react";
 
