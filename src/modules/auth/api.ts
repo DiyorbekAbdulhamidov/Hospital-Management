@@ -13,4 +13,4 @@
 // export const Verification = () => http.post('/users/')
 // export const SendResetPasswordCode = () => http.post('/users/')
 // export const ConfirmResetPassword = () => http.post('/users/')
-export {}
+export {};
