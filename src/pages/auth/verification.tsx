@@ -1,12 +1,12 @@
 import {
   Box,
   Flex,
-  Group,
+  // Group,
   LoadingOverlay,
-  PinInput,
-  Text,
+  // PinInput,
+  // Text,
 } from "@mantine/core";
-import { Link, useParams } from "react-router-dom"; // useParams ni import qo'shing
+import { Link, useParams } from "react-router-dom";
 import React, { useState, useRef, ChangeEvent, KeyboardEvent } from "react";
 
 interface VerificationProps {}
