@@ -37,21 +37,34 @@ const Login: React.FunctionComponent<LoginProps> = () => {
   });
 
   const handleSignIn = () => {
+    console.log(form.values.email);
+    console.log(form.values.password);
     if (form.isValid()) {
       setLoading(true);
       axios
-        .get("http://134.209.20.129:8082/user/auth/sign-in", {
+        .post("http://134.209.20.129:8082/user/auth/sign-in", {
           params: {
             email: form.values.email,
             password: form.values.password,
           },
         })
         .then((response) => {
-          console.log("User signed in successfully", response);
+          if (response.data.success) {
+            console.log("User signed in successfully", response.data.user);
+            console.error("Error signing in:", response.data.message);
+            notifications.show({
+              message: response.data.message,
+              color: "red",
+            });
+          }
           setLoading(false);
         })
         .catch((error) => {
           console.error("Error signing in:", error);
+          notifications.show({
+            message: "An error occurred while signing in.",
+            color: "red",
+          });
           setLoading(false);
         });
     } else {
@@ -116,7 +129,7 @@ const Login: React.FunctionComponent<LoginProps> = () => {
                   size="md"
                   w="100%"
                   radius={70}
-                  type="button"
+                  type="submit"
                   mt="sm"
                   onClick={handleSignIn}
                 >
