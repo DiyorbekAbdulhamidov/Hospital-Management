@@ -23,7 +23,7 @@ interface RegisterProps {}
 const Register: React.FunctionComponent<RegisterProps> = () => {
   const id = useId();
   const [visible, { toggle }] = useDisclosure(false);
-  const [gender, setGender] = useState<string | null>(""); // Initialize gender with an empty string
+  const [gender, setGender] = useState<string | null>("");
 
   const form = useForm({
     initialValues: {
