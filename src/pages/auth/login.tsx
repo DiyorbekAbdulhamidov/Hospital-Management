@@ -33,19 +33,19 @@ const Login: React.FunctionComponent<LoginProps> = () => {
     },
   });
 
-  const handleError = (errors: typeof form.errors) => {
-    if (errors.name) {
-      notifications.show({
-        message: "Please fill the name field",
-        color: "red",
-      });
-    } else if (errors.email) {
-      notifications.show({
-        message: "Please provide a valid email",
-        color: "red",
-      });
-    }
-  };
+  // const handleError = (errors: typeof form.errors) => {
+  //   if (errors.name) {
+  //     notifications.show({
+  //       message: "Please fill the name field",
+  //       color: "red",
+  //     });
+  //   } else if (errors.email) {
+  //     notifications.show({
+  //       message: "Please provide a valid email",
+  //       color: "red",
+  //     });
+  //   }
+  // };
 
   const handleSignIn = () => {
     if (form.isValid()) {
