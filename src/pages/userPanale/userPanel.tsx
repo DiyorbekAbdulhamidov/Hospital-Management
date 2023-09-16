@@ -19,7 +19,7 @@ import { Link } from "react-router-dom";
 
 import { useAuth } from "../../modules/auth/context";
 
-interface UserPanelProps {}
+interface UserPanelProps { }
 
 const UserPanel: FunctionComponent<UserPanelProps> = () => {
   const [showMenu, setShowMenu] = useState(
@@ -57,7 +57,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
               <Menu.Dropdown>
                 <Menu.Item component="a">
                   <Text fz={15} ta="center" c="gray">
-                    {userDetails?.email} 
+                    {userDetails?.email}
                   </Text>
                 </Menu.Item>
 

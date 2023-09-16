@@ -1,7 +1,5 @@
 import { Route, Routes, Navigate, BrowserRouter } from "react-router-dom";
-import { Auth } from "../pages";
-import { Settings } from "../pages";
-import UserPanel from "../pages/userPanale/userPanel";
+import { Auth, HomePage, Settings, UserPanel } from "../pages";
 import { useAuth } from "../modules/auth/context";
 
 const AppRoutes = () => {
@@ -10,7 +8,7 @@ const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Auth.Form />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/login" element={user ? <Navigate to="/userPanel" /> : <Auth.Login />} />
         <Route path="/register" element={<Auth.Register />} />
         <Route path="/reset-password" element={<Auth.ResetPassword />} />
