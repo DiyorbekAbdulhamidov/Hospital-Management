@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 interface FormProps {}
 
-function Form(props: FormProps) {
+const Form: React.FunctionComponent<FormProps> = () => {
   return (
     <>
       <Box>
@@ -27,10 +27,10 @@ function Form(props: FormProps) {
               direction="column"
             >
               <Button radius="xl" w={300} h={45} fz={25}>
-                <Link to="/signUp">Sign Up</Link>
+                <Link to="/register">Sign Up</Link>
               </Button>
               <Button radius="xl" w={300} h={45} fz={25} variant="outline">
-                <Link to="/signIn">Sign In</Link>
+                <Link to="/login">Sign In</Link>
               </Button>
             </Flex>
           </Paper>
@@ -38,6 +38,6 @@ function Form(props: FormProps) {
       </Box>
     </>
   );
-}
+};
 
 export default Form;
