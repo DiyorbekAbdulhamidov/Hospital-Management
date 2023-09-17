@@ -1,18 +1,34 @@
-import React, { useEffect, useState } from "react";
-import { Box, Button, Card, Container, Flex, Grid, Image, Menu } from "@mantine/core";
-import { FunctionComponent } from "react";
+import {
+  Box,
+  Button,
+  Card,
+  Container,
+  Flex,
+  Grid,
+  Image,
+  Menu,
+} from "@mantine/core";
+import { FunctionComponent, useEffect, useState } from "react";
 import { IconExternalLink, IconLogout2 } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
 import { Burger } from "@mantine/core";
 import { Header, Text } from "@mantine/core";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useAuth } from "../../modules/auth/context";
 import axios from "axios";
 
-interface UserPanelProps { }
+interface UserPanelProps {}
 
 const UserPanel: FunctionComponent<UserPanelProps> = () => {
-  const [showMenu, setShowMenu] = useState(localStorage.getItem("showMenu") === "true" || false);
+  const [showMenu, setShowMenu] = useState(
+    localStorage.getItem("showMenu") === "true" || false
+  );
+
+  useEffect(() => {
+    localStorage.setItem("showMenu", showMenu.toString());
+  }, [showMenu]);
+
+  const { email } = useParams();
   const [opened, { toggle }] = useDisclosure(true);
   const label = opened ? "Close navigation" : "Open navigation";
 
@@ -25,24 +41,25 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
   const [data, setData] = useState(null);
 
   console.log(data);
-  
 
   useEffect(() => {
     async function GetUserData() {
       try {
         const savedToken = localStorage.getItem("access_token");
         if (savedToken) {
-          const response = await axios.get("http://134.209.20.129:8082/user/get-me", {
-            headers: {
-              Authorization: `Bearer ${JSON.parse(savedToken)}`,
-            },
-          });
-    
+          const response = await axios.get(
+            "http://134.209.20.129:8082/user/get-me",
+            {
+              headers: {
+                Authorization: `Bearer ${JSON.parse(savedToken)}`,
+              },
+            }
+          );
+
           if (response.status === 200) {
             setData(response.data.data);
-            
           } else {
-            console.log('Error:', response.status);
+            console.log("Error:", response.status);
             logout();
           }
         }
@@ -51,7 +68,6 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
         logout();
       }
     }
-    
 
     if (user) {
       GetUserData();
@@ -73,7 +89,6 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
             <Menu.Dropdown>
               <Menu.Item component="a">
                 <Text fz={15} ta="center" c="gray">
-                  
                   {data?.email}
                 </Text>
               </Menu.Item>
@@ -97,68 +112,111 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
           </Menu>
         </Flex>
       </Header>
-      <Flex>
-        <Box display={`${showMenu ? "none" : "block"}`} h="90.6vh" w="20%" bg="blue">
-          <Box mt={20} ml={30}>
-            <Text className="activeMenu" c={"#fff"} fw={600} lts={2} fz={25} pt={80}>
-              Hospitals
-            </Text>
-            <Text className="cursoreP" c={"#fff"} fw={600} lts={2} fz={25} pt={30}>
-              <Link to="/settings">Profile Settings</Link>
-            </Text>
-            <Text className="cursoreP" c={"#fff"} fw={600} lts={2} fz={25} pt={30}>
-              Booking
-            </Text>
-            <Text className="cursoreP" c={"#fff"} fw={600} lts={2} fz={25} pt={30}>
-              History
-            </Text>
-            <Text className="cursoreP" c={"#fff"} fw={600} lts={2} fz={25} pt={30}>
-              Specialization
-            </Text>
+      <Box>
+        <Flex>
+          <Box
+            display={`${showMenu ? "none" : "block"}`}
+            h="90.6vh"
+            w="20%"
+            bg="blue"
+          >
+            <Box mt={20} ml={30}>
+              <Text
+                className="activeMenu"
+                c={"#fff"}
+                fw={600}
+                lts={2}
+                fz={25}
+                pt={80}
+              >
+                Hospitals
+              </Text>
+              <Text
+                className="cursoreP"
+                c={"#fff"}
+                fw={600}
+                lts={2}
+                fz={25}
+                pt={30}
+              >
+                <Link to="/settings">Profile Settings</Link>
+              </Text>
+              <Text
+                className="cursoreP"
+                c={"#fff"}
+                fw={600}
+                lts={2}
+                fz={25}
+                pt={30}
+              >
+                Booking
+              </Text>
+              <Text
+                className="cursoreP"
+                c={"#fff"}
+                fw={600}
+                lts={2}
+                fz={25}
+                pt={30}
+              >
+                History
+              </Text>
+              <Text
+                className="cursoreP"
+                c={"#fff"}
+                fw={600}
+                lts={2}
+                fz={25}
+                pt={30}
+              >
+                Specialization
+              </Text>
+            </Box>
           </Box>
-        </Box>
-        <Box w={`${!showMenu ? "80%" : "100%"}  `} h="auto">
-          <Burger
-            color="black"
-            ml={`${showMenu ? `3%` : "-5%"}`}
-            mt={20}
-            opened={opened}
-            onClick={() => {
-              HandleMenu();
-            }}
-            aria-label={label}
-          />
-          <Container size="xl">
-            <Grid gutter="xl" justify="center">
-              <Grid.Col w="200px" h="auto" bg="green" span={4}>
-                <Card
-                  shadow="sm"
-                  padding="xl"
-                  component="a"
-                  href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                  target="_blank"
-                >
-                  <Card.Section>
-                    <Image
-                      src="https://images.unsplash.com/photo-1579227114347-15d08fc37cae?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80"
-                      height={120}
-                      alt="No way!"
-                    />
-                  </Card.Section>
+          <Box w={`${!showMenu ? "80%" : "100%"}  `} h="auto">
+            <Burger
+              color="black"
+              ml={`${showMenu ? `3%` : "-5%"}`}
+              mt={20}
+              opened={opened}
+              onClick={() => {
+                HandleMenu();
+              }}
+              aria-label={label}
+            />
+            <Container size="xl">
+              <Grid gutter="xl" justify="center">
+                <Grid.Col w="200px" h="auto" bg="green" span={4}>
+                  <Card
+                    shadow="sm"
+                    padding="xl"
+                    component="a"
+                    href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                    target="_blank"
+                  >
+                    <Card.Section>
+                      <Image
+                        src="https://images.unsplash.com/photo-1579227114347-15d08fc37cae?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80"
+                        height={120}
+                        alt="No way!"
+                      />
+                    </Card.Section>
 
-                  <Text weight={500} size="lg" mt="md">
-                    You&apos;ve won a million dollars in cash!
-                  </Text>
+                    <Text weight={500} size="lg" mt="md">
+                      You&apos;ve won a million dollars in cash!
+                    </Text>
 
-                  <Text mt="xs" color="dimmed" size="sm">
-                    Please click anywhere on this card to claim your reward, this is not a fraud, trust us
-                  </Text>
-                </Card>
-              </Grid.Col>
-            </Grid>
-          </Container>
-        </Box>
-      </Flex>
+                    <Text mt="xs" color="dimmed" size="sm">
+                      Please click anywhere on this card to claim your reward,
+                      this is not a fraud, trust us
+                    </Text>
+                  </Card>
+                </Grid.Col>
+              </Grid>
+            </Container>
+          </Box>
+        </Flex>
+      </Box>
     </Box>
   );
 };

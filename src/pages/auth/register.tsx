@@ -111,7 +111,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
         .then((response) => {
           console.log("User signed up successfully:", response.data);
           toggle();
-          navigate("/login"); // Use navigate to redirect to the /login page
+          navigate("/login");
         })
         .catch((error) => {
           if (error.response) {

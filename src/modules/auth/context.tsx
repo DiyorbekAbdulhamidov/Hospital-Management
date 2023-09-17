@@ -1,8 +1,12 @@
-import { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 
-type User = {
-
-};
+type User = {};
 
 type AuthContextType = {
   user: User | null;

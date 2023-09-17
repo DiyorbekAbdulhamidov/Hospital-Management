@@ -44,11 +44,15 @@ const Login: React.FunctionComponent<LoginProps> = () => {
           password: form.values.password,
         })
         .then((response) => {
-          console.log("User signed in successfully", response.data.data.accessToken);
+          console.log(
+            "User signed in successfully",
+            response.data.data.accessToken
+          );
           login(response.data.data.accessToken);
           navigate("/userPanel");
 
           setLoading(false);
+          navigate(`/userPanel`);
         })
         .catch((error) => {
           console.error("Error signing in:", error);
@@ -70,7 +74,7 @@ const Login: React.FunctionComponent<LoginProps> = () => {
       });
       alert("Please enter your email address");
     } else if (!form.errors.email) {
-      navigate(`/verification/${form.values.email}`);
+      navigate(`/verification`);
     }
   };
 
@@ -133,11 +137,24 @@ const Login: React.FunctionComponent<LoginProps> = () => {
               or continue with
             </Text>
             <Flex mt={20} justify="space-around">
-              <Button className="socialLink" bg="white" c="black" fz={20} w={150}>
+              <Button
+                className="socialLink"
+                bg="white"
+                c="black"
+                fz={20}
+                w={150}
+              >
                 Facebook
               </Button>
               <Group position="center">
-                <Button className="socialLink" bg="white" c="black" fz={20} w={150} onClick={toggle}>
+                <Button
+                  className="socialLink"
+                  bg="white"
+                  c="black"
+                  fz={20}
+                  w={150}
+                  onClick={toggle}
+                >
                   Google
                 </Button>
               </Group>
