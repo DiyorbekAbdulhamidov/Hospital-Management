@@ -86,7 +86,7 @@ const Login: React.FunctionComponent<LoginProps> = () => {
       });
       alert("Please enter your email address");
     } else if (!form.errors.email) {
-      navigate(`/verification/${form.values.email}`);
+      navigate(`/verification`);
     }
   };
 

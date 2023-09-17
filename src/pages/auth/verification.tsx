@@ -1,6 +1,7 @@
 import { Box, Flex, LoadingOverlay } from "@mantine/core";
 import { Link, useParams } from "react-router-dom"; // useParams ni import qo'shing
 import React, { useState, useRef, ChangeEvent, KeyboardEvent } from "react";
+import { useAuth } from "../../modules/auth/context";
 
 interface VerificationProps {}
 
@@ -8,6 +9,7 @@ const Verification: React.FunctionComponent<VerificationProps> = () => {
   const [visible, setVisible] = useState(false);
   const toggle = () => setVisible((prevVisible) => !prevVisible);
   const { email } = useParams();
+  const { userDetails } = useAuth();
 
   const [inputValues, setInputValues] = useState(["", "", "", "", "", ""]);
   const inputsRef = [
@@ -66,7 +68,7 @@ const Verification: React.FunctionComponent<VerificationProps> = () => {
           </p>
           <Box>
             <p className="verificationText">
-              Code has been sent to{" "}
+              Code has been sent to
               {email?.slice(0, 3) + "****" + email?.slice(-13)}
             </p>
           </Box>

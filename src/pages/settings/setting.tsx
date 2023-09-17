@@ -24,7 +24,7 @@ const MainSettings: React.FunctionComponent<SettingsProps> = () => {
           </Link>
           <Link to="/userPanel/settings/changeEmail">
             <Button w="100%" h={50} fz={20}>
-              Change Password
+              Change Email
             </Button>
           </Link>
         </Flex>
