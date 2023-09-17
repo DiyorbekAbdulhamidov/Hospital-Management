@@ -9,7 +9,7 @@ const Verification: React.FunctionComponent<VerificationProps> = () => {
   const [visible, setVisible] = useState(false);
   const toggle = () => setVisible((prevVisible) => !prevVisible);
   const { email } = useParams();
-  const { userDetails } = useAuth();
+  // const { userDetails } = useAuth();
 
   const [inputValues, setInputValues] = useState(["", "", "", "", "", ""]);
   const inputsRef = [

@@ -1,27 +1,17 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 
-type User = {
-  // ... yuqoridagi ma'lumotlarni qo'shing
-};
-
-type UserDetails = {
-  dateOfBirth: string;
-  email: string;
-  fullName: string;
-  gender: string;
-  id: string;
-  permissions: string[];
-  phoneNumber: string;
-  roles: string[];
-  userState: string;
-};
+type User = {};
 
 type AuthContextType = {
   user: User | null;
-  userDetails: UserDetails | null;
   login: (user: User) => void;
   logout: () => void;
-  saveUserDetails: (details: UserDetails) => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -40,27 +30,28 @@ type AuthProviderProps = {
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
-  const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem("access_token");
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
 
   function login(userCredentials: User) {
     setUser(userCredentials);
+    localStorage.setItem("access_token", JSON.stringify(userCredentials));
   }
 
   function logout() {
     setUser(null);
-    setUserDetails(null);
-  }
-
-  function saveUserDetails(details: UserDetails) {
-    setUserDetails(details);
+    localStorage.removeItem("user");
   }
 
   const value: AuthContextType = {
     user,
-    userDetails, // UserDetailsni ham o'z ichiga olish
     login,
     logout,
-    saveUserDetails,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

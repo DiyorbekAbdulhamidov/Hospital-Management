@@ -5,7 +5,7 @@ import { Box, Button, Flex, Text } from "@mantine/core";
 interface MyProfileProps {}
 
 const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
-  const { userDetails } = useAuth();
+  // const { userDetails } = useAuth();
   return (
     <>
       <Box mt={50}>
@@ -24,7 +24,7 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
             <Button w="30%" disabled>
               <Text c="black" fz={20}>
                 {" "}
-                {userDetails?.fullName}
+                {/* {userDetails?.fullName} */}
               </Text>
             </Button>
           </Flex>
@@ -35,7 +35,7 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
             <Button w="30%" disabled>
               <Text c="black" fz={20}>
                 {" "}
-                {userDetails?.phoneNumber}
+                {/* {userDetails?.phoneNumber} */}
               </Text>
             </Button>
           </Flex>
@@ -46,7 +46,7 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
             <Button w="30%" disabled>
               <Text c="black" fz={20}>
                 {" "}
-                {userDetails?.dateOfBirth}
+                {/* {userDetails?.dateOfBirth} */}
               </Text>
             </Button>
           </Flex>
@@ -57,7 +57,7 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
             <Button w="30%" disabled>
               <Text c="black" fz={20}>
                 {" "}
-                {userDetails?.gender}
+                {/* {userDetails?.gender} */}
               </Text>
             </Button>
           </Flex>
@@ -68,7 +68,7 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
             <Button w="30%" disabled>
               <Text c="black" fz={20}>
                 {" "}
-                {userDetails?.email}
+                {/* {userDetails?.email} */}
               </Text>
             </Button>
           </Flex>
