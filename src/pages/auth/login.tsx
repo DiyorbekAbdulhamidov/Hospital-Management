@@ -17,7 +17,7 @@ import { useAuth } from "../../modules/auth/context";
 interface LoginProps {}
 
 const Login: React.FunctionComponent<LoginProps> = () => {
-  const { login, saveUserDetails } = useAuth();
+  const { login } = useAuth();
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
@@ -35,20 +35,6 @@ const Login: React.FunctionComponent<LoginProps> = () => {
     },
   });
 
-  // const handleError = (errors: typeof form.errors) => {
-  //   if (errors.name) {
-  //     notifications.show({
-  //       message: "Please fill the name field",
-  //       color: "red",
-  //     });
-  //   } else if (errors.email) {
-  //     notifications.show({
-  //       message: "Please provide a valid email",
-  //       color: "red",
-  //     });
-  //   }
-  // };
-
   const handleSignIn = () => {
     if (form.isValid()) {
       setLoading(true);
@@ -58,9 +44,8 @@ const Login: React.FunctionComponent<LoginProps> = () => {
           password: form.values.password,
         })
         .then((response) => {
-          console.log("User signed in successfully", response.data.data.user);
-          login(response.data.data);
-          saveUserDetails(response.data.data.user);
+          console.log("User signed in successfully", response.data.data.accessToken);
+          login(response.data.data.accessToken);
           navigate("/userPanel");
 
           setLoading(false);
