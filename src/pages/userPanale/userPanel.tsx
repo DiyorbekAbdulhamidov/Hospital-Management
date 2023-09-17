@@ -73,6 +73,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
             <Menu.Dropdown>
               <Menu.Item component="a">
                 <Text fz={15} ta="center" c="gray">
+                  
                   {data?.email}
                 </Text>
               </Menu.Item>
