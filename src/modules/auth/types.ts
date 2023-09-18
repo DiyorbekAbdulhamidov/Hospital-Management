@@ -1,26 +1,20 @@
-import { STATUS } from "./constants";
-
 export namespace IEntity {
   export interface User {
-    id: number;
-    image: string | null;
-    firstName: string;
-    lastName: string;
+    id: string;
+    fullName: string;
     email: string;
-    username: string;
-    subscription: boolean;
-    status: STATUS;
-    createdAt: string;
-    isModerator: boolean;
-    isStaff: boolean;
+    userState: string;
+    phoneNumber: string;
+    dateOfBirth: string;
+    gender: string;
+    permissions: string[];
+    roles: string[];
   }
 
-  export interface Comment {
-    id: number;
-    movie: number;
-    author: number;
-    text: string;
-    createdAt: string;
+  export interface AuthContextType {
+    user: User | null;
+    login: (user: User) => void;
+    logout: () => void;
   }
 
   export interface Review extends Comment {

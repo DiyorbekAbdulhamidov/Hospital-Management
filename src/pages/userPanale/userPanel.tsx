@@ -13,11 +13,12 @@ import { IconExternalLink, IconLogout2 } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
 import { Burger } from "@mantine/core";
 import { Header, Text } from "@mantine/core";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../modules/auth/context";
 import axios from "axios";
+import { IEntity } from "../../modules/auth/types";
 
-interface UserPanelProps {}
+interface UserPanelProps { }
 
 const UserPanel: FunctionComponent<UserPanelProps> = () => {
   const [showMenu, setShowMenu] = useState(
@@ -28,7 +29,6 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
     localStorage.setItem("showMenu", showMenu.toString());
   }, [showMenu]);
 
-  const { email } = useParams();
   const [opened, { toggle }] = useDisclosure(true);
   const label = opened ? "Close navigation" : "Open navigation";
 
@@ -38,7 +38,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
   };
 
   const { user, logout } = useAuth();
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<IEntity.User | null>(null);
 
   console.log(data);
 
@@ -58,7 +58,8 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
 
           if (response.status === 200) {
             setData(response.data.data);
-          } else {
+          }
+          else {
             console.log("Error:", response.status);
             logout();
           }

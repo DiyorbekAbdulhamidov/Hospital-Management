@@ -1,20 +1,7 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  ReactNode,
-  useEffect,
-} from "react";
+import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import { IEntity } from "./types";
 
-type User = {};
-
-type AuthContextType = {
-  user: User | null;
-  login: (user: User) => void;
-  logout: () => void;
-};
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<IEntity.AuthContextType | undefined>(undefined);
 
 export function useAuth() {
   const context = useContext(AuthContext);
@@ -29,7 +16,7 @@ type AuthProviderProps = {
 };
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<IEntity.User | null>(null);
 
   useEffect(() => {
     const savedUser = localStorage.getItem("access_token");
@@ -38,17 +25,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }, []);
 
-  function login(userCredentials: User) {
+  function login(userCredentials: IEntity.User) {
     setUser(userCredentials);
     localStorage.setItem("access_token", JSON.stringify(userCredentials));
   }
 
   function logout() {
     setUser(null);
-    localStorage.removeItem("user");
+    localStorage.removeItem("access_token");
   }
 
-  const value: AuthContextType = {
+  const value: IEntity.AuthContextType = {
     user,
     login,
     logout,
