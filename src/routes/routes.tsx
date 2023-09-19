@@ -21,7 +21,7 @@ const AppRoutes = () => {
           element={user ? <UserPanel /> : <Navigate to="/login" />}
         />
         <Route
-          path="/userPanel/settings"
+          path="/settings"
           element={user ? <Settings.MainSettings /> : <Navigate to="/login" />}
         />
         <Route

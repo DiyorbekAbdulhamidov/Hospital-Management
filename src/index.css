@@ -159,3 +159,15 @@ a {
 .cursoreP {
   cursor: pointer;
 }
+
+.left_menu {
+  border-right: solid 2px black;
+  box-shadow: 0.2px 0.3px black;
+  background-color: rgb(244, 244, 244);
+}
+
+/* .menuShadow {
+  -webkit-box-shadow: 0px 0px 38px 5px rgba(34, 60, 80, 0.48);
+  -moz-box-shadow: 0px 0px 38px 5px rgba(34, 60, 80, 0.48);
+  box-shadow: 0px 0px 38px 5px rgba(34, 60, 80, 0.48);
+} */
