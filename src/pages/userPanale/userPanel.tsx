@@ -1,26 +1,38 @@
 import {
   Box,
   Button,
-  Card,
   Container,
   Flex,
-  Grid,
-  Image,
   Menu,
+  SegmentedControl,
+  rem,
 } from "@mantine/core";
 import { FunctionComponent, useEffect, useState } from "react";
-import { IconExternalLink, IconLogout2 } from "@tabler/icons-react";
+import {
+  IconBrandBooking,
+  IconBuildingHospital,
+  IconExternalLink,
+  IconHistory,
+  IconLogout2,
+  IconSettings,
+} from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
 import { Burger } from "@mantine/core";
 import { Header, Text } from "@mantine/core";
-import { Link } from "react-router-dom";
+// import { Link, useParams } from "react-router-dom";
 import { useAuth } from "../../modules/auth/context";
 import axios from "axios";
 import { IEntity } from "../../modules/auth/types";
+import Hospital from "../hospital/hospital";
+import { MainSettings } from "../settings";
+import Spetialization from "../spetialization/spetialization";
 
 interface UserPanelProps { }
 
 const UserPanel: FunctionComponent<UserPanelProps> = () => {
+  const [showHospital, setHospital] = useState(true);
+  const [showSettings, setSettings] = useState(false);
+  const [showSpetialization, setSpetialization] = useState(false);
   const [showMenu, setShowMenu] = useState(
     localStorage.getItem("showMenu") === "true" || false
   );
@@ -79,10 +91,17 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
     <Box>
       <Header height={{ base: 50, md: 70 }} p="md">
         <Flex justify="space-around" align="center" h="100%">
-          <Text>Application header</Text>
+          <Flex>
+            <Text fz={25} fw={600}>
+              We
+            </Text>
+            <Text fw={600} color="#2972fe" fz={25}>
+              Help
+            </Text>
+          </Flex>
           <Menu width={200} shadow="md">
             <Menu.Target>
-              <Button radius="20px" w={50} h={40}>
+              <Button radius="50%" w={50} h={50}>
                 <Text fz={20}>S</Text>
               </Button>
             </Menu.Target>
@@ -90,6 +109,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
             <Menu.Dropdown>
               <Menu.Item component="a">
                 <Text fz={15} ta="center" c="gray">
+                  
                   {data?.email}
                 </Text>
               </Menu.Item>
@@ -107,7 +127,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
                 component="a"
                 target="_blank"
               >
-                <Button onClick={logout}>Log out</Button>
+                <Text onClick={logout}>Log out</Text>
               </Menu.Item>
             </Menu.Dropdown>
           </Menu>
@@ -119,61 +139,116 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
             display={`${showMenu ? "none" : "block"}`}
             h="90.6vh"
             w="20%"
-            bg="blue"
+            className="left_menu"
           >
             <Box mt={20} ml={30}>
-              <Text
-                className="activeMenu"
-                c={"#fff"}
-                fw={600}
-                lts={2}
-                fz={25}
-                pt={80}
-              >
-                Hospitals
-              </Text>
-              <Text
-                className="cursoreP"
-                c={"#fff"}
-                fw={600}
-                lts={2}
-                fz={25}
-                pt={30}
-              >
-                <Link to="/settings">Profile Settings</Link>
-              </Text>
-              <Text
-                className="cursoreP"
-                c={"#fff"}
-                fw={600}
-                lts={2}
-                fz={25}
-                pt={30}
-              >
-                Booking
-              </Text>
-              <Text
-                className="cursoreP"
-                c={"#fff"}
-                fw={600}
-                lts={2}
-                fz={25}
-                pt={30}
-              >
-                History
-              </Text>
-              <Text
-                className="cursoreP"
-                c={"#fff"}
-                fw={600}
-                lts={2}
-                fz={25}
-                pt={30}
-              >
-                Specialization
-              </Text>
+              <SegmentedControl
+                bg="rgb(244, 244, 244)"
+                mt={100}
+                w={200}
+                fullWidth
+                orientation="vertical"
+                data={[
+                  {
+                    value: "Hospitals",
+                    label: (
+                      <Flex
+                        pb={20}
+                        align="center"
+                        pl={20}
+                        pt={20}
+                        onClick={() => {
+                          setHospital(true);
+                          setSettings(false);
+                          setSpetialization(false);
+                        }}
+                      >
+                        <IconBuildingHospital
+                          style={{ width: rem(16), height: rem(40) }}
+                        />
+                        <Box fz={17} ml={10}>
+                          Hospitals
+                        </Box>
+                      </Flex>
+                    ),
+                  },
+                  {
+                    value: "Settings",
+                    label: (
+                      <Flex
+                        pb={20}
+                        align="center"
+                        pl={20}
+                        pt={20}
+                        onClick={() => {
+                          setSettings(true);
+                          setHospital(false);
+                          setSpetialization(false);
+                        }}
+                      >
+                        <IconSettings
+                          style={{ width: rem(16), height: rem(40) }}
+                        />
+                        <Box fz={17} ml={10}>
+                          Profile Settings
+                        </Box>
+                      </Flex>
+                    ),
+                  },
+                  {
+                    value: "Booking",
+                    label: (
+                      <Flex align="center" pl={20} pt={20} pb={20}>
+                        <IconBrandBooking
+                          style={{ width: rem(16), height: rem(40) }}
+                        />
+                        <Box fz={17} ml={10}>
+                          Booking
+                        </Box>
+                      </Flex>
+                    ),
+                  },
+                  {
+                    value: "History",
+                    label: (
+                      <Flex align="center" pl={20} pt={20} pb={20}>
+                        <IconHistory
+                          style={{ width: rem(16), height: rem(40) }}
+                        />
+                        <Box fz={17} ml={10}>
+                          History
+                        </Box>
+                      </Flex>
+                    ),
+                  },
+                  {
+                    value: "Spetialization",
+                    label: (
+                      <Flex
+                        onClick={() => {
+                          setHospital(false);
+                          setSettings(false);
+                          setSpetialization(true);
+                        }}
+                        align="center"
+                        pl={20}
+                        pt={20}
+                        pb={20}
+                      >
+                        <IconHistory
+                          style={{ width: rem(16), height: rem(40) }}
+                        />
+                        <Box fz={17} ml={10}>
+                          Spetialization
+                        </Box>
+                      </Flex>
+                    ),
+                  },
+                ]}
+              />
             </Box>
           </Box>
+
           <Box w={`${!showMenu ? "80%" : "100%"}  `} h="auto">
             <Burger
               color="black"
@@ -186,34 +261,9 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
               aria-label={label}
             />
             <Container size="xl">
-              <Grid gutter="xl" justify="center">
-                <Grid.Col w="200px" h="auto" bg="green" span={4}>
-                  <Card
-                    shadow="sm"
-                    padding="xl"
-                    component="a"
-                    href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                    target="_blank"
-                  >
-                    <Card.Section>
-                      <Image
-                        src="https://images.unsplash.com/photo-1579227114347-15d08fc37cae?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80"
-                        height={120}
-                        alt="No way!"
-                      />
-                    </Card.Section>
-
-                    <Text weight={500} size="lg" mt="md">
-                      You&apos;ve won a million dollars in cash!
-                    </Text>
-
-                    <Text mt="xs" color="dimmed" size="sm">
-                      Please click anywhere on this card to claim your reward,
-                      this is not a fraud, trust us
-                    </Text>
-                  </Card>
-                </Grid.Col>
-              </Grid>
+              {showHospital ? <Hospital /> : ""}
+              {showSettings ? <MainSettings /> : ""}
+              {showSpetialization ? <Spetialization /> : ""}
             </Container>
           </Box>
         </Flex>

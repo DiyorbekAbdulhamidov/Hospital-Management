@@ -56,6 +56,7 @@ const Login: React.FunctionComponent<LoginProps> = () => {
         })
         .catch((error) => {
           console.error("Error signing in:", error);
+          alert('ERROR: ' + error.message);
           setLoading(false);
         });
     } else {

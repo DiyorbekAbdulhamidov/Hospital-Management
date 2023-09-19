@@ -8,7 +8,7 @@ const MainSettings: React.FunctionComponent<SettingsProps> = () => {
   return (
     <>
       <Flex justify="center" align="center">
-        <Flex mt={150} direction="column" w={500} h={500} gap={20}>
+        <Flex mt={100} direction="column" w={500} h={500} gap={20}>
           <Text ta="center" fz={30} fw={600}>
             Profile Settings
           </Text>
