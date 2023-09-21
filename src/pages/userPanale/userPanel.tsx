@@ -19,7 +19,6 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import { Burger } from "@mantine/core";
 import { Header, Text } from "@mantine/core";
-// import { Link, useParams } from "react-router-dom";
 import { useAuth } from "../../modules/auth/context";
 import axios from "axios";
 import { IEntity } from "../../modules/auth/types";
@@ -49,13 +48,14 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
     toggle();
   };
 
+
   const { user, logout } = useAuth();
   const [data, setData] = useState<IEntity.User | null>(null);
 
-  console.log(data);
+  // console.log(data);
 
   useEffect(() => {
-    async function GetUserData() {
+    async function getUserData() {
       try {
         const savedToken = localStorage.getItem("access_token");
         if (savedToken) {
@@ -76,14 +76,15 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
             logout();
           }
         }
-      } catch (error) {
+      } 
+      catch (error) {
         console.error("Error occurred: ", error);
         logout();
       }
     }
 
     if (user) {
-      GetUserData();
+      getUserData();
     }
   }, [user, logout]);
 
@@ -109,7 +110,6 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
             <Menu.Dropdown>
               <Menu.Item component="a">
                 <Text fz={15} ta="center" c="gray">
-                  
                   {data?.email}
                 </Text>
               </Menu.Item>

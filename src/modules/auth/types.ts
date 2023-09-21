@@ -17,10 +17,6 @@ export namespace IEntity {
     logout: () => void;
   }
 
-  export interface Review extends Comment {
-    rating: number;
-  }
-
   export interface Tokens {
     access: string;
     refresh: string;

@@ -9,35 +9,15 @@ const AppRoutes = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route
-          path="/login"
-          element={user ? <Navigate to="/userPanel" /> : <Auth.Login />}
-        />
+        <Route path="/login" element={user ? <Navigate to="/userPanel" /> : <Auth.Login />} />
         <Route path="/register" element={<Auth.Register />} />
         <Route path="/reset-password" element={<Auth.ResetPassword />} />
         <Route path="/verification" element={<Auth.Verification />} />
-        <Route
-          path="/userPanel"
-          element={user ? <UserPanel /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/settings"
-          element={user ? <Settings.MainSettings /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/userPanel/settings/myProfile"
-          element={user ? <Settings.MyProfile /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/userPanel/settings/changePassword"
-          element={
-            user ? <Settings.ChangePassword /> : <Navigate to="/login" />
-          }
-        />
-        <Route
-          path="/userPanel/settings/changeEmail"
-          element={user ? <Settings.ChangeEmail /> : <Navigate to="/login" />}
-        />
+        <Route path="/userPanel" element={user ? <UserPanel /> : <Navigate to="/login" />} />
+        <Route path="/settings" element={user ? <Settings.MainSettings /> : <Navigate to="/login" />} />
+        <Route path="/userPanel/settings/myProfile" element={user ? <Settings.MyProfile /> : <Navigate to="/login" />} />
+        <Route path="/userPanel/settings/changePassword" element={user ? <Settings.ChangePassword /> : <Navigate to="/login" />} />
+        <Route path="/userPanel/settings/changeEmail" element={user ? <Settings.ChangeEmail /> : <Navigate to="/login" />} />
       </Routes>
     </BrowserRouter>
   );
