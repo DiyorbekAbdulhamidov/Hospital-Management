@@ -27,7 +27,7 @@ import Hospital from "../hospital/hospital";
 import { MainSettings } from "../settings";
 import Spetialization from "../spetialization/spetialization";
 
-interface UserPanelProps { }
+interface UserPanelProps {}
 
 const UserPanel: FunctionComponent<UserPanelProps> = () => {
   const [showHospital, setHospital] = useState(true);
@@ -70,8 +70,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
 
           if (response.status === 200) {
             setData(response.data.data);
-          }
-          else {
+          } else {
             console.log("Error:", response.status);
             logout();
           }
@@ -109,7 +108,6 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
             <Menu.Dropdown>
               <Menu.Item component="a">
                 <Text fz={15} ta="center" c="gray">
-                  
                   {data?.email}
                 </Text>
               </Menu.Item>

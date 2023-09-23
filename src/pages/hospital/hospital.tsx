@@ -7,7 +7,7 @@ interface HospitalProps {}
 const Hospital: FunctionComponent<HospitalProps> = () => {
   useEffect(() => {
     axios
-      .get("http://134.209.20.129:8083/hospital/get-all-by-city")
+      .get("http://134.209.20.129:8083/hospital/get-all")
       .then((response) => {
         console.log(response.data);
       })

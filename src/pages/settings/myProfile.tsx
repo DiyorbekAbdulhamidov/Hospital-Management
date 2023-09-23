@@ -1,11 +1,11 @@
-import React from "react";
-import { useAuth } from "../../modules/auth/context";
+import React, { useState } from "react";
 import { Box, Button, Flex, Text } from "@mantine/core";
+import { IEntity } from "../../modules/auth/types";
 
 interface MyProfileProps {}
 
 const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
-  // const { userDetails } = useAuth();
+  const [data, setData] = useState<IEntity.User | null>(null);
   return (
     <>
       <Box mt={50}>
@@ -23,8 +23,7 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
             </Text>
             <Button w="30%" disabled>
               <Text c="black" fz={20}>
-                {" "}
-                {/* {userDetails?.fullName} */}
+                {data?.fullName}
               </Text>
             </Button>
           </Flex>
@@ -34,8 +33,7 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
             </Text>
             <Button w="30%" disabled>
               <Text c="black" fz={20}>
-                {" "}
-                {/* {userDetails?.phoneNumber} */}
+                {data?.phoneNumber}
               </Text>
             </Button>
           </Flex>
@@ -45,8 +43,7 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
             </Text>
             <Button w="30%" disabled>
               <Text c="black" fz={20}>
-                {" "}
-                {/* {userDetails?.dateOfBirth} */}
+                {data?.dateOfBirth}
               </Text>
             </Button>
           </Flex>
@@ -56,8 +53,7 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
             </Text>
             <Button w="30%" disabled>
               <Text c="black" fz={20}>
-                {" "}
-                {/* {userDetails?.gender} */}
+                {data?.gender}
               </Text>
             </Button>
           </Flex>
@@ -67,8 +63,7 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
             </Text>
             <Button w="30%" disabled>
               <Text c="black" fz={20}>
-                {" "}
-                {/* {userDetails?.email} */}
+                {data?.email}
               </Text>
             </Button>
           </Flex>
