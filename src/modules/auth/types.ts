@@ -21,6 +21,12 @@ export namespace IEntity {
     access: string;
     refresh: string;
   }
+
+  export interface Hospital {
+    city: string;
+    id: string;
+    name: string;
+  }
 }
 
 export namespace IForm {
