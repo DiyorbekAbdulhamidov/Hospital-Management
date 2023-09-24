@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Box, Button, Flex, Text } from "@mantine/core";
-import { IEntity } from "../../modules/auth/types";
+import { useAuth } from "../../modules/auth/context";
 
-interface MyProfileProps { }
+interface MyProfileProps {}
 
 const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
-
-  const [user, setUser] = useState<IEntity.User | null>(null);
-
-  console.log(user);
+  const { user } = useAuth(); // Access user data from the context
 
   return (
     <>

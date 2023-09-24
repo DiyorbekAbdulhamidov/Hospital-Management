@@ -25,6 +25,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }, []);
 
+
   function login(userCredentials: IEntity.User) {
     setUser(userCredentials);
     localStorage.setItem("access_token", JSON.stringify(userCredentials));

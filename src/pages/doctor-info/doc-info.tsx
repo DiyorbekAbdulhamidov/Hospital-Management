@@ -1,8 +1,7 @@
-
 import React, { useState } from "react";
 import "./main.scss";
 interface NewEmailProps { }
-const App: React.FC<NewEmailProps> = () => {
+const DoctorInfo: React.FC<NewEmailProps> = () => {
     const [activeDays, setActiveDays] = useState<number | null>(null);
     const buttonLabels = [
         'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'
@@ -84,4 +83,4 @@ const App: React.FC<NewEmailProps> = () => {
         </div>
     );
 };
-export default App;
+export default DoctorInfo;

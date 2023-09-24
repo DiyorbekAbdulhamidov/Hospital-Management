@@ -1,3 +1,4 @@
+import React, { FunctionComponent, useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -7,7 +8,6 @@ import {
   SegmentedControl,
   rem,
 } from "@mantine/core";
-import { FunctionComponent, useEffect, useState } from "react";
 import {
   IconBrandBooking,
   IconBuildingHospital,
@@ -26,7 +26,7 @@ import Hospital from "../hospital/hospital";
 import { MainSettings } from "../settings";
 import Spetialization from "../spetialization/spetialization";
 
-interface UserPanelProps { }
+interface UserPanelProps {}
 
 const UserPanel: FunctionComponent<UserPanelProps> = () => {
   const [showHospital, setHospital] = useState(true);
@@ -48,11 +48,8 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
     toggle();
   };
 
-
   const { user, logout } = useAuth();
   const [data, setData] = useState<IEntity.User | null>(null);
-
-  // console.log(data);
 
   useEffect(() => {
     async function getUserData() {
@@ -70,14 +67,12 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
 
           if (response.status === 200) {
             setData(response.data.data);
-          }
-          else {
+          } else {
             console.log("Error:", response.status);
             logout();
           }
         }
-      } 
-      catch (error) {
+      } catch (error) {
         console.error("Error occurred: ", error);
         logout();
       }
@@ -249,7 +244,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
             </Box>
           </Box>
 
-          <Box w={`${!showMenu ? "80%" : "100%"}  `} h="auto">
+          <Box w={`${!showMenu ? "80%" : "100%"}`} h="auto">
             <Burger
               color="black"
               ml={`${showMenu ? `3%` : "-5%"}`}

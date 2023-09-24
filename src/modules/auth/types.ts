@@ -53,21 +53,6 @@ export namespace IApi {
     export interface Response extends IEntity.Tokens {}
   }
 
-  export namespace Register {
-    export interface Request extends IForm.Register {}
-    export type Response = IEntity.User;
-  }
-
-  export namespace Profile {
-    export interface Request {}
-    export interface Response extends IEntity.User {}
-  }
-
-  export namespace Verification {}
-
-  export namespace SendResetPasswordCode {}
-
-  export namespace ConfirmResetPassword {}
 }
 
 export namespace IContext {
