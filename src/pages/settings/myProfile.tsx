@@ -5,7 +5,7 @@ import { useAuth } from "../../modules/auth/context";
 interface MyProfileProps {}
 
 const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
-  const { user } = useAuth(); // Access user data from the context
+  const { user } = useAuth();
 
   return (
     <>

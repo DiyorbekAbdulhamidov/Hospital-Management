@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Button, Flex, Paper, Text } from "@mantine/core";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface HomeProps {}
 
@@ -20,11 +20,30 @@ const Home: React.FunctionComponent<HomeProps> = () => {
                 Welcome to DoctorQ!
               </Text>
             </Box>
-            <Flex justify="center" gap={10} mt={120} align="center" direction="column">
-              <Button onClick={() => navigate('register')} radius="xl" w={300} h={45} fz={25}>
+            <Flex
+              justify="center"
+              gap={10}
+              mt={120}
+              align="center"
+              direction="column"
+            >
+              <Button
+                onClick={() => navigate("register")}
+                radius="xl"
+                w={300}
+                h={45}
+                fz={25}
+              >
                 Register
               </Button>
-              <Button onClick={() => navigate('/login')} radius="xl" w={300} h={45} fz={25} variant="outline">
+              <Button
+                onClick={() => navigate("/login")}
+                radius="xl"
+                w={300}
+                h={45}
+                fz={25}
+                variant="outline"
+              >
                 Login
               </Button>
             </Flex>
