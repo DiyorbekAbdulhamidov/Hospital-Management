@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Box, Button, Flex, Text } from "@mantine/core";
 import { useAuth } from "../../modules/auth/context";
 
-interface MyProfileProps {}
+interface MyProfileProps { }
 
 const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
   const { user } = useAuth();
+
 
   return (
     <>
@@ -46,7 +47,6 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
             </Text>
             <Button w="30%" disabled>
               <Text c="black" fz={20}>
-                {" "}
                 {user?.dateOfBirth}
               </Text>
             </Button>
@@ -57,7 +57,6 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
             </Text>
             <Button w="30%" disabled>
               <Text c="black" fz={20}>
-                {" "}
                 {user?.gender}
               </Text>
             </Button>
@@ -68,7 +67,6 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
             </Text>
             <Button w="30%" disabled>
               <Text c="black" fz={20}>
-                {" "}
                 {user?.email}
               </Text>
             </Button>

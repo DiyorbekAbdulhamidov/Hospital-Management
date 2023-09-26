@@ -44,15 +44,10 @@ const Login: React.FunctionComponent<LoginProps> = () => {
           password: form.values.password,
         })
         .then((response) => {
-          console.log(
-            "User signed in successfully",
-            response.data.data.accessToken
-          );
+          console.log("User signed in successfully",response.data.data.accessToken);
           login(response.data.data.accessToken);
           navigate("/userPanel");
-
           setLoading(false);
-          navigate(`/userPanel`);
         })
         .catch((error) => {
           console.error("Error signing in:", error);

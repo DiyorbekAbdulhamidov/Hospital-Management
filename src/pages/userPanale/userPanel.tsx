@@ -48,7 +48,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
     toggle();
   };
 
-  const { user, logout } = useAuth();
+  const { user,  logout } = useAuth();
   const [data, setData] = useState<IEntity.User | null>(null);
 
   useEffect(() => {

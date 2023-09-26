@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Input, PasswordInput, Text } from "@mantine/core";
+import { Box, Button, Flex, PasswordInput, Text } from "@mantine/core";
 import React, { useState } from "react";
 import axios from "axios";
 
