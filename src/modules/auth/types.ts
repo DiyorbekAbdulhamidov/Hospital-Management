@@ -15,6 +15,8 @@ export namespace IEntity {
     user: User | null;
     login: (user: User) => void;
     logout: () => void;
+    userData: User | null;
+    setUserData: (userData: User) => void;
   }
 
   export interface Tokens {

@@ -48,7 +48,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
     toggle();
   };
 
-  const { user,  logout } = useAuth();
+  const { user,  logout, setUserData } = useAuth();
   const [data, setData] = useState<IEntity.User | null>(null);
 
   useEffect(() => {
@@ -67,7 +67,9 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
 
           if (response.status === 200) {
             setData(response.data.data);
-          } else {
+            setUserData(response.data.data);
+          } 
+          else {
             console.log("Error:", response.status);
             logout();
           }

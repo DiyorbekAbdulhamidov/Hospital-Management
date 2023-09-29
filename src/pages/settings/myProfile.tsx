@@ -5,8 +5,7 @@ import { useAuth } from "../../modules/auth/context";
 interface MyProfileProps { }
 
 const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
-  const { user } = useAuth();
-
+  const { userData } = useAuth();
 
   return (
     <>
@@ -26,7 +25,7 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
             <Button w="30%" disabled>
               <Text c="black" fz={20}>
                 {" "}
-                {user?.fullName}
+                {userData?.fullName}
               </Text>
             </Button>
           </Flex>
@@ -37,7 +36,7 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
             <Button w="30%" disabled>
               <Text c="black" fz={20}>
                 {" "}
-                {user?.phoneNumber}
+                {userData?.phoneNumber}
               </Text>
             </Button>
           </Flex>
@@ -47,7 +46,7 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
             </Text>
             <Button w="30%" disabled>
               <Text c="black" fz={20}>
-                {user?.dateOfBirth}
+                {userData?.dateOfBirth}
               </Text>
             </Button>
           </Flex>
@@ -57,7 +56,7 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
             </Text>
             <Button w="30%" disabled>
               <Text c="black" fz={20}>
-                {user?.gender}
+                {userData?.gender}
               </Text>
             </Button>
           </Flex>
@@ -67,7 +66,7 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
             </Text>
             <Button w="30%" disabled>
               <Text c="black" fz={20}>
-                {user?.email}
+                {userData?.email}
               </Text>
             </Button>
           </Flex>

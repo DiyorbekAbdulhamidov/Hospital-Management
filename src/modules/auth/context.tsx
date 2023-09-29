@@ -17,6 +17,7 @@ type AuthProviderProps = {
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<IEntity.User | null>(null);
+  const [userInformation, setUserInformation] = useState<IEntity.User | null>(null);
 
   useEffect(() => {
     const savedUser = localStorage.getItem("access_token");
@@ -24,7 +25,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
       setUser(JSON.parse(savedUser));
     }
   }, []);
-
 
   function login(userCredentials: IEntity.User) {
     setUser(userCredentials);
@@ -36,10 +36,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
     localStorage.removeItem("access_token");
   }
 
+  function setUserData(userData: IEntity.User) {
+    setUserInformation(userData);
+  }
+
   const value: IEntity.AuthContextType = {
     user,
     login,
     logout,
+    userData: userInformation,
+    setUserData,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
