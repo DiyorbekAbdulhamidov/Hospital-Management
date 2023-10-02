@@ -2,6 +2,7 @@ import { FunctionComponent, useEffect, useState } from "react";
 import { Box, LoadingOverlay, Grid, Col, Card, Image, Text, Badge, Button, Group } from "@mantine/core";
 import axios from "axios";
 import { IEntity } from "../../modules/auth/types";
+import hospitalImg from "../../assets/images/hospital-new.jpg";
 
 interface HospitalProps { }
 
@@ -53,24 +54,24 @@ const Hospital: FunctionComponent<HospitalProps> = () => {
         {hospitals.map((hospital: IEntity.Hospital) => (
           <Col span={4} key={hospital.id}>
             <Card shadow="sm" padding="lg" radius="md" withBorder>
-              <Card.Section component="a" href={`https://mantine.dev/${hospital.id}`}>
+              <Card.Section component="a">
                 <Image
-                  height={160}
+                  src={`${hospitalImg}`}
                   alt="Norway"
                 />
               </Card.Section>
-        
-              <Group  mt="md" mb="xs">
+
+              <Group mt="md" mb="xs">
                 <Text fw={500}>{hospital.name}</Text>
                 <Badge color="pink" variant="light">
                   OPEN
                 </Badge>
               </Group>
-        
+
               <Text size="sm" c="dimmed">
-               {hospital.city}
+                {hospital.city}
               </Text>
-        
+
               <Button variant="light" color="blue" fullWidth mt="md" radius="md">
                 View Med Clinic
               </Button>
