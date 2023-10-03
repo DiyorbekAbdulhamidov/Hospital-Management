@@ -11,6 +11,13 @@ export namespace IEntity {
     roles: string[];
   }
 
+  export interface Profile {
+    fullName: string
+    dateOfBirth?: string
+    phoneNumber: string
+    gender: string
+  }
+
   export interface AuthContextType {
     user: User | null;
     login: (user: User) => void;

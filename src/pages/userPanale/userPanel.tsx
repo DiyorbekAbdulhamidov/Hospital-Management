@@ -83,7 +83,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
     if (user) {
       getUserData();
     }
-  }, [user, logout]);
+  },);
 
   return (
     <Box>
