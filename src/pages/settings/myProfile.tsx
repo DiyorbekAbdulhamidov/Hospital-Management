@@ -1,7 +1,15 @@
-import React, { useState } from "react";
-import { Box, Button, Flex, Text } from "@mantine/core";
+import React, { useState, useEffect } from "react";
+import { Box, Button, Flex, Input, Text } from "@mantine/core";
 import { useAuth } from "../../modules/auth/context";
 import axios from 'axios';
+import * as yup from 'yup';
+
+const schema = yup.object({
+  fullName: yup.string().min(2).required().label('Full Name'),
+  dateOfBirth: yup.string().min(5).label('Date of Birth'),
+  phoneNumber: yup.string().min(5).required().label('Phone Number'),
+  gender: yup.string().label('Gender'),
+});
 
 interface MyProfileProps { }
 
@@ -15,32 +23,35 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
     gender: userData?.gender || "",
   });
 
-  // To'g'rilash funksiyalari
   const handleEditClick = () => {
     setIsEditing(true);
   };
 
   const handleSaveClick = () => {
-    const savedToken = localStorage.getItem("access_token");
+    schema.validate(updatedData).then(() => {
+      const savedToken = localStorage.getItem("access_token");
 
-    axios.put("http://134.209.20.129:8082/user/update-user", updatedData, {
-      headers: {
-        //@ts-ignore
-        'Authorization': `Bearer ${JSON.parse(savedToken)}`,
-        'Content-Type': 'application/json',
-      }
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          setIsEditing(false);
-        }
-        else {
-          console.error("Serverdan qaytgan xatolik:", response.data.error);
+      axios.put("http://134.209.20.129:8082/user/update-user", updatedData, {
+        headers: {
+          //@ts-ignore
+          'Authorization': `Bearer ${JSON.parse(savedToken)}`,
+          'Content-Type': 'application/json',
         }
       })
-      .catch((error) => {
-        console.error("Tarmoq bilan bog'liq xatolik:", error);
-      });
+        .then((response) => {
+          if (response.status === 200) {
+            setIsEditing(false);
+          }
+          else {
+            console.error("Serverdan qaytgan xatolik:", response.data.error);
+          }
+        })
+        .catch((error) => {
+          console.error("Tarmoq bilan bog'liq xatolik:", error);
+        });
+    }).catch((error) => {
+      console.error("Ma'lumotlar noto'g'ri: ", error);
+    });
   };
 
   const handleChange = (field: string, value: string) => {
@@ -67,7 +78,7 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
               Full name
             </Text>
             {isEditing ? (
-              <input
+              <Input
                 type="text"
                 value={updatedData.fullName}
                 onChange={(e) => handleChange('fullName', e.target.value)}
@@ -85,7 +96,7 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
               Phone Number
             </Text>
             {isEditing ? (
-              <input
+              <Input
                 type="text"
                 value={updatedData.phoneNumber}
                 onChange={(e) => handleChange('phoneNumber', e.target.value)}
@@ -103,7 +114,7 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
               Date of Birth
             </Text>
             {isEditing ? (
-              <input
+              <Input
                 type="text"
                 value={updatedData.dateOfBirth}
                 onChange={(e) => handleChange('dateOfBirth', e.target.value)}
@@ -121,7 +132,7 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
               Gender
             </Text>
             {isEditing ? (
-              <input
+              <Input
                 type="text"
                 value={updatedData.gender}
                 onChange={(e) => handleChange('gender', e.target.value)}
