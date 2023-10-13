@@ -25,8 +25,9 @@ import { IEntity } from "../../modules/auth/types";
 import Hospital from "../hospital/hospital";
 import { MainSettings } from "../settings";
 import Spetialization from "../spetialization/spetialization";
+import { Link } from "react-router-dom";
 
-interface UserPanelProps {}
+interface UserPanelProps { }
 
 const UserPanel: FunctionComponent<UserPanelProps> = () => {
   const [showHospital, setHospital] = useState(true);
@@ -48,7 +49,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
     toggle();
   };
 
-  const { user,  logout, setUserData } = useAuth();
+  const { user, logout, setUserData } = useAuth();
   const [data, setData] = useState<IEntity.User | null>(null);
 
   useEffect(() => {
@@ -68,7 +69,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
           if (response.status === 200) {
             setData(response.data.data);
             setUserData(response.data.data);
-          } 
+          }
           else {
             console.log("Error:", response.status);
             logout();
@@ -100,7 +101,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
           <Menu width={200} shadow="md">
             <Menu.Target>
               <Button radius="50%" w={50} h={50}>
-                <Text fz={20}>S</Text>
+                <Text fz={20}>{data?.fullName[0]}</Text>
               </Button>
             </Menu.Target>
 
@@ -116,7 +117,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
                 component="a"
                 target="_blank"
               >
-                External link
+                <Link to="/userPanel/settings/myProfile">My Profile</Link>
               </Menu.Item>
               <Menu.Item
                 c="red"
