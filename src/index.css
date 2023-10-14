@@ -166,12 +166,6 @@ a {
   background-color: rgb(244, 244, 244);
 }
 
-/* .menuShadow {
-  -webkit-box-shadow: 0px 0px 38px 5px rgba(34, 60, 80, 0.48);
-  -moz-box-shadow: 0px 0px 38px 5px rgba(34, 60, 80, 0.48);
-  box-shadow: 0px 0px 38px 5px rgba(34, 60, 80, 0.48);
-} */
-
 .HomeBoxmain {
   border: solid 1px black;
   width: 400px;
