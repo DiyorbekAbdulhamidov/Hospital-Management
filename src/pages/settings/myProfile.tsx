@@ -1,20 +1,22 @@
-import React, { useState, } from "react";
-import { Box, Button, Flex, Input, Text } from "@mantine/core";
+import React, { useState } from "react";
+import { Box, Button, Flex, Input, Select, Text } from "@mantine/core";
 import { useAuth } from "../../modules/auth/context";
-import axios from 'axios';
-import * as yup from 'yup';
+import axios from "axios";
+import * as yup from "yup";
+import { useNavigate } from "react-router";
 
 const schema = yup.object({
-  fullName: yup.string().min(2).required().label('Full Name'),
-  dateOfBirth: yup.string().min(5).label('Date of Birth'),
-  phoneNumber: yup.string().min(5).required().label('Phone Number'),
-  gender: yup.string().label('Gender'),
+  fullName: yup.string().min(2).required().label("Full Name"),
+  dateOfBirth: yup.string().min(5).label("Date of Birth"),
+  phoneNumber: yup.string().min(5).required().label("Phone Number"),
+  gender: yup.string().label("Gender"),
 });
 
 interface MyProfileProps { }
 
 const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
   const { userData, setUserData } = useAuth();
+  const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [updatedData, setUpdatedData] = useState({
     fullName: userData?.fullName || "",
@@ -31,19 +33,19 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
     schema.validate(updatedData).then(() => {
       const savedToken = localStorage.getItem("access_token");
 
-      axios.put("http://134.209.20.129:8082/user/update-user", updatedData, {
-        headers: {
-          //@ts-ignore
-          'Authorization': `Bearer ${JSON.parse(savedToken)}`,
-          'Content-Type': 'application/json',
-        }
-      })
+      axios
+        .put("http://134.209.20.129:8082/user/update-user", updatedData, {
+          headers: {
+            //@ts-ignore
+            Authorization: `Bearer ${JSON.parse(savedToken)}`,
+            "Content-Type": "application/json",
+          },
+        })
         .then((response) => {
           if (response.status === 200) {
             setIsEditing(false);
             //@ts-ignore
-            setUserData(updatedData)
-
+            setUserData(updatedData);
           }
           else {
             console.error("Serverdan qaytgan xatolik:", response.data.error);
@@ -82,9 +84,10 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
             </Text>
             {isEditing ? (
               <Input
+                w={400}
                 type="text"
                 value={updatedData.fullName}
-                onChange={(e) => handleChange('fullName', e.target.value)}
+                onChange={(e) => handleChange("fullName", e.target.value)}
               />
             ) : (
               <Button w="30%" disabled>
@@ -100,9 +103,10 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
             </Text>
             {isEditing ? (
               <Input
-                type="text"
+                w={400}
+                type="tel"
                 value={updatedData.phoneNumber}
-                onChange={(e) => handleChange('phoneNumber', e.target.value)}
+                onChange={(e) => handleChange("phoneNumber", e.target.value)}
               />
             ) : (
               <Button w="30%" disabled>
@@ -113,14 +117,16 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
             )}
           </Flex>
           <Flex direction="column" justify="center" align="center">
-            <Text c="blue" fz={20}>
-              Date of Birth
+            <Text c="blue" fz={20} aria-required>
+              Date of Birth (dd.mm.yyyy)
             </Text>
             {isEditing ? (
               <Input
+                w={400}
                 type="text"
+                placeholder="dd.mm.yyyy"
                 value={updatedData.dateOfBirth}
-                onChange={(e) => handleChange('dateOfBirth', e.target.value)}
+                onChange={(e) => handleChange("dateOfBirth", e.target.value)}
               />
             ) : (
               <Button w="30%" disabled>
@@ -135,10 +141,12 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
               Gender
             </Text>
             {isEditing ? (
-              <Input
-                type="text"
+              <Select
+                data={["MALE", "FEMALE"]}
+                w={400}
                 value={updatedData.gender}
-                onChange={(e) => handleChange('gender', e.target.value)}
+                //@ts-ignore
+                onChange={(value) => handleChange("gender", value)}
               />
             ) : (
               <Button w="30%" disabled>
@@ -156,6 +164,9 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
               <Text c="black" fz={20}>
                 {userData?.email}
               </Text>
+            </Button>
+            <Button onClick={() => navigate('/userPanel')} mt={50} w={300}>
+              Go to Home
             </Button>
           </Flex>
         </Flex>

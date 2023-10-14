@@ -172,7 +172,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                   radius={70}
                   size="xs"
                   label="Date Of Birth"
-                  valueFormat="DD/MM/YYYY "
+                  valueFormat="DD.MM.YYYY"
                   placeholder="Date Of Your Birth (dd.mm.yyyy)"
                   maw={400}
                   mx="auto"
