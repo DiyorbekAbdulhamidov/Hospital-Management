@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, } from "react";
 import { Box, Button, Flex, Input, Text } from "@mantine/core";
 import { useAuth } from "../../modules/auth/context";
 import axios from 'axios';
@@ -14,7 +14,7 @@ const schema = yup.object({
 interface MyProfileProps { }
 
 const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
-  const { userData } = useAuth();
+  const { userData, setUserData } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [updatedData, setUpdatedData] = useState({
     fullName: userData?.fullName || "",
@@ -41,6 +41,9 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
         .then((response) => {
           if (response.status === 200) {
             setIsEditing(false);
+            //@ts-ignore
+            setUserData(updatedData)
+
           }
           else {
             console.error("Serverdan qaytgan xatolik:", response.data.error);
