@@ -12,12 +12,20 @@ import axios from "axios";
 interface ChangeEmailProps {}
 
 const ChangeEmail: React.FunctionComponent<ChangeEmailProps> = () => {
+  const [email, setEmail] = useState("");
   const [isEmailValid, setEmailValid] = useState<boolean | null>(null);
-
+  const savedToken = localStorage.getItem("access_token");
+  
   const handleEmailCheck = () => {
     axios
       .post("http://134.209.20.129:8082/user/check-password", {
-        email: "",
+        email: email,
+      }, {
+        headers: {
+          //@ts-ignore
+          Authorization: `Bearer ${JSON.parse(savedToken)}`,
+          "Content-Type": "application/json",
+        },
       })
       .then((response) => {
         const isValid = response.data;
@@ -40,9 +48,16 @@ const ChangeEmail: React.FunctionComponent<ChangeEmailProps> = () => {
           <Box mt={70}>
             <PasswordInput
               placeholder="Password"
-              label="Enter previos password"
+              label="Enter previous password"
               description="Password must include at least one letter, number and special character"
               withAsterisk
+            />
+            <TextInput
+              placeholder="Email"
+              label="Enter new email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              mt={20}
             />
             <Button
               onClick={handleEmailCheck}
