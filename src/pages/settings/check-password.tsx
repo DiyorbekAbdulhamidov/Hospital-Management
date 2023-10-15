@@ -4,9 +4,9 @@ import { Box, Button, Flex, PasswordInput, Text } from "@mantine/core";
 import axios from "axios";
 import { alert } from "../../utils";
 
-interface ChangePasswordProps {}
+interface CheckPasswordProps {}
 
-const ChangePassword: React.FunctionComponent<ChangePasswordProps> = () => {
+const CheckPassword: React.FunctionComponent<CheckPasswordProps> = () => {
   const [currentPassword, setCurrentPassword] = useState("");
   const savedToken = localStorage.getItem("access_token");
 
@@ -30,7 +30,8 @@ const ChangePassword: React.FunctionComponent<ChangePasswordProps> = () => {
 
         if (isValid) {
           alert.success("Password is valid!");
-        } else {
+        } 
+        else {
           alert.error("Password is invalid!");
         }
       })
@@ -65,4 +66,4 @@ const ChangePassword: React.FunctionComponent<ChangePasswordProps> = () => {
   );
 };
 
-export default ChangePassword;
+export default CheckPassword;

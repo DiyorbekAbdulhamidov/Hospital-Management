@@ -18,7 +18,7 @@ const AppRoutes = () => {
           <Route path="/userPanel" element={user ? <UserPanel /> : <Navigate to="/login" />} />
           <Route path="/settings" element={user ? <Settings.MainSettings /> : <Navigate to="/login" />} />
           <Route path="/userPanel/settings/myProfile" element={user ? <Settings.MyProfile /> : <Navigate to="/login" />} />
-          <Route path="/userPanel/settings/changePassword" element={user ? <Settings.ChangePassword /> : <Navigate to="/login" />} />
+          <Route path="/userPanel/settings/check-password" element={user ? <Settings.CheckPassword /> : <Navigate to="/login" />} />
           <Route path="/userPanel/settings/changeEmail" element={user ? <Settings.ChangeEmail /> : <Navigate to="/login" />} />
         </Routes>
     </BrowserRouter>

@@ -2,7 +2,7 @@ import { Button, Flex, Text } from "@mantine/core";
 import React from "react";
 import { Link } from "react-router-dom";
 
-interface SettingsProps {}
+interface SettingsProps { }
 
 const MainSettings: React.FunctionComponent<SettingsProps> = () => {
   return (
@@ -17,7 +17,7 @@ const MainSettings: React.FunctionComponent<SettingsProps> = () => {
               My Profile
             </Button>
           </Link>
-          <Link to="/userPanel/settings/changePassword">
+          <Link to="/userPanel/settings/check-password">
             <Button w="100%" h={50} fz={20}>
               Change Password
             </Button>
