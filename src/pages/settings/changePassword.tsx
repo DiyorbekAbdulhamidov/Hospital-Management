@@ -6,11 +6,12 @@ interface ChangePasswordProps {}
 
 const ChangePassword: React.FunctionComponent<ChangePasswordProps> = () => {
   const [isPasswordValid, setPasswordValid] = useState<boolean | null>(null);
+  const [currentPassword, setCurrentPassword] = useState("");
 
   const handlePasswordCheck = () => {
     axios
       .post("http://134.209.20.129:8082/user/check-password", {
-        password: "",
+        password: currentPassword,
       })
       .then((response) => {
         const isValid = response.data;
@@ -32,11 +33,13 @@ const ChangePassword: React.FunctionComponent<ChangePasswordProps> = () => {
           </Text>
           <Box mt={70}>
             <PasswordInput
-              placeholder="Password"
-              label="Enter previos password"
+              placeholder="Current Password"
+              label="Enter current password"
               description="Password must include at least one letter, number and special character"
               withAsterisk
-            />
+              value={currentPassword}
+              onChange={(event) => setCurrentPassword(event.currentTarget.value)}
+              />
             <Button
               onClick={handlePasswordCheck}
               w={"100%"}
