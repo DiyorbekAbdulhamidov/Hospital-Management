@@ -4,6 +4,7 @@ import { useAuth } from "../../modules/auth/context";
 import axios from "axios";
 import * as yup from "yup";
 import { useNavigate } from "react-router";
+import { alert } from "../../utils";
 
 const schema = yup.object({
   fullName: yup.string().min(2).required().label("Full Name"),
@@ -46,15 +47,17 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
             setIsEditing(false);
             //@ts-ignore
             setUserData(updatedData);
+            alert.success('User infos updated successfully!')
           }
           else {
-            console.error("Serverdan qaytgan xatolik:", response.data.error);
+            alert.error(response.data.error)
           }
         })
         .catch((error) => {
-          console.error("Tarmoq bilan bog'liq xatolik:", error);
+          alert.error('Error updating user infos')
         });
     }).catch((error) => {
+      alert.error(error)
       console.error("Ma'lumotlar noto'g'ri: ", error);
     });
   };
@@ -165,7 +168,7 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
                 {userData?.email}
               </Text>
             </Button>
-            <Button onClick={() => navigate('/userPanel')} mt={50} w={300}>
+            <Button onClick={() => navigate('/userPanel')} mt={50} w={300} h={50}>
               Go to Home
             </Button>
           </Flex>
