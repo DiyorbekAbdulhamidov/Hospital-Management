@@ -1,11 +1,12 @@
-import { Box, Button, Flex, PasswordInput, Text } from "@mantine/core";
 import React, { useState } from "react";
+import "react-toastify/dist/ReactToastify.css";
+import { Box, Button, Flex, PasswordInput, Text } from "@mantine/core";
 import axios from "axios";
+import { alert } from "../../utils";
 
 interface ChangePasswordProps {}
 
 const ChangePassword: React.FunctionComponent<ChangePasswordProps> = () => {
-  const [isPasswordValid, setPasswordValid] = useState<boolean | null>(null);
   const [currentPassword, setCurrentPassword] = useState("");
   const savedToken = localStorage.getItem("access_token");
 
@@ -26,11 +27,15 @@ const ChangePassword: React.FunctionComponent<ChangePasswordProps> = () => {
       .then((response) => {
         const isValid = response.data;
         console.log(isValid);
-        setPasswordValid(isValid);
+
+        if (isValid) {
+          alert.success("Password is valid!");
+        } else {
+          alert.error("Password is invalid!");
+        }
       })
       .catch((error) => {
-        console.error("Error checking password:", error);
-        setPasswordValid(false);
+        alert.error("An error occurred while checking the password.");
       });
   };
 
@@ -45,7 +50,7 @@ const ChangePassword: React.FunctionComponent<ChangePasswordProps> = () => {
             <PasswordInput
               placeholder="Current Password"
               label="Enter current password"
-              description="Password must include at least one letter, number and special character"
+              description="Password must include at least one letter, number, and special character"
               withAsterisk
               value={currentPassword}
               onChange={(event) => setCurrentPassword(event.currentTarget.value)}
@@ -53,8 +58,6 @@ const ChangePassword: React.FunctionComponent<ChangePasswordProps> = () => {
             <Button onClick={handlePasswordCheck} w={"100%"} h={50} fz={30} mt={40}>
               Go
             </Button>
-            {isPasswordValid === true && <p>Password is valid!</p>}
-            {isPasswordValid === false && <p>Password is invalid!</p>}
           </Box>
         </Box>
       </Flex>
