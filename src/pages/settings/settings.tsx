@@ -17,7 +17,7 @@ const MainSettings: React.FunctionComponent<SettingsProps> = () => {
               My Profile
             </Button>
           </Link>
-          <Link to="/userPanel/settings/check-password">
+          <Link to="/userPanel/settings/change-password">
             <Button w="100%" h={50} fz={20}>
               Change Password
             </Button>
