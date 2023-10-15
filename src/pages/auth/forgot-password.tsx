@@ -7,20 +7,13 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 
-const ChangePassword: React.FunctionComponent = () => {
+const ForgotPassword: React.FunctionComponent = () => {
   const { control, handleSubmit } = useForm<{ email: string; newPassword: string }>();
-  const savedToken: string = localStorage.getItem("access_token") || "";
 
   const onSubmit = async (data: { email: string; newPassword: string }) => {
     try {
       const response = await axios.put(
-        "http://134.209.20.129:8082/user/auth/update-password",
-        data,
-        {
-          headers: {
-            Authorization: `Bearer ${JSON.parse(savedToken)}`,
-          },
-        }
+        "http://134.209.20.129:8082/user/auth/update-password", data
       );
 
       const responseData = response.data;
@@ -39,7 +32,7 @@ const ChangePassword: React.FunctionComponent = () => {
     <Flex justify="center" align="center" mt={100}>
       <Box w={400} h={400}>
         <Text ta="center" fz={30}>
-          Update Password
+          Forgot Password ?
         </Text>
         <Box mt={70}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -81,7 +74,7 @@ const ChangePassword: React.FunctionComponent = () => {
               Update Password
             </Button>
             <Button type="submit" w="100%" h={50} fz={30} mt={40}>
-              <Link to='/userPanel'> Back to Home</Link>
+              <Link to='/login'> Back to Login</Link>
             </Button>
           </form>
         </Box>
@@ -90,4 +83,4 @@ const ChangePassword: React.FunctionComponent = () => {
   );
 };
 
-export default ChangePassword;
+export default ForgotPassword;

@@ -13,6 +13,7 @@ const AppRoutes = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={user ? <Navigate to="/userPanel" /> : <Auth.Login />} />
+          <Route path="/forgot-password" element={<Auth.ForgotPassword/>}/>
           <Route path="/register" element={<Auth.Register />} />
           <Route path="/verification" element={<Auth.Verification />} />
           <Route path="/userPanel" element={user ? <UserPanel /> : <Navigate to="/login" />} />

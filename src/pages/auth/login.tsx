@@ -13,8 +13,9 @@ import { notifications } from "@mantine/notifications";
 import { Box, Button, Flex, Paper, Text } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../modules/auth/context";
+import { alert } from "../../utils";
 
-interface LoginProps {}
+interface LoginProps { }
 
 const Login: React.FunctionComponent<LoginProps> = () => {
   const { login } = useAuth();
@@ -44,14 +45,13 @@ const Login: React.FunctionComponent<LoginProps> = () => {
           password: form.values.password,
         })
         .then((response) => {
-          console.log("User signed in successfully",response.data.data.accessToken);
           login(response.data.data.accessToken);
           navigate("/userPanel");
           setLoading(false);
         })
         .catch((error) => {
           console.error("Error signing in:", error);
-          alert('ERROR: ' + error.message);
+          alert.error('ERROR: Invalid email or password');
           setLoading(false);
         });
     } else {
@@ -62,19 +62,8 @@ const Login: React.FunctionComponent<LoginProps> = () => {
     }
   };
 
-  const handleForgotPassword = () => {
-    if (!form.values.email) {
-      notifications.show({
-        message: "Email required",
-        color: "red",
-      });
-      alert("Please enter your email address");
-    } else if (!form.errors.email) {
-      navigate(`/verification`);
-    }
-  };
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   return (
     <>
@@ -125,8 +114,8 @@ const Login: React.FunctionComponent<LoginProps> = () => {
               </form>
             </Box>
             <Text c="#2972FECC" fw={600} ta="center" fz={15} pt={10}>
-              <Text className="forgorPassword" onClick={handleForgotPassword}>
-                Forgot the password?
+              <Text className="forgorPassword">
+                <Link to="/forgot-password">Forgot the password?</Link>
               </Text>
             </Text>
             <Text ta="center" pt={10}>
