@@ -7,12 +7,22 @@ interface ChangePasswordProps {}
 const ChangePassword: React.FunctionComponent<ChangePasswordProps> = () => {
   const [isPasswordValid, setPasswordValid] = useState<boolean | null>(null);
   const [currentPassword, setCurrentPassword] = useState("");
+  const savedToken = localStorage.getItem("access_token");
 
   const handlePasswordCheck = () => {
     axios
-      .post("http://134.209.20.129:8082/user/check-password", {
-        password: currentPassword,
-      })
+      .post(
+        "http://134.209.20.129:8082/user/check-password",
+        {
+          password: currentPassword,
+        },
+        {
+          headers: {
+            //@ts-ignore
+            Authorization: `Bearer ${JSON.parse(savedToken)}`,
+          },
+        }
+      )
       .then((response) => {
         const isValid = response.data;
         console.log(isValid);
@@ -39,14 +49,8 @@ const ChangePassword: React.FunctionComponent<ChangePasswordProps> = () => {
               withAsterisk
               value={currentPassword}
               onChange={(event) => setCurrentPassword(event.currentTarget.value)}
-              />
-            <Button
-              onClick={handlePasswordCheck}
-              w={"100%"}
-              h={50}
-              fz={30}
-              mt={40}
-            >
+            />
+            <Button onClick={handlePasswordCheck} w={"100%"} h={50} fz={30} mt={40}>
               Go
             </Button>
             {isPasswordValid === true && <p>Password is valid!</p>}
