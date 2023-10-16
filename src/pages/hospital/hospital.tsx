@@ -1,5 +1,5 @@
 import { FunctionComponent, useEffect, useState } from "react";
-import { Box, LoadingOverlay, Grid, Col, Card, Image, Text, Badge, Button, Group } from "@mantine/core";
+import { Box, LoadingOverlay, Grid,  Card, Image, Text, Badge, Button, Group, Col } from "@mantine/core";
 import axios from "axios";
 import { IEntity } from "../../modules/auth/types";
 import hospitalImg from "../../assets/images/hospital-new.jpg";
@@ -87,7 +87,7 @@ const Hospital: FunctionComponent<HospitalProps> = () => {
                 View Med Clinic
               </Button>
             </Card>
-          </Col>
+           </Col>
         ))}
       </Grid>
     </Box>
