@@ -31,11 +31,11 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
         if (response.status === 200) {
           setHospitalData(response.data.data);
         }
-      } 
+      }
       catch (error: any) {
         alert.error(error.message);
         console.error("Xatolik yuz berdi: ", error);
-      } 
+      }
       finally {
         setLoading(false);
       }
@@ -88,12 +88,12 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
                   {hospitalData.address}
                 </Button>
               </Card>
-              <Flex sx={{display : 'flex', flexDirection: 'column', gap: 20}}>
-                <Box>
+              <Flex sx={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+                <Box sx={{ background: '#E7EFC5', borderRadius: 10, padding: 10 }}>
                   <Flex gap={60} >
-                    <Text>Day of the Week</Text>
-                    <Text>Opening Time ⌚</Text>
-                    <Text>Closing Time ❌</Text>
+                    <Text color="#1D1A39">Day of the Week</Text>
+                    <Text color="#1D1A39">Opening Time ⌚</Text>
+                    <Text color="#1D1A39">Closing Time ❌</Text>
                   </Flex>
                   {hospitalData.workingHours.map((item: any) => (
                     <Flex gap={120} key={item.id} mt={5} >
@@ -103,8 +103,9 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
                     </Flex>
                   ))}
                 </Box>
-                
-                <Box></Box>
+                <Box>
+                    
+                </Box>
               </Flex>
             </Flex>
           </Tabs.Panel>

@@ -56,8 +56,8 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
         .catch((error) => {
           alert.error('Error updating user infos')
         });
-    }).catch((error) => {
-      alert.error(error)
+    }).catch((error: any) => {
+      alert.error('❌: ' + error)
       console.error("Ma'lumotlar noto'g'ri: ", error);
     });
   };
