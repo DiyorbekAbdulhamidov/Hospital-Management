@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import axios from 'axios';
-import { Badge, Box, Button, Card, Group, Image, LoadingOverlay, Text, Tabs, Flex, Col, Grid } from '@mantine/core';
+import { Badge, Box, Button, Card, Group, Image, LoadingOverlay, Text, Tabs, Flex, Grid } from '@mantine/core';
 import { Link, useParams } from 'react-router-dom';
 import HospitalImg from '../../assets/images/2.jpg';
 import DoctorImg from "../../assets/images/doctor_1196-269.avif";
@@ -141,7 +141,7 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
 
                       <Group mt="md" mb="xs">
                         <Text fw={500}>{doctor.fullName}</Text>
-                        <Badge color="pink" variant="light">
+                        <Badge color="green" variant="light">
                           Specialty: {doctor.specialty}
                         </Badge>
                       </Group>
