@@ -1,9 +1,10 @@
 import { FunctionComponent, useEffect, useState } from "react";
-import { Box, Button, LoadingOverlay, Text } from "@mantine/core";
+import { Badge, Box, Button, Card, Group, Image, LoadingOverlay, Text } from "@mantine/core";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import { Tabs } from '@mantine/core';
 import { alert } from "../../utils";
+import HospitalImg from "../../assets/images/2.jpg";
 
 interface SingleHospitalProps {
   hospitalId: string;
@@ -44,6 +45,9 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
     getHospitalData();
   }, [hospitalId, token]);
 
+  console.log(hospitalData);
+
+
 
   return (
     <Box p={20}>
@@ -62,19 +66,33 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
               Services
             </Tabs.Tab>
           </Tabs.List>
-          <Button h={50} sx={{left: 1200, bottom: 34}} bg={'green'}><Link to='/userPanel'>Back to all Hospitals</Link></Button>
+          <Button h={50} sx={{ left: 1200, bottom: 34 }} bg={'green'}><Link to='/userPanel'>Back to all Hospitals</Link></Button>
 
           <Tabs.Panel value="about-us">
-            <Box>
+            <Box p={40} sx={{ display: 'flex', gap: 20 }}>
               {hospitalData ? (
-                <div>
-                  <Text fw={600} fz={20}>
-                    Hospital Name: {hospitalData.name}
+                <Card shadow="sm" padding="lg" radius="md" withBorder w={600} h={600}>
+                  <Card.Section component="a">
+                    <Image
+                      src={HospitalImg}
+                      alt="HospitalImage"
+                    />
+                  </Card.Section>
+                  <Group mt="md" mb="xs">
+                    <Text fw={500}>{hospitalData.name}</Text>
+                    <Badge color="pink" variant="light">
+                      {hospitalData.status}
+                    </Badge>
+                  </Group>
+                  <Text size="sm" c="dimmed">
+                    Phone Number : {hospitalData.phoneNumber}
                   </Text>
-                  <Text fw={500} fz={16}>
-                    City: {hospitalData.city}
-                  </Text>
-                </div>
+
+                  <Button variant="light" color="blue" fullWidth mt="md" radius="md">
+                    {hospitalData.address}
+                  </Button>
+                </Card>
+
               ) : (
                 <Text c="red">Hospital not found</Text>
               )}
