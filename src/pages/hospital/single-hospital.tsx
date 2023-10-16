@@ -59,7 +59,7 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
           setDoctorsData(response.data.data.doctors);
           console.log(response.data);
         }
-      } 
+      }
       catch (error: any) {
         alert.error('Error: ' + error.message)
         console.error('Xatolik yuz berdi: ', error);
