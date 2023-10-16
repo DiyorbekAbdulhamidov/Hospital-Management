@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import { Box, Button, LoadingOverlay, Text } from "@mantine/core";
 import axios from "axios";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Tabs } from '@mantine/core';
 import { alert } from "../../utils";
 
@@ -18,7 +18,7 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
   const token = savedToken ? JSON.parse(savedToken) : null;
 
   useEffect(() => {
-    async function fetchHospitalData() {
+    async function getHospitalData() {
       try {
         const response = await axios.get(
           `http://134.209.20.129:8083/hospital/${hospitalId}/get-hospital`,
@@ -41,7 +41,7 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
       }
     }
 
-    fetchHospitalData();
+    getHospitalData();
   }, [hospitalId, token]);
 
 
@@ -61,8 +61,8 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
             <Tabs.Tab value="Services">
               Services
             </Tabs.Tab>
-            <Button><Link to='/userPanel'>Back to all Hospitals</Link></Button>
           </Tabs.List>
+          <Button h={50} sx={{left: 1200, bottom: 34}} bg={'green'}><Link to='/userPanel'>Back to all Hospitals</Link></Button>
 
           <Tabs.Panel value="about-us">
             <Box>
