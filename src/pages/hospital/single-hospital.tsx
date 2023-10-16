@@ -16,7 +16,7 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
   const [hospitalData, setHospitalData] = useState<any | null>(null);
   const [doctorsData, setDoctorsData] = useState<IEntity.Doctor[]>([]);
 
-  console.log(doctorsData);
+  console.log(hospitalData);
 
   const [loading, setLoading] = useState(true);
 
@@ -57,9 +57,10 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
         });
         if (response.status === 200) {
           setDoctorsData(response.data.data.doctors);
-
+          console.log(response.data);
         }
-      } catch (error: any) {
+      } 
+      catch (error: any) {
         alert.error('Error: ' + error.message)
         console.error('Xatolik yuz berdi: ', error);
       }
