@@ -36,6 +36,12 @@ export namespace IEntity {
     id: string;
     name: string;
   }
+
+  export interface Doctor {
+    id: string;
+    fullName: string;
+    specialty: string;
+  }
 }
 
 export namespace IForm {
@@ -58,8 +64,8 @@ export namespace IForm {
 
 export namespace IApi {
   export namespace Login {
-    export interface Request extends IForm.Login {}
-    export interface Response extends IEntity.Tokens {}
+    export interface Request extends IForm.Login { }
+    export interface Response extends IEntity.Tokens { }
   }
 
 }
