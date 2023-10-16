@@ -1,10 +1,9 @@
 import { FunctionComponent, useEffect, useState } from "react";
-import { Badge, Box, Button, Card, Group, Image, LoadingOverlay, Text, Tabs, Table, Flex } from "@mantine/core";
+import { Badge, Box, Button, Card, Group, Image, LoadingOverlay, Text, Tabs, Flex } from "@mantine/core";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import { alert } from "../../utils";
 import HospitalImg from "../../assets/images/2.jpg";
-import { start } from "repl";
 
 interface SingleHospitalProps {
   hospitalId: string;
@@ -32,10 +31,12 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
         if (response.status === 200) {
           setHospitalData(response.data.data);
         }
-      } catch (error: any) {
+      } 
+      catch (error: any) {
         alert.error(error.message);
         console.error("Xatolik yuz berdi: ", error);
-      } finally {
+      } 
+      finally {
         setLoading(false);
       }
     }
@@ -66,7 +67,7 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
 
           <Tabs.Panel value="about-us">
             <Flex p={40} gap={120}>
-              <Card shadow="sm" padding="lg" radius="md" withBorder w={600} h={430}>
+              <Card shadow="sm" padding="lg" radius="md" withBorder w={600} h={530}>
                 <Card.Section component="a">
                   <Image
                     src={HospitalImg}
@@ -87,26 +88,24 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
                   {hospitalData.address}
                 </Button>
               </Card>
-
-              <Table>
-                <Table>
-                  <Flex gap={60}>
+              <Flex sx={{display : 'flex', flexDirection: 'column', gap: 20}}>
+                <Box>
+                  <Flex gap={60} >
                     <Text>Day of the Week</Text>
-                    <Text>Opening Time</Text>
-                    <Text>Closing Time</Text>
+                    <Text>Opening Time ⌚</Text>
+                    <Text>Closing Time ❌</Text>
                   </Flex>
-                </Table>
-                <Table>
                   {hospitalData.workingHours.map((item: any) => (
-                    <Flex  gap={80} key={item.id}>
-                      <Text>{item.dayOfWeek}</Text>
-                      <Text>{item.openingTime}</Text>
+                    <Flex gap={120} key={item.id} mt={5} >
+                      <Text w={80}>{item.dayOfWeek}</Text>
+                      <Text w={80}>{item.openingTime}</Text>
                       <Text>{item.closingTime}</Text>
                     </Flex>
                   ))}
-                </Table>
-              </Table>
-
+                </Box>
+                
+                <Box></Box>
+              </Flex>
             </Flex>
           </Tabs.Panel>
 
