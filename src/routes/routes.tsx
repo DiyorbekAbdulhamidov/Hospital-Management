@@ -4,6 +4,7 @@ import { Auth, HomePage, Settings, UserPanel } from "../pages";
 import { ToastContainer } from "react-toastify";
 
 import { useAuth } from "../modules/auth/context";
+import { SingleHospital } from "../pages/hospital";
 
 const AppRoutes: FunctionComponent = () => {
   const { user } = useAuth();
@@ -22,6 +23,7 @@ const AppRoutes: FunctionComponent = () => {
         <Route path="/userPanel/settings/myProfile" element={user ? <Settings.MyProfile /> : <Navigate to="/login" />} />
         <Route path="/userPanel/settings/change-password" element={user ? <Settings.ChangePassword /> : <Navigate to="/login" />} />
         <Route path="/userPanel/settings/changeEmail" element={user ? <Settings.ChangeEmail /> : <Navigate to="/login" />} />
+        <Route path="/single-hospital/:hospitalId" element={<SingleHospital hospitalId="" />} />
       </Routes>
     </BrowserRouter>
   );

@@ -3,12 +3,14 @@ import { Box, LoadingOverlay, Grid, Col, Card, Image, Text, Badge, Button, Group
 import axios from "axios";
 import { IEntity } from "../../modules/auth/types";
 import hospitalImg from "../../assets/images/hospital-new.jpg";
+import { useNavigate } from "react-router";
 
 interface HospitalProps { }
 
 const Hospital: FunctionComponent<HospitalProps> = () => {
   const [hospitals, setHospitals] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const savedToken = localStorage.getItem("access_token");
   const token = savedToken ? JSON.parse(savedToken) : null;
@@ -72,7 +74,16 @@ const Hospital: FunctionComponent<HospitalProps> = () => {
                 {hospital.city}
               </Text>
 
-              <Button variant="light" color="blue" fullWidth mt="md" radius="md">
+              <Button
+                variant="light"
+                color="blue"
+                fullWidth
+                mt="md"
+                radius="md"
+                onClick={() => {
+                  navigate(`/single-hospital/${hospital.id}`);
+                }}
+              >
                 View Med Clinic
               </Button>
             </Card>

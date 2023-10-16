@@ -1,7 +1,8 @@
 import { FunctionComponent, useEffect, useState } from "react";
-import { Box, LoadingOverlay, Text } from "@mantine/core";
+import { Box, Button, LoadingOverlay, Text } from "@mantine/core";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { Tabs } from '@mantine/core';
 import { alert } from "../../utils";
 
 interface SingleHospitalProps {
@@ -13,6 +14,9 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
   const [hospitalData, setHospitalData] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const savedToken = localStorage.getItem("access_token");
+  const token = savedToken ? JSON.parse(savedToken) : null;
+
   useEffect(() => {
     async function fetchHospitalData() {
       try {
@@ -20,48 +24,71 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
           `http://134.209.20.129:8083/hospital/${hospitalId}/get-hospital`,
           {
             headers: {
-              Authorization: `Bearer ${token}`, 
+              Authorization: `Bearer ${token}`,
             },
           }
         );
         if (response.status === 200) {
           setHospitalData(response.data.data);
-          setLoading(false);
         }
-      } catch (error: any) {
+      }
+      catch (error: any) {
         alert.error(error.message);
         console.error("Xatolik yuz berdi: ", error);
+      }
+      finally {
         setLoading(false);
       }
     }
 
-    const token = localStorage.getItem("access_token");
-    if (token) {
-      fetchHospitalData();
-    }
-  }, [hospitalId]);
+    fetchHospitalData();
+  }, [hospitalId, token]);
 
-  if (loading) {
-    return (
-      <Box>
-        <LoadingOverlay visible />
-      </Box>
-    );
-  }
 
   return (
-    <Box>
-      {hospitalData ? (
-        <div>
-          <Text fw={600} fz={20}>
-            Hospital Name: {hospitalData.name}
-          </Text>
-          <Text fw={500} fz={16}>
-            City: {hospitalData.city}
-          </Text>
-        </div>
+    <Box p={20}>
+      {loading ? (
+        <LoadingOverlay visible />
       ) : (
-        <Text c="red">Hospital not found</Text>
+        <Tabs variant="pills" defaultValue="about-us">
+          <Tabs.List sx={{ display: 'flex', gap: 40, alignItems: 'center', justifyContent: 'center' }} >
+            <Tabs.Tab value="about-us" >
+              About Us
+            </Tabs.Tab>
+            <Tabs.Tab value="Doctors">
+              Doctors
+            </Tabs.Tab>
+            <Tabs.Tab value="Services">
+              Services
+            </Tabs.Tab>
+            <Button><Link to='/userPanel'>Back to all Hospitals</Link></Button>
+          </Tabs.List>
+
+          <Tabs.Panel value="about-us">
+            <Box>
+              {hospitalData ? (
+                <div>
+                  <Text fw={600} fz={20}>
+                    Hospital Name: {hospitalData.name}
+                  </Text>
+                  <Text fw={500} fz={16}>
+                    City: {hospitalData.city}
+                  </Text>
+                </div>
+              ) : (
+                <Text c="red">Hospital not found</Text>
+              )}
+            </Box>
+          </Tabs.Panel>
+
+          <Tabs.Panel value="Doctors">
+            Doctors tab content
+          </Tabs.Panel>
+
+          <Tabs.Panel value="Services">
+            Services tab content
+          </Tabs.Panel>
+        </Tabs>
       )}
     </Box>
   );
