@@ -1,9 +1,9 @@
-import store from 'store2'
-import config from '../config'
-import { Types } from '../modules/auth'
+import store from 'store2';
+import config from '../config';
+import { IEntity } from '../modules/auth/types';
 
-export const getSession = (): Types.IEntity.Tokens => store.get(config.api.tokensKEY) || {}
+export const getSession = (): IEntity.Tokens => store.get(config.api.tokensKEY) || {};
 
-export const clearSession = () => store.remove(config.api.tokensKEY)
+export const clearSession = () => store.remove(config.api.tokensKEY);
 
-export const setSession = (tokens: Types.IEntity.Tokens) => store.set(config.api.tokensKEY, tokens)
+export const setSession = (tokens: IEntity.Tokens) => store.set(config.api.tokensKEY, tokens);
