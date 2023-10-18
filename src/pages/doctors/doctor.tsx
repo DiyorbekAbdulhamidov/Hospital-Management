@@ -1,14 +1,16 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import axios from 'axios';
-import { Badge, Box, Button, Card, Flex, Image, LoadingOverlay, Text } from '@mantine/core';
+import { Badge, Box, Button, Card, Flex, Image, LoadingOverlay, Text, Modal, Group } from '@mantine/core';
 import { useParams, useNavigate } from 'react-router-dom';
 import { IEntity } from '../../modules/auth/types';
 import { alert } from '../../utils';
 import doctorImg from "../../assets/images/360_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg";
+import { useDisclosure } from '@mantine/hooks';
 
 interface DoctorProps { }
 
 const Doctor: FunctionComponent<DoctorProps> = () => {
+  const [opened, { close, open }] = useDisclosure(false);
   const { doctorId } = useParams<{ doctorId: string }>();
   const [doctorData, setDoctorData] = useState<IEntity.SingleDoctor | null>(null);
 
@@ -78,10 +80,23 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
             Working Days: {doctorData?.workingDays}
           </Text>
 
-          <Button color='red' w={200} h={50} mt={70} left={180}>Book This Doctor</Button>
+          <Button color='red' w={200} h={50} mt={70} left={180} onClick={open} >See available Time</Button>
         </Card>
       )}
       <Button onClick={goBack} left={600} h={40}>Back to hospital</Button>
+
+      <Modal opened={opened} onClose={close} size="auto" title="Modal size auto">
+        <Text>Modal with size auto will fits its content</Text>
+
+        <Group mt="xl">
+          <Button variant="outline">
+            Add badge
+          </Button>
+          <Button variant="outline">
+            Remove badge
+          </Button>
+        </Group>
+      </Modal>
     </Box>
   );
 };
