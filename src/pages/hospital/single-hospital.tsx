@@ -78,9 +78,8 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
           <Tabs.List sx={{ display: 'flex', gap: 40, alignItems: 'center', justifyContent: 'center' }}>
             <Tabs.Tab value="about-us">About Us</Tabs.Tab>
             <Tabs.Tab value="Doctors">Our Doctors</Tabs.Tab>
-            {/* <Tabs.Tab value="Services">Our Services</Tabs.Tab> */}
           </Tabs.List>
-          <Button h={50} sx={{ left: 1200, bottom: 34 }} bg={'green'}>
+          <Button h={50} sx={{ left: 1200, bottom: 34 }}>
             <Link to="/userPanel">Back to all Hospitals</Link>
           </Button>
 
@@ -147,7 +146,7 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
                         </Badge>
                       </Group>
 
-                      <Link to={`/doctor/${doctor.id}/`}>
+                      <Link to={`/doctor/${doctor.id}`}>
                         <Button variant="light" color="blue" fullWidth mt="md" radius="md">
                           Learn more
                         </Button>
@@ -158,8 +157,6 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
               </Grid>
             </Box>
           </Tabs.Panel>
-
-          {/* <Tabs.Panel value="Services">Services tab content</Tabs.Panel> */}
         </Tabs>
       )}
     </Box>
