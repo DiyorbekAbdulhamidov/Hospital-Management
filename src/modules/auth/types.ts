@@ -42,6 +42,12 @@ export namespace IEntity {
     fullName: string;
     specialty: string;
   }
+
+  export interface SingleDoctor extends Doctor {
+    info: string,
+    specialty: string,
+    workingDays: [],
+  }
 }
 
 export namespace IForm {
