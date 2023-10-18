@@ -10,7 +10,7 @@ import { useDisclosure } from '@mantine/hooks';
 interface DoctorProps { }
 
 const Doctor: FunctionComponent<DoctorProps> = () => {
-  const [opened, { close, open }] = useDisclosure(false);
+  const [opened, { close, open }] = useDisclosure();
   const { doctorId } = useParams<{ doctorId: string }>();
   const [doctorData, setDoctorData] = useState<IEntity.SingleDoctor | null>(null);
 
@@ -29,7 +29,7 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
       const response = await axios.post(
         'http://134.209.20.129:8084/hybrid-booking/get-doctor-available-time',
         {
-          bookingDay: '18.10.2023',
+          bookingDay: '2023-10-19',
           doctorId,
         },
         {
@@ -53,7 +53,7 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
       try {
         const response = await axios.get(`http://134.209.20.129:8082/user/get-doctor-by-id`, {
           params: {
-            doctorId
+            doctorId,
           },
           headers: {
             Authorization: `Bearer ${token}`,
@@ -63,10 +63,12 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
         if (response.status === 200) {
           setDoctorData(response.data.data);
         }
-      } catch (error: any) {
+      }
+      catch (error: any) {
         alert.error('Error: ' + error.message);
         console.error('Xatolik yuz berdi: ', error);
-      } finally {
+      }
+      finally {
         setLoading(false);
       }
     }
@@ -118,7 +120,7 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
       <Modal opened={opened} onClose={close} size="auto" title={doctorData?.fullName}>
         <Text align='center'>Available Times: </Text>
         <Group mt="xl">
-
+          {/* Add the available times here */}
         </Group>
       </Modal>
     </Box>
