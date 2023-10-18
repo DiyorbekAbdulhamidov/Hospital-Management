@@ -1,8 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { Route, Routes, Navigate, BrowserRouter } from "react-router-dom";
-import { Auth, HomePage, Settings, UserPanel } from "../pages";
+import { Auth, DoctorPage, HomePage, Settings, UserPanel } from "../pages";
 import { ToastContainer } from "react-toastify";
-
 import { useAuth } from "../modules/auth/context";
 import { SingleHospital } from "../pages/hospital";
 
@@ -23,7 +22,8 @@ const AppRoutes: FunctionComponent = () => {
         <Route path="/userPanel/settings/myProfile" element={user ? <Settings.MyProfile /> : <Navigate to="/login" />} />
         <Route path="/userPanel/settings/change-password" element={user ? <Settings.ChangePassword /> : <Navigate to="/login" />} />
         <Route path="/userPanel/settings/changeEmail" element={user ? <Settings.ChangeEmail /> : <Navigate to="/login" />} />
-        <Route path="/single-hospital/:hospitalId" element={<SingleHospital hospitalId="" />} />
+        <Route path="/single-hospital/:hospitalId" element={user ? <SingleHospital hospitalId="" /> : <Navigate to="login" />} />
+        <Route path="/doctor/:doctorId" element={user ? <DoctorPage /> : <Navigate to="login" />} />
       </Routes>
     </BrowserRouter>
   );

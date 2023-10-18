@@ -147,9 +147,11 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
                         </Badge>
                       </Group>
 
-                      <Button variant="light" color="blue" fullWidth mt="md" radius="md">
-                        Learn more
-                      </Button>
+                      <Link to={`/doctor/${doctor.id}/`}>
+                        <Button variant="light" color="blue" fullWidth mt="md" radius="md">
+                          Learn more
+                        </Button>
+                      </Link>
                     </Card>
                   </Flex>
                 ))}

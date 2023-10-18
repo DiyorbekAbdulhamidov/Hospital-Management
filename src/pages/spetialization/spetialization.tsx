@@ -17,7 +17,7 @@ const Spetialization: React.FunctionComponent<SpetializationProps> = () => {
                     alt="No way!"
                   />
                 </Card.Section>
-
+ 
                 <Text weight={500} size="lg" mt="md">
                   You&apos;ve won a million dollars in cash!
                 </Text>
