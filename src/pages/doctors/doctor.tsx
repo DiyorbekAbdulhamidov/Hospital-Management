@@ -24,12 +24,36 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
   const savedToken = localStorage.getItem("access_token");
   const token = savedToken ? JSON.parse(savedToken) : null;
 
+  const getAvailableTimes = async () => {
+    try {
+      const response = await axios.post(
+        'http://134.209.20.129:8084/hybrid-booking/get-doctor-available-time',
+        {
+          bookingDay: '18.10.2023',
+          doctorId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        console.log('Available Times:', response.data);
+      }
+    } catch (error: any) {
+      alert.error('Error: ' + error.message);
+      console.error('Xatolik yuz berdi: ', error);
+    }
+  };
+
   useEffect(() => {
     async function getDoctorData() {
       try {
         const response = await axios.get(`http://134.209.20.129:8082/user/get-doctor-by-id`, {
           params: {
-            doctorId: doctorId
+            doctorId
           },
           headers: {
             Authorization: `Bearer ${token}`,
@@ -42,8 +66,7 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
       } catch (error: any) {
         alert.error('Error: ' + error.message);
         console.error('Xatolik yuz berdi: ', error);
-      }
-      finally {
+      } finally {
         setLoading(false);
       }
     }
@@ -57,10 +80,7 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
       ) : (
         <Card shadow="sm" padding="lg" radius="md" withBorder w={600}>
           <Card.Section>
-            <Image
-              src={doctorImg}
-              alt="Doctor's Image"
-            />
+            <Image src={doctorImg} alt="Doctor's Image" />
           </Card.Section>
           <Flex align={'center'} justify={'space-between'} mt={20}>
             <Text size="xl" weight={500}>
@@ -80,21 +100,25 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
             Working Days: {doctorData?.workingDays}
           </Text>
 
-          <Button color='red' w={200} h={50} mt={70} left={180} onClick={open} >See available Time</Button>
+          <Button
+            color='red'
+            w={200}
+            h={50}
+            mt={70}
+            left={180}
+            onClick={() => { getAvailableTimes(); open(); }}>
+            See available Time
+          </Button>
         </Card>
       )}
-      <Button onClick={goBack} left={600} h={40}>Back to hospital</Button>
+      <Button onClick={goBack} left={600} h={40}>
+        Back to hospital
+      </Button>
 
-      <Modal opened={opened} onClose={close} size="auto" title="Modal size auto">
-        <Text>Modal with size auto will fits its content</Text>
-
+      <Modal opened={opened} onClose={close} size="auto" title={doctorData?.fullName}>
+        <Text align='center'>Available Times: </Text>
         <Group mt="xl">
-          <Button variant="outline">
-            Add badge
-          </Button>
-          <Button variant="outline">
-            Remove badge
-          </Button>
+
         </Group>
       </Modal>
     </Box>
