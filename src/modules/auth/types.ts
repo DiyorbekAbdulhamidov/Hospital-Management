@@ -48,6 +48,11 @@ export namespace IEntity {
     specialty: string,
     workingDays: [],
   }
+
+  export interface BookingTimes {
+    id : string,
+    bookingTime: string
+  }
 }
 
 export namespace IForm {

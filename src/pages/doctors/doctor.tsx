@@ -13,6 +13,7 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
   const [opened, { close, open }] = useDisclosure();
   const { doctorId } = useParams<{ doctorId: string }>();
   const [doctorData, setDoctorData] = useState<IEntity.SingleDoctor | null>(null);
+  const [bookingTimes, setBookingTimes] = useState<IEntity.BookingTimes | null>(null);
 
   const navigate = useNavigate();
   const goBack = () => {
@@ -29,7 +30,7 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
       const response = await axios.post(
         'http://134.209.20.129:8084/hybrid-booking/get-doctor-available-time',
         {
-          bookingDay: '2023-10-19',
+          bookingDay: '2023-09-19',
           doctorId,
         },
         {
@@ -40,9 +41,11 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
       );
 
       if (response.status === 200) {
-        console.log('Available Times:', response.data);
+        console.log('Times:', response.data);
+        setBookingTimes(response.data.data);
       }
-    } catch (error: any) {
+    }
+    catch (error: any) {
       alert.error('Error: ' + error.message);
       console.error('Xatolik yuz berdi: ', error);
     }
@@ -117,12 +120,15 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
         Back to hospital
       </Button>
 
-      <Modal opened={opened} onClose={close} size="auto" title={doctorData?.fullName}>
-        <Text align='center'>Available Times: </Text>
-        <Group mt="xl">
-          {/* Add the available times here */}
+      <Modal opened={opened} onClose={close} size="auto" sx={{borderRadius: 20}}>
+        <Text size={30} align='center'>{doctorData?.fullName}`s awaibale times</Text>
+        <Group mt="" >
+        {bookingTimes?.map((times: any) => (
+            <Button key={times.id} style={{ margin: '5px' }}> {times.bookingTime}</Button>
+          ))}
         </Group>
       </Modal>
+
     </Box>
   );
 };
