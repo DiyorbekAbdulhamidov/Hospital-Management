@@ -13,7 +13,7 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
   const [opened, { close, open }] = useDisclosure();
   const { doctorId } = useParams<{ doctorId: string }>();
   const [doctorData, setDoctorData] = useState<IEntity.SingleDoctor | null>(null);
-  const [bookingTimes, setBookingTimes] = useState<IEntity.BookingTimes | null>(null);
+  const [bookingTimes, setBookingTimes] = useState<IEntity.BookingTimes[] | null>(null);
 
   const navigate = useNavigate();
   const goBack = () => {
@@ -120,10 +120,10 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
         Back to hospital
       </Button>
 
-      <Modal opened={opened} onClose={close} size="auto" sx={{borderRadius: 20}}>
+      <Modal opened={opened} onClose={close} size="auto" sx={{ borderRadius: 20 }}>
         <Text size={30} align='center'>{doctorData?.fullName}`s awaibale times</Text>
         <Group mt="" >
-        {bookingTimes?.map((times: any) => (
+          {bookingTimes?.map((times: any) => (
             <Button key={times.id} style={{ margin: '5px' }}> {times.bookingTime}</Button>
           ))}
         </Group>
