@@ -50,8 +50,20 @@ export namespace IEntity {
   }
 
   export interface BookingTimes {
-    id : string,
+    id: string,
     bookingTime: string
+  }
+
+  export interface Booking {
+    address: string,
+    bookingDay: string,
+    bookingId: string,
+    bookingTime: string,
+    doctorId: string,
+    doctorName: string,
+    roomNumber: string,
+    status: string,
+    weekDay: string
   }
 }
 
