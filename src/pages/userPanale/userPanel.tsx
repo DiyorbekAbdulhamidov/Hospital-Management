@@ -84,7 +84,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
     if (user) {
       getUserData();
     }
-  },[user]);
+  }, [user]);
 
   return (
     <Box>
@@ -92,10 +92,10 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
         <Flex justify="space-around" align="center" h="100%">
           <Flex>
             <Text fz={25} fw={600}>
-              We
+              Doctor
             </Text>
             <Text fw={600} color="#2972fe" fz={25}>
-              Help
+              Q
             </Text>
           </Flex>
           <Menu width={200} shadow="md">
