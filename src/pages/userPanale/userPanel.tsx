@@ -1,31 +1,17 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  Container,
-  Flex,
-  Menu,
-  SegmentedControl,
-  rem,
-} from "@mantine/core";
-import {
-  IconBrandBooking,
-  IconBuildingHospital,
-  IconExternalLink,
-  IconHistory,
-  IconLogout2,
-  IconSettings,
-} from "@tabler/icons-react";
+import { Box, Button, Container, Flex, Menu, SegmentedControl, rem, } from "@mantine/core";
+import { IconBrandBooking, IconBuildingHospital, IconExternalLink, IconHistory, IconLogout2, IconSettings, } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
 import { Burger } from "@mantine/core";
 import { Header, Text } from "@mantine/core";
 import { useAuth } from "../../modules/auth/context";
 import axios from "axios";
 import { IEntity } from "../../modules/auth/types";
+import { Link } from "react-router-dom";
 import Hospital from "../hospital/hospital";
 import { MainSettings } from "../settings";
 import Spetialization from "../spetialization/spetialization";
-import { Link } from "react-router-dom";
+import Booking from "../booking/booking";
 
 interface UserPanelProps { }
 
@@ -33,6 +19,8 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
   const [showHospital, setHospital] = useState(true);
   const [showSettings, setSettings] = useState(false);
   const [showSpetialization, setSpetialization] = useState(false);
+  const [showBooking, setshowBooking] = useState(false);
+
   const [showMenu, setShowMenu] = useState(
     localStorage.getItem("showMenu") === "true" || false
   );
@@ -104,9 +92,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
                 <Text fz={20}>{data?.fullName[0]}</Text>
               </Button>
             </Menu.Target>
-
             <Menu.Dropdown>
-
               <Menu.Item component="a">
                 <Text fz={15} ta="center" c="green">
                   {data?.fullName}
@@ -160,6 +146,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
                           setHospital(true);
                           setSettings(false);
                           setSpetialization(false);
+                          setshowBooking(false);
                         }}
                       >
                         <IconBuildingHospital
@@ -183,6 +170,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
                           setSettings(true);
                           setHospital(false);
                           setSpetialization(false);
+                          setshowBooking(false);
                         }}
                       >
                         <IconSettings
@@ -197,25 +185,19 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
                   {
                     value: "Booking",
                     label: (
-                      <Flex align="center" pl={20} pt={20} pb={20}>
+                      <Flex align="center" pl={20} pt={20} pb={20}
+                        onClick={() => {
+                          setSettings(false);
+                          setHospital(false);
+                          setSpetialization(false);
+                          setshowBooking(true);
+                        }}
+                      >
                         <IconBrandBooking
                           style={{ width: rem(16), height: rem(40) }}
                         />
                         <Box fz={17} ml={10}>
                           Booking
-                        </Box>
-                      </Flex>
-                    ),
-                  },
-                  {
-                    value: "History",
-                    label: (
-                      <Flex align="center" pl={20} pt={20} pb={20}>
-                        <IconHistory
-                          style={{ width: rem(16), height: rem(40) }}
-                        />
-                        <Box fz={17} ml={10}>
-                          History
                         </Box>
                       </Flex>
                     ),
@@ -227,6 +209,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
                         onClick={() => {
                           setHospital(false);
                           setSettings(false);
+                          setshowBooking(false);
                           setSpetialization(true);
                         }}
                         align="center"
@@ -263,6 +246,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
               {showHospital ? <Hospital /> : ""}
               {showSettings ? <MainSettings /> : ""}
               {showSpetialization ? <Spetialization /> : ""}
+              {showBooking ? <Booking /> : ""}
             </Container>
           </Box>
         </Flex>
