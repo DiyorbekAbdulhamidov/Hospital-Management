@@ -39,7 +39,7 @@ const SingleBooking: FunctionComponent<SingleBookingProps> = () => {
           setLoading(false);
         });
     }
-  }, [bookingId]);
+  });
 
   const handleCancel = () => {
     axios.get("http://134.209.20.129:8084/hybrid-booking/cancel", {
@@ -84,10 +84,7 @@ const SingleBooking: FunctionComponent<SingleBookingProps> = () => {
 
         <Text>Room Number: {bookingData.roomNumber}</Text>
 
-        <Button variant="light" color="red" fullWidth mt="md" radius="md" disabled={bookingData.status !== 'SCHEDULED'} onClick={handleCancel}>
-          CANCEL BOOKING
-        </Button>
-
+        <Button variant="light" color="red" fullWidth mt="md" radius="md" disabled={bookingData.status !== 'SCHEDULED'} onClick={() => { if (bookingData.status === 'SCHEDULED') { handleCancel(); window.location.reload() } }} > {bookingData.status === 'SCHEDULED' ? 'CANCEL BOOKING' : 'disabled'} </Button>
       </Card>
       <Button onClick={() => navigate(-1)} h={45} left={600}>Go Back</Button>
     </Box>
