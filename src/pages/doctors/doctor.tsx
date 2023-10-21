@@ -16,10 +16,6 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
   const [bookingTimes, setBookingTimes] = useState<IEntity.BookingTimes[] | null>(null);
 
   const navigate = useNavigate();
-  const goBack = () => {
-    navigate(-1);
-  };
-
   const [loading, setLoading] = useState(true);
 
   const savedToken = localStorage.getItem("access_token");
@@ -135,19 +131,13 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
             Working Days: {doctorData?.workingDays}
           </Text>
 
-          <Button
-            color='red'
-            w={200}
-            h={50}
-            mt={70}
-            left={180}
-            onClick={() => { getAvailableTimes(); open(); }}>
+          <Button color='red' w={200} h={50} mt={70} left={180} onClick={() => { getAvailableTimes(); open(); }}>
             See available Time
           </Button>
         </Card>
       )}
-      <Button onClick={goBack} left={600} h={40}>
-        Back to hospital
+      <Button onClick={() => navigate(-1)} left={600} h={40}>
+        Go Back
       </Button>
 
       <Modal opened={opened} onClose={close} size="auto" sx={{ borderRadius: 20 }}>

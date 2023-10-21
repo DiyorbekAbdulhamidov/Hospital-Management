@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router";
 import { IEntity } from "../../modules/auth/types";
 import { alert } from "../../utils";
 import doctorImg from "../../assets/images/pleased-young-female-doctor-wearing-medical-robe-stethoscope-around-neck-standing-with-closed-posture_409827-254.avif";
-import { Box, Text, Card, Image, Group, Badge, Button, Loader } from "@mantine/core";
+import { Box, Text, Card, Image, Group, Badge, Button, LoadingOverlay } from "@mantine/core";
 
 interface SingleBookingProps {
   bookingId: string;
@@ -16,16 +16,16 @@ const SingleBooking: FunctionComponent<SingleBookingProps> = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  const savedToken = localStorage.getItem("access_token");
+  const token = savedToken ? JSON.parse(savedToken) : null;
+
   useEffect(() => {
-    const savedToken = localStorage.getItem("access_token");
-    const token = savedToken ? JSON.parse(savedToken) : null;
     if (token) {
-      axios
-        .get("http://134.209.20.129:8084/hybrid-booking/get-booking", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          }, params: { bookingId }
-        })
+      axios.get("http://134.209.20.129:8084/hybrid-booking/get-booking", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }, params: { bookingId }
+      })
         .then((response) => {
           if (response.status === 200) {
             setBookingData(response.data.data);
@@ -41,14 +41,31 @@ const SingleBooking: FunctionComponent<SingleBookingProps> = () => {
     }
   }, [bookingId]);
 
-  if (loading) return <Loader size="md" />;
+  const handleCancel = () => {
+    axios.get("http://134.209.20.129:8084/hybrid-booking/cancel", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }, params: { bookingId }
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          alert.success('Booking successfully cancelled')
+        }
+      })
+      .catch((error) => {
+        console.error("Xatolik yuz berdi: ", error);
+        alert.error("Error in Cancel Booking");
+      })
+  };
+
+  if (loading) return <LoadingOverlay visible />;
 
   if (!bookingData) return null;
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '80px', alignItems: 'center' }}>
       <Card shadow="sm" padding="lg" radius="md" withBorder w={550} mt={40}>
-        <Card.Section component="a">
+        <Card.Section component="a" href={`/doctor/${bookingData.doctorId}`}>
           <Image src={doctorImg} alt="DoctorImg" />
         </Card.Section>
 
@@ -67,11 +84,12 @@ const SingleBooking: FunctionComponent<SingleBookingProps> = () => {
 
         <Text>Room Number: {bookingData.roomNumber}</Text>
 
-        <Button variant="light" color="blue" fullWidth mt="md" radius="md">
-          View
+        <Button variant="light" color="red" fullWidth mt="md" radius="md" disabled={bookingData.status !== 'SCHEDULED'} onClick={handleCancel}>
+          CANCEL BOOKING
         </Button>
+
       </Card>
-      <Button onClick={() => navigate(-1)} h={45} left={600}>Back to all Bookings</Button>
+      <Button onClick={() => navigate(-1)} h={45} left={600}>Go Back</Button>
     </Box>
   );
 }
