@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { FunctionComponent, useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { IEntity } from "../../modules/auth/types";
 import { alert } from "../../utils";
 import doctorImg from "../../assets/images/pleased-young-female-doctor-wearing-medical-robe-stethoscope-around-neck-standing-with-closed-posture_409827-254.avif";
-import { Box, Text, Card, Image, Group, Badge, Button } from "@mantine/core";
+import { Box, Text, Card, Image, Group, Badge, Button, Loader } from "@mantine/core";
 
 interface SingleBookingProps {
   bookingId: string;
@@ -13,6 +13,8 @@ interface SingleBookingProps {
 const SingleBooking: FunctionComponent<SingleBookingProps> = () => {
   const { bookingId } = useParams<{ bookingId: string }>();
   const [bookingData, setBookingData] = useState<IEntity.Booking | null>(null);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const savedToken = localStorage.getItem("access_token");
@@ -22,10 +24,7 @@ const SingleBooking: FunctionComponent<SingleBookingProps> = () => {
         .get("http://134.209.20.129:8084/hybrid-booking/get-booking", {
           headers: {
             Authorization: `Bearer ${token}`,
-          },
-          params: {
-            bookingId
-          }
+          }, params: { bookingId }
         })
         .then((response) => {
           if (response.status === 200) {
@@ -35,17 +34,20 @@ const SingleBooking: FunctionComponent<SingleBookingProps> = () => {
         .catch((error) => {
           console.error("Xatolik yuz berdi: ", error);
           alert.error("Error in getting Booking information");
+        })
+        .finally(() => {
+          setLoading(false);
         });
     }
   }, [bookingId]);
 
-  if (!bookingData) {
-    return null;
-  }
+  if (loading) return <Loader size="md" />;
+
+  if (!bookingData) return null;
 
   return (
-    <Box>
-      <Card shadow="sm" padding="lg" radius="md" withBorder w={500}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '80px', alignItems: 'center' }}>
+      <Card shadow="sm" padding="lg" radius="md" withBorder w={550} mt={40}>
         <Card.Section component="a">
           <Image src={doctorImg} alt="DoctorImg" />
         </Card.Section>
@@ -69,6 +71,7 @@ const SingleBooking: FunctionComponent<SingleBookingProps> = () => {
           View
         </Button>
       </Card>
+      <Button onClick={() => navigate(-1)} h={45} left={600}>Back to all Bookings</Button>
     </Box>
   );
 }
