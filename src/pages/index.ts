@@ -7,3 +7,4 @@ export { default as DoctorPage } from "./doctors/doctor";
 export { default as Spetialization } from "./spetialization/spetialization";
 export { default as Booking } from "./booking/booking";
 export { default as SingleBooking } from "./booking/single-booking";
+export { default as Page404 } from "./404/404"; 
