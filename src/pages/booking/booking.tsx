@@ -4,12 +4,14 @@ import { IEntity } from "../../modules/auth/types";
 import { alert } from "../../utils";
 import { Box, Text, Tabs, Card, Image, Group, Badge, Button } from "@mantine/core";
 import doctorImg from "../../assets/images/pleased-young-female-doctor-wearing-medical-robe-stethoscope-around-neck-standing-with-closed-posture_409827-254.avif";
+import { useNavigate } from "react-router";
 
 interface BookingProps { }
 
 const Booking: FunctionComponent<BookingProps> = () => {
   const [upcomingBookings, setupcomingBookings] = useState<IEntity.Booking[]>([]);
   const [pastBookings, setpastBookings] = useState<IEntity.Booking[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const savedToken = localStorage.getItem("access_token");
@@ -53,14 +55,7 @@ const Booking: FunctionComponent<BookingProps> = () => {
           <Tabs.Panel value="upcoming" mt={20}>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 40 }}>
               {upcomingBookings.map((booking) => (
-                <Card
-                  key={booking.bookingId}
-                  shadow="sm"
-                  padding="lg"
-                  radius="md"
-                  withBorder
-                  w={500}
-                >
+                <Card key={booking.bookingId} shadow="sm" padding="lg" radius="md" withBorder w={500} >
                   <Card.Section component="a">
                     <Image src={doctorImg} alt="DoctorImg" />
                   </Card.Section>
@@ -80,8 +75,7 @@ const Booking: FunctionComponent<BookingProps> = () => {
 
                   <Text>Room Number: {booking.roomNumber}</Text>
 
-
-                  <Button variant="light" color="blue" fullWidth mt="md" radius="md">
+                  <Button variant="light" color="blue" fullWidth mt="md" radius="md" onClick={() => navigate(`/booking/${booking.bookingId}`)}>
                     View
                   </Button>
                 </Card>
@@ -92,14 +86,7 @@ const Booking: FunctionComponent<BookingProps> = () => {
           <Tabs.Panel value="past" mt={20}>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 40 }}>
               {pastBookings.map((booking) => (
-                <Card
-                  key={booking.bookingId}
-                  shadow="sm"
-                  padding="lg"
-                  radius="md"
-                  withBorder
-                  w={500}
-                >
+                <Card key={booking.bookingId} shadow="sm" padding="lg" radius="md" withBorder w={500} >
                   <Card.Section component="a">
                     <Image src={doctorImg} alt="DoctorImg" />
                   </Card.Section>
@@ -120,15 +107,11 @@ const Booking: FunctionComponent<BookingProps> = () => {
                   <Text>Room Number: {booking.roomNumber}</Text>
 
 
-                  <Button variant="light" color="blue" fullWidth mt="md" radius="md">
-                    View
-                  </Button>
+                  <Button variant="light" color="blue" fullWidth mt="md" radius="md" onClick={() => { navigate(`/booking/${booking.bookingId}`); console.log(true); }} >  View </Button>
                 </Card>
               ))}
             </div>
           </Tabs.Panel>
-
-
         </Tabs>
       )}
     </Box>
