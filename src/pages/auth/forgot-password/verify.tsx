@@ -1,31 +1,39 @@
+import React, { useState } from "react";
 import { Button, Container, PinInput } from "@mantine/core";
-import { FunctionComponent, useState } from "react";
+import * as yup from 'yup';
 import axios from "axios";
 import { alert } from "../../../utils";
 
-interface PinCodeProps {
-}
-
-const PinCode: FunctionComponent<PinCodeProps> = () => {
+const PinCode = () => {
   const [pin, setPin] = useState("");
+
+  const pinSchema = yup.object().shape({
+    pin: yup.string().length(6, 'Pin code must be 6 characters'),
+  });
 
   const handleSendCode = async () => {
     try {
+      const values = { pin };
+      await pinSchema.validate(values, { abortEarly: false });
+
       const response = await axios.post("http://188.166.165.2:8082/user/auth/verify-code-for-update-password", {
-        pin: '964453',
+        pin: pin,
       });
 
       const responseData = response.data;
 
       if (responseData.status === "SUCCESS") {
         alert.success("Pin code sent successfully!");
-      }
-      else {
+      } else {
         alert.error("Failed to send pin code.");
       }
-    }
-    catch (error: any) {
-      alert.error("An error occurred while sending the pin code: " + error.message);
+    } catch (error: any) {
+      if (error instanceof yup.ValidationError) {
+        const errorMessage = error.inner.map((err) => err.message).join(' ');
+        alert.error(errorMessage);
+      } else {
+        alert.error("An error occurred while sending the pin code: " + error.message);
+      }
     }
   };
 
