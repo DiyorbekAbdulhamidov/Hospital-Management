@@ -27,7 +27,6 @@ const AppRoutes: FunctionComponent = () => {
         <Route path="/single-hospital/:hospitalId" element={<SingleHospital hospitalId="" />} />
         <Route path="/doctor/:doctorId" element={<DoctorPage />} />
         <Route path="/booking/:bookingId" element={<SingleBooking bookingId="" />} />
-
         <Route path="*" element={<Page404 />} />
       </Routes>
     </BrowserRouter>

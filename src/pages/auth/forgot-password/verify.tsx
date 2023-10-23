@@ -3,9 +3,16 @@ import { Button, Container, PinInput } from "@mantine/core";
 import * as yup from 'yup';
 import axios from "axios";
 import { alert } from "../../../utils";
+import { useEmail } from "../../../modules/home/context";
 
-const PinCode = () => {
+interface PinCodeProps {
+
+}
+
+const PinCode: React.FC<PinCodeProps> = () => {
+
   const [pin, setPin] = useState("");
+  const email = useEmail;
 
   const pinSchema = yup.object().shape({
     pin: yup.string().length(6, 'Pin code must be 6 characters'),
@@ -17,7 +24,8 @@ const PinCode = () => {
       await pinSchema.validate(values, { abortEarly: false });
 
       const response = await axios.post("http://188.166.165.2:8082/user/auth/verify-code-for-update-password", {
-        pin: pin,
+        email,
+        code: pin
       });
 
       const responseData = response.data;

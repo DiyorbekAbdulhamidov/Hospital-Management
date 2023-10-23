@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { Anchor, Box, Button, Center, Container, Group, Paper, Text, TextInput, Title, rem } from "@mantine/core";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { alert } from "../../../utils";
 import { IconArrowLeft } from "@tabler/icons-react";
 import classes from "./forgot-password.module.scss";
+import { useEmail } from "../../../modules/home/context";
 
 interface ForgotPasswordProps { }
 
 const ForgotPassword: React.FunctionComponent<ForgotPasswordProps> = () => {
-  const [email, setEmail] = useState("");
+  const { email, setNewEmail } = useEmail();
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
@@ -43,7 +44,13 @@ const ForgotPassword: React.FunctionComponent<ForgotPasswordProps> = () => {
         </Text>
 
         <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
-          <TextInput label="Your email" required placeholder="youremail@gmail.com" onChange={(event) => setEmail(event.target.value)} value={email} />
+          <TextInput
+            label="Your email"
+            required
+            placeholder="youremail@gmail.com"
+            onChange={(event) => setNewEmail(event.target.value)}
+            value={email}
+          />
           <Group mt="lg" className={classes.controls}>
             <Anchor c="dimmed" size="sm" className={classes.control}>
               <Center inline>
@@ -53,7 +60,9 @@ const ForgotPassword: React.FunctionComponent<ForgotPasswordProps> = () => {
                 </Box>
               </Center>
             </Anchor>
-            <Button className={classes.control} onClick={handleSubmit}>Reset password</Button>
+            <Button className={classes.control} onClick={handleSubmit}>
+              Reset password
+            </Button>
           </Group>
         </Paper>
       </Container>
