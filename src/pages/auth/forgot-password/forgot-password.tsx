@@ -22,10 +22,12 @@ const ForgotPassword: React.FunctionComponent = () => {
 
       if (responseData.status === "SUCCESS") {
         alert.success("Password updated successfully!");
-      } else {
+      }
+      else {
         alert.error("Failed to update the password!");
       }
-    } catch (error: any) {
+    }
+    catch (error: any) {
       alert.error("An error occurred while updating the password." + error.message);
     }
   };
