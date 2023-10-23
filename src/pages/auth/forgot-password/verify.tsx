@@ -4,15 +4,16 @@ import * as yup from 'yup';
 import axios from "axios";
 import { alert } from "../../../utils";
 import { useEmail } from "../../../modules/home/context";
+import { useNavigate } from "react-router";
 
-interface PinCodeProps {
 
-}
+interface PinCodeProps { }
 
 const PinCode: React.FC<PinCodeProps> = () => {
 
   const [pin, setPin] = useState("");
-  const email = useEmail;
+  const { email } = useEmail();
+  const navigate = useNavigate();
 
   const pinSchema = yup.object().shape({
     pin: yup.string().length(6, 'Pin code must be 6 characters'),
@@ -32,14 +33,17 @@ const PinCode: React.FC<PinCodeProps> = () => {
 
       if (responseData.status === "SUCCESS") {
         alert.success("Pin code sent successfully!");
-      } else {
+        navigate('/forgot-password/code');
+      }
+      else {
         alert.error("Failed to send pin code.");
       }
     } catch (error: any) {
       if (error instanceof yup.ValidationError) {
         const errorMessage = error.inner.map((err) => err.message).join(' ');
         alert.error(errorMessage);
-      } else {
+      }
+      else {
         alert.error("An error occurred while sending the pin code: " + error.message);
       }
     }
