@@ -33,7 +33,7 @@ const Login: React.FunctionComponent<LoginProps> = () => {
     if (form.isValid()) {
       setLoading(true);
       axios
-        .post("http://134.209.20.129:8082/user/auth/sign-in", {
+        .post("http://188.166.165.2:8082/user/auth/sign-in", {
           email: form.values.email,
           password: form.values.password,
         })
@@ -43,8 +43,9 @@ const Login: React.FunctionComponent<LoginProps> = () => {
           setLoading(false);
         })
         .catch((error: any) => {
-          console.error("Error signing in:", error);
-          alert.error(error.message);
+          // console.error("Error signing in:", error);
+          if (error.message === 'Request failed with status code 404') alert.error('Invalid email or password');
+          else if (error.message !== 'Request failed with status code 404') alert.error('Error signing in: ' + error.message);
           setLoading(false);
         });
 

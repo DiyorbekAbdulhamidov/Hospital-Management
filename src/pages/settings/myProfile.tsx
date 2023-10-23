@@ -35,7 +35,7 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
       const savedToken = localStorage.getItem("access_token");
 
       axios
-        .put("http://134.209.20.129:8082/user/update-user", updatedData, {
+        .put("http://188.166.165.2:8082/user/update-user", updatedData, {
           headers: {
             //@ts-ignore
             Authorization: `Bearer ${JSON.parse(savedToken)}`,

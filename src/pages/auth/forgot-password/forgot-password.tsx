@@ -1,42 +1,36 @@
-import React from "react";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useState } from "react";
 import { Anchor, Box, Button, Center, Container, Group, Paper, Text, TextInput, Title, rem } from "@mantine/core";
-// import axios from "axios";
-// import { useForm } from "react-hook-form";
-import "react-toastify/dist/ReactToastify.css";
-import { Link } from "react-router-dom";
-import { IconArrowLeft } from "@tabler/icons-react";
-import classes from './forgot-password.module.scss';
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import { alert } from "../../../utils";
+import { IconArrowLeft } from "@tabler/icons-react";
+import classes from "./forgot-password.module.scss";
 
-const ForgotPassword: React.FunctionComponent = () => {
-  // const { control, handleSubmit } = useForm<{ email: string; newPassword: string }>();
+interface ForgotPasswordProps { }
 
-  // const onSubmit = async (data: { email: string; newPassword: string }) => {
-  //   try {
-  //     const response = await axios.put(
-  //       "http://134.209.20.129:8082/user/auth/update-password", data
-  //     );
+const ForgotPassword: React.FunctionComponent<ForgotPasswordProps> = () => {
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
 
-  //     const responseData = response.data;
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.get("http://188.166.165.2:8082/user/auth/forgot-password", {
+        params: { email: email },
+      });
 
-  //     if (responseData.status === "SUCCESS") {
-  //       alert.success("Password updated successfully!");
-  //     }
-  //     else {
-  //       alert.error("Failed to update the password!");
-  //     }
-  //   }
-  //   catch (error: any) {
-  //     alert.error("An error occurred while updating the password." + error.message);
-  //   }
+      const responseData = response.data;
 
-  // };
-
-  const test = () => {
-    alert.error('Network error')
-
-  }
+      if (responseData.status === "SUCCESS") {
+        alert.success("Reset link sent successfully!");
+        navigate('/forgot-password/verify');
+      }
+      else {
+        alert.error("Failed to send the reset link.");
+      }
+    } catch (error: any) {
+      alert.error("An error occurred while sending the reset link: " + error.message);
+    }
+  };
 
   return (
     <Box mt={100}>
@@ -49,7 +43,7 @@ const ForgotPassword: React.FunctionComponent = () => {
         </Text>
 
         <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
-          <TextInput label="Your email" placeholder="youremail@gmail.com" required />
+          <TextInput label="Your email" required placeholder="youremail@gmail.com" onChange={(event) => setEmail(event.target.value)} value={email} />
           <Group mt="lg" className={classes.controls}>
             <Anchor c="dimmed" size="sm" className={classes.control}>
               <Center inline>
@@ -59,12 +53,12 @@ const ForgotPassword: React.FunctionComponent = () => {
                 </Box>
               </Center>
             </Anchor>
-            <Button className={classes.control} onClick={test}>Reset password</Button>
+            <Button className={classes.control} onClick={handleSubmit}>Reset password</Button>
           </Group>
         </Paper>
       </Container>
     </Box>
   );
-}; 
+};
 
 export default ForgotPassword;

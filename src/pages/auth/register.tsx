@@ -70,14 +70,14 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
       };
 
       axios
-        .post("http://134.209.20.129:8082/user/auth/sign-up", userData)
+        .post("http://188.166.165.2:8082/user/auth/sign-up", userData)
         .then((response) => {
           console.log("User signed up successfully:", response.data);
           navigate("/login");
         })
         .catch((error) => {
           if (error.response) {
-            alert.error("Error signing up: " + error.response.data);
+            alert.error("Error signing up: ");
           }
           else if (error.request) {
             alert.error("Network error");

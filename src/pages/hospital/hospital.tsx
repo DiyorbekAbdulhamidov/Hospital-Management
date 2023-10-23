@@ -19,7 +19,7 @@ const Hospital: FunctionComponent<HospitalProps> = () => {
     async function getHospitals() {
       try {
         const response = await axios.get(
-          "http://134.209.20.129:8083/hospital/get-all",
+          "http://188.166.165.2:8083/hospital/get-all",
           {
             headers: {
               Authorization: `Bearer ${token}`,

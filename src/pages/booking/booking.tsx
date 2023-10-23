@@ -18,7 +18,7 @@ const Booking: FunctionComponent<BookingProps> = () => {
     const token = savedToken ? JSON.parse(savedToken) : null;
     if (token) {
       axios
-        .get("http://134.209.20.129:8084/hybrid-booking/get-user-bookings", {
+        .get("http://188.166.165.2:8084/hybrid-booking/get-user-bookings", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

@@ -46,7 +46,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
         const savedToken = localStorage.getItem("access_token");
         if (savedToken) {
           const response = await axios.get(
-            "http://134.209.20.129:8082/user/get-me",
+            "http://188.166.165.2:8082/user/get-me",
             {
               headers: {
                 Authorization: `Bearer ${JSON.parse(savedToken)}`,

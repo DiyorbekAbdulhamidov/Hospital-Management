@@ -18,7 +18,7 @@ const ChangeEmail: React.FunctionComponent<ChangeEmailProps> = () => {
   
   const handleEmailCheck = () => {
     axios
-      .post("http://134.209.20.129:8082/user/check-password", {
+      .post("http://188.166.165.2:8082/user/check-password", {
         email: email,
       }, {
         headers: {

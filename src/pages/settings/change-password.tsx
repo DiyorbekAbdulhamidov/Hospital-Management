@@ -14,7 +14,7 @@ const ChangePassword: React.FunctionComponent = () => {
   const onSubmit = async (data: { email: string; newPassword: string }) => {
     try {
       const response = await axios.put(
-        "http://134.209.20.129:8082/user/auth/update-password",
+        "http://188.166.165.2:8082/user/auth/update-password",
         data,
         {
           headers: {
