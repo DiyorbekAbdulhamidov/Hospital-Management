@@ -1,8 +1,8 @@
 import React from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { Anchor, Box, Button, Center, Container, Group, Paper, Text, TextInput, Title, rem } from "@mantine/core";
-import axios from "axios";
-import { useForm } from "react-hook-form";
+// import axios from "axios";
+// import { useForm } from "react-hook-form";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 import { IconArrowLeft } from "@tabler/icons-react";
@@ -10,28 +10,28 @@ import classes from './forgot-password.module.scss';
 import { alert } from "../../../utils";
 
 const ForgotPassword: React.FunctionComponent = () => {
-  const { control, handleSubmit } = useForm<{ email: string; newPassword: string }>();
+  // const { control, handleSubmit } = useForm<{ email: string; newPassword: string }>();
 
-  const onSubmit = async (data: { email: string; newPassword: string }) => {
-    try {
-      const response = await axios.put(
-        "http://134.209.20.129:8082/user/auth/update-password", data
-      );
+  // const onSubmit = async (data: { email: string; newPassword: string }) => {
+  //   try {
+  //     const response = await axios.put(
+  //       "http://134.209.20.129:8082/user/auth/update-password", data
+  //     );
 
-      const responseData = response.data;
+  //     const responseData = response.data;
 
-      if (responseData.status === "SUCCESS") {
-        alert.success("Password updated successfully!");
-      }
-      else {
-        alert.error("Failed to update the password!");
-      }
-    }
-    catch (error: any) {
-      alert.error("An error occurred while updating the password." + error.message);
-    }
+  //     if (responseData.status === "SUCCESS") {
+  //       alert.success("Password updated successfully!");
+  //     }
+  //     else {
+  //       alert.error("Failed to update the password!");
+  //     }
+  //   }
+  //   catch (error: any) {
+  //     alert.error("An error occurred while updating the password." + error.message);
+  //   }
 
-  };
+  // };
 
   const test = () => {
     alert.error('Network error')
