@@ -1,14 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "@mantine/form";
 import axios from "axios";
-import {
-  Checkbox,
-  Group,
-  LoadingOverlay,
-  PasswordInput,
-  TextInput,
-  Title,
-} from "@mantine/core";
+import { Checkbox, Group, LoadingOverlay, PasswordInput, TextInput, Title, } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { Box, Button, Flex, Paper, Text } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
@@ -20,7 +13,7 @@ interface LoginProps { }
 const Login: React.FunctionComponent<LoginProps> = () => {
   const { login } = useAuth();
   const [loading, setLoading] = useState(false);
-  const [visible, setVisible] = useState(false);
+  const [, setVisible] = useState(false);
   const navigate = useNavigate();
 
   const toggle = () => {
@@ -55,7 +48,7 @@ const Login: React.FunctionComponent<LoginProps> = () => {
           setLoading(false);
         });
 
-    } 
+    }
     else {
       notifications.show({
         message: "Please fill out the form correctly.",
@@ -63,9 +56,6 @@ const Login: React.FunctionComponent<LoginProps> = () => {
       });
     }
   };
-
-
-  useEffect(() => { }, []);
 
   return (
     <>

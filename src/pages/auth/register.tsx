@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "@mantine/form";
 import axios from "axios";
-import { useDisclosure } from "@mantine/hooks";
-import { Group, Input, LoadingOverlay, PasswordInput, TextInput, Title, } from "@mantine/core";
+import { Input, LoadingOverlay, PasswordInput, TextInput, Title, } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
 import { Box, Button, Flex, Paper, Text } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,8 +14,8 @@ interface RegisterProps { }
 
 const Register: React.FunctionComponent<RegisterProps> = () => {
   const id = useId();
-  const [visible, { toggle }] = useDisclosure(false);
   const [gender, setGender] = useState<string | null>("");
+  const [loading, setLoading] = useState(false);
 
   const form = useForm({
     initialValues: {
@@ -55,7 +54,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
 
   const handleSubmit = () => {
     if (form.isValid() && gender !== null) {
-      toggle();
+      setLoading(true); // Yuklanishni boshlaymiz
       const formattedDateOfBirth = format(
         new Date(form.values.dateOfBirth),
         "dd.MM.yyyy"
@@ -70,10 +69,10 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
         gender: gender,
       };
 
-      axios.post("http://134.209.20.129:8082/user/auth/sign-up", userData)
+      axios
+        .post("http://134.209.20.129:8082/user/auth/sign-up", userData)
         .then((response) => {
           console.log("User signed up successfully:", response.data);
-          toggle();
           navigate("/login");
         })
         .catch((error) => {
@@ -81,23 +80,25 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
             alert.error("Error signing up: " + error.response.data);
           }
           else if (error.request) {
-            alert.error("No response received");
+            alert.error("Network error");
           }
           else {
-            console.error("Error setting up the request:", error.message);
+            alert.error("Error setting up the request: " + error.message);
           }
-          // toggle();
+        })
+        .finally(() => {
+          setLoading(false);
         });
     }
   };
 
-  return (
+  return loading ? (
+    <LoadingOverlay visible />
+  ) : (
     <Box>
-      <Flex mt={10} justify="center" align="center">
+      <Flex mt={60} justify="center" align="center">
         <Paper className="formBox" shadow="xl" pos="relative">
           <Box mt={10}>
-            <LoadingOverlay visible={visible} overlayBlur={2} />
-
             <Text ta="center" c="#2972FE" fw={600} fz={40}>
               Doctor Q
             </Text>
@@ -176,13 +177,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                 </label>
                 <label>
                   <small>Female</small>
-                  <input
-                    type="radio"
-                    required
-                    name="gender"
-                    value="female"
-                    onChange={() => setGender("FEMALE")}
-                  />
+                  <input required name="gender" value="female" type="radio" onChange={() => setGender("FEMALE")} />
                 </label>
               </div>
               <Button fz={25} size="md" w="100%" radius={70} type="submit" mt="sm">
@@ -190,28 +185,21 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
               </Button>
             </form>
           </Box>
-          <Text ta="center" pt={20}>
+          {/* <Text ta="center" pt={20}>
             or continue with
           </Text>
 
-          <Flex mt={20} justify="space-around">
+          <Flex mt={20} justify="space around" align={'center'}>
             <Button className="socialLink" bg="white" c="black" fz={20} w={150}>
               Facebook
             </Button>
             <Group position="center">
-              <Button
-                className="socialLink"
-                bg="white"
-                c="black"
-                fz={20}
-                w={150}
-                onClick={toggle}
-              >
+              <Button className="socialLink" bg="white" c="black" fz={20} w={150} >
                 Google
               </Button>
             </Group>
-          </Flex>
-          <Title fw={400} ta="center" mt={20} fz={20}>
+          </Flex> */}
+          <Title pb={20} fw={400} ta="center" mt={20} fz={20}>
             Already have an account?{" "}
             <Text span c="blue" inherit>
               <Link to="/login">Sign In</Link>
