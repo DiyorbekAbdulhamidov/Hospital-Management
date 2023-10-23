@@ -49,12 +49,14 @@ const Login: React.FunctionComponent<LoginProps> = () => {
           navigate("/userPanel");
           setLoading(false);
         })
-        .catch((error) => {
+        .catch((error: any) => {
           console.error("Error signing in:", error);
-          alert.error('ERROR: Invalid email or password');
+          alert.error(error.message);
           setLoading(false);
         });
-    } else {
+
+    } 
+    else {
       notifications.show({
         message: "Please fill out the form correctly.",
         color: "red",
