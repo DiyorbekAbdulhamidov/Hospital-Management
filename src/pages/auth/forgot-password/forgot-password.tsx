@@ -65,6 +65,6 @@ const ForgotPassword: React.FunctionComponent = () => {
       </Container>
     </Box>
   );
-};
+}; 
 
 export default ForgotPassword;
