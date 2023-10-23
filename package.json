@@ -72,6 +72,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@types/lodash": "^4.14.198",
     "eslint": "^8.49.0",
     "eslint-config-airbnb-typescript": "^17.1.0",
