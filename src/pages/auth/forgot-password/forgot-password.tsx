@@ -30,7 +30,13 @@ const ForgotPassword: React.FunctionComponent = () => {
     catch (error: any) {
       alert.error("An error occurred while updating the password." + error.message);
     }
+
   };
+
+  const test = () => {
+    alert.error('Network error')
+
+  }
 
   return (
     <Box mt={100}>
@@ -53,7 +59,7 @@ const ForgotPassword: React.FunctionComponent = () => {
                 </Box>
               </Center>
             </Anchor>
-            <Button className={classes.control}>Reset password</Button>
+            <Button className={classes.control} onClick={test}>Reset password</Button>
           </Group>
         </Paper>
       </Container>
