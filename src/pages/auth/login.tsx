@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useForm } from "@mantine/form";
 import axios from "axios";
 import { Checkbox, Group, LoadingOverlay, PasswordInput, TextInput, Title, } from "@mantine/core";
-import { notifications } from "@mantine/notifications";
 import { Box, Button, Flex, Paper, Text } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../modules/auth/context";
@@ -30,6 +29,7 @@ const Login: React.FunctionComponent<LoginProps> = () => {
   });
 
   const handleSignIn = () => {
+
     if (form.isValid()) {
       setLoading(true);
       axios
@@ -43,18 +43,13 @@ const Login: React.FunctionComponent<LoginProps> = () => {
           setLoading(false);
         })
         .catch((error: any) => {
-          // console.error("Error signing in:", error);
           if (error.message === 'Request failed with status code 404') alert.error('Invalid email or password');
           else if (error.message !== 'Request failed with status code 404') alert.error('Error signing in: ' + error.message);
           setLoading(false);
         });
-
     }
     else {
-      notifications.show({
-        message: "Please fill out the form correctly.",
-        color: "red",
-      });
+      alert.error('Password must have at least 5 letters or Invalid email');
     }
   };
 
@@ -79,6 +74,7 @@ const Login: React.FunctionComponent<LoginProps> = () => {
                   mt="sm"
                   size="md"
                   label="Email"
+                  error={form.errors.email}
                   placeholder="Email"
                   {...form.getInputProps("email")}
                 />
@@ -87,6 +83,7 @@ const Login: React.FunctionComponent<LoginProps> = () => {
                   size="md"
                   radius={70}
                   label="Password"
+                  error={form.errors.password}
                   placeholder="Password"
                   {...form.getInputProps("password")}
                 />
