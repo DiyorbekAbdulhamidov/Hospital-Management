@@ -1,22 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Anchor, Box, Button, Center, Container, Group, Paper, Text, TextInput, Title, rem } from "@mantine/core";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
 import { alert } from "../../../utils";
 import { IconArrowLeft } from "@tabler/icons-react";
 import classes from "./forgot-password.module.scss";
 import { useEmail } from "../../../modules/home/context";
+import * as yup from "yup";
 
 interface ForgotPasswordProps { }
 
 const ForgotPassword: React.FunctionComponent<ForgotPasswordProps> = () => {
   const { email, setNewEmail } = useEmail();
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+
+  const validationSchema = yup.object().shape({
+    email: yup.string().email("Invalid email").required("Email is required"),
+  });
 
   const handleSubmit = async () => {
     try {
+      const values = { email };
+      await validationSchema.validate(values, { abortEarly: false });
+
       const response = await axios.get("http://188.166.165.2:8082/user/auth/forgot-password", {
-        params: { email: email },
+        params: { email },
       });
 
       const responseData = response.data;
@@ -28,8 +37,16 @@ const ForgotPassword: React.FunctionComponent<ForgotPasswordProps> = () => {
       else {
         alert.error("Failed to send the reset link.");
       }
-    } catch (error: any) {
-      alert.error("An error occurred while sending the reset link: " + error.message);
+    }
+    catch (error: any) {
+      if (error instanceof yup.ValidationError) {
+        const errorMessage = error.inner.map((err) => err.message).join(' ');
+        setErrorMessage(errorMessage);
+      }
+      else {
+        const errorMessage = error.response.data.message || 'An error occurred.';
+        alert.error("❌" + errorMessage);
+      }
     }
   };
 
@@ -50,7 +67,9 @@ const ForgotPassword: React.FunctionComponent<ForgotPasswordProps> = () => {
             placeholder="youremail@gmail.com"
             onChange={(event) => setNewEmail(event.target.value)}
             value={email}
+            error={errorMessage}
           />
+
           <Group mt="lg" className={classes.controls}>
             <Anchor c="dimmed" size="sm" className={classes.control}>
               <Center inline>

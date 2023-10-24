@@ -47,6 +47,9 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
         }
         return null;
       },
+      phoneNumber: (value) => {
+        return /^\+998 \(\d{2}\) \d{3}-\d{2}-\d{2}$/.test(value) ? null : 'Invalid phone number format'
+      },
     },
   });
 
@@ -77,13 +80,13 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
         })
         .catch((error) => {
           if (error.response) {
-            alert.error("Error signing up: ");
+            alert.error("❌" + error.response.data.message);
           }
           else if (error.request) {
             alert.error("Network error");
           }
           else {
-            alert.error("Error setting up the request: " + error.message);
+            alert.error("❌" + error.response.data.message);
           }
         })
         .finally(() => {
@@ -114,6 +117,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                 size="xs"
                 label="Full Name"
                 placeholder="Full Name"
+                
                 {...form.getInputProps("fullName")}
               />
               <TextInput
@@ -122,6 +126,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                 size="xs"
                 label="Email"
                 placeholder="Email"
+                
                 {...form.getInputProps("email")}
               />
               <PasswordInput
@@ -130,6 +135,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                 radius={70}
                 label="Password"
                 placeholder="Password"
+                
                 {...form.getInputProps("password")}
               />
               <DateInput
@@ -139,6 +145,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                 label="Date Of Birth"
                 valueFormat="DD.MM.YYYY"
                 placeholder="Date Of Your Birth (dd.mm.yyyy)"
+                
                 maw={400}
                 mx="auto"
                 {...form.getInputProps("dateOfBirth")}
@@ -148,7 +155,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                 mt="sm"
                 id={id}
                 label="Your phone"
-                required
+                
                 maw={320}
                 mx="auto"
                 size="xs"
@@ -160,6 +167,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                   mask="+998 (00) 000-00-00"
                   id={id}
                   placeholder="Your phone"
+                  
                   {...form.getInputProps("phoneNumber")}
                 />
               </Input.Wrapper>
@@ -169,7 +177,6 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                   <small>Male</small>
                   <input
                     type="radio"
-                    required
                     name="gender"
                     value="male"
                     onChange={() => setGender("MALE")}
@@ -177,7 +184,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                 </label>
                 <label>
                   <small>Female</small>
-                  <input required name="gender" value="female" type="radio" onChange={() => setGender("FEMALE")} />
+                  <input  name="gender" value="female" type="radio" onChange={() => setGender("FEMALE")} />
                 </label>
               </div>
               <Button fz={25} size="md" w="100%" radius={70} type="submit" mt="sm">

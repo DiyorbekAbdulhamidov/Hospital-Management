@@ -43,8 +43,7 @@ const Login: React.FunctionComponent<LoginProps> = () => {
           setLoading(false);
         })
         .catch((error: any) => {
-          if (error.message === 'Request failed with status code 404') alert.error('Invalid email or password');
-          else if (error.message !== 'Request failed with status code 404') alert.error('Error signing in: ' + error.message);
+          alert.error('❌'+ error.response.data.message);
           setLoading(false);
         });
     }
