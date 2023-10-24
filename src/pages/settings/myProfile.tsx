@@ -8,7 +8,14 @@ import { alert } from "../../utils";
 
 const schema = yup.object({
   fullName: yup.string().min(2).required().label("Full Name"),
-  dateOfBirth: yup.string().min(5).label("Date of Birth"),
+  dateOfBirth: yup
+    .string()
+    .matches(/^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.\d{4}$/, {
+      excludeEmptyString: true,
+      message: "Date of Birth must be in dd.mm.yyyy format",
+    })
+    .required()
+    .label("Date of Birth"),
   phoneNumber: yup.string().min(5).required().label("Phone Number"),
   gender: yup.string().label("Gender"),
 });
@@ -47,19 +54,20 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
             setIsEditing(false);
             //@ts-ignore
             setUserData(updatedData);
-            alert.success('User infos updated successfully!')
+            alert.success("User info updated successfully!");
           }
           else {
-            alert.error(response.data.error)
+            alert.error(response.data.error);
           }
         })
         .catch((error) => {
-          alert.error('Error updating user infos')
+          alert.error("Error updating user info");
         });
-    }).catch((error: any) => {
-      alert.error('❌: ' + error)
-      console.error("Ma'lumotlar noto'g'ri: ", error);
-    });
+    })
+      .catch((error: any) => {
+        alert.error("❌: " + error);
+        console.error("Ma'lumotlar noto'g'ri: ", error);
+      });
   };
 
   const handleChange = (field: string, value: string) => {
@@ -160,15 +168,7 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
             )}
           </Flex>
           <Flex direction="column" justify="center" align="center">
-            <Text c="blue" fz={20}>
-              Email
-            </Text>
-            <Button w="30%" disabled>
-              <Text c="black" fz={20}>
-                {userData?.email}
-              </Text>
-            </Button>
-            <Button onClick={() => navigate('/userPanel')} mt={50} w={300} h={50}>
+            <Button onClick={() => navigate("/userPanel")} fz={20} mt={50} w={300} h={50}>
               Go to Home
             </Button>
           </Flex>

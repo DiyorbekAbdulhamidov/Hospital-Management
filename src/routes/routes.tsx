@@ -25,6 +25,7 @@ const AppRoutes: FunctionComponent = () => {
           <Route path="/userPanel/settings" element={user ? <Settings.MainSettings /> : <Navigate to="/login" />} />
           <Route path="/userPanel/settings/myProfile" element={user ? <Settings.MyProfile /> : <Navigate to="/login" />} />
           <Route path="/userPanel/settings/change-password" element={user ? <Settings.ChangePassword /> : <Navigate to="/login" />} />
+          <Route path="/userPanel/settings/send-verification" element={user ? <Settings.SendVerification /> : <Navigate to="/login" />} />
           <Route path="/userPanel/settings/changeEmail" element={user ? <Settings.ChangeEmail /> : <Navigate to="/login" />} />
           <Route path="/single-hospital/:hospitalId" element={<SingleHospital hospitalId="" />} />
           <Route path="/doctor/:doctorId" element={<DoctorPage />} />

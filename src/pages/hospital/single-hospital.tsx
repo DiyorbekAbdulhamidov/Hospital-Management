@@ -45,7 +45,7 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
 
     async function getDoctorsData() {
       try {
-        const response = await axios.get('https://188.166.165.2:8082/user/get-all-doctors-from-hospital', {
+        const response = await axios.get('http://188.166.165.2:8082/user/get-all-doctors-from-hospital', {
           params: {
             page: 0,
             size: 10,

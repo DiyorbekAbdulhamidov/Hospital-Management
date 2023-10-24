@@ -159,30 +159,6 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
                     ),
                   },
                   {
-                    value: "Settings",
-                    label: (
-                      <Flex
-                        pb={20}
-                        align="center"
-                        pl={20}
-                        pt={20}
-                        onClick={() => {
-                          setSettings(true);
-                          setHospital(false);
-                          setSpetialization(false);
-                          setshowBooking(false);
-                        }}
-                      >
-                        <IconSettings
-                          style={{ width: rem(16), height: rem(40) }}
-                        />
-                        <Box fz={17} ml={10}>
-                          Profile Settings
-                        </Box>
-                      </Flex>
-                    ),
-                  },
-                  {
                     value: "Booking",
                     label: (
                       <Flex align="center" pl={20} pt={20} pb={20}
@@ -222,6 +198,30 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
                         />
                         <Box fz={17} ml={10}>
                           Spetialization
+                        </Box>
+                      </Flex>
+                    ),
+                  },
+                  {
+                    value: "Settings",
+                    label: (
+                      <Flex
+                        pb={20}
+                        align="center"
+                        pl={20}
+                        pt={20}
+                        onClick={() => {
+                          setSettings(true);
+                          setHospital(false);
+                          setSpetialization(false);
+                          setshowBooking(false);
+                        }}
+                      >
+                        <IconSettings
+                          style={{ width: rem(16), height: rem(40) }}
+                        />
+                        <Box fz={17} ml={10}>
+                          Profile Settings
                         </Box>
                       </Flex>
                     ),

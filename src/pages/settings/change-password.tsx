@@ -3,35 +3,29 @@ import "react-toastify/dist/ReactToastify.css";
 import { Box, Button, Flex, Input, Text } from "@mantine/core";
 import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
+import { alert } from "../../utils";
 
 const ChangePassword: React.FunctionComponent = () => {
   const { control, handleSubmit } = useForm<{ email: string; newPassword: string }>();
-  const savedToken: string = localStorage.getItem("access_token") || "";
 
   const onSubmit = async (data: { email: string; newPassword: string }) => {
     try {
       const response = await axios.put(
-        "http://188.166.165.2:8082/user/auth/update-password",
-        data,
-        {
-          headers: {
-            Authorization: `Bearer ${JSON.parse(savedToken)}`,
-          },
-        }
+        "http://188.166.165.2:8082/user/auth/update-password", data,
       );
 
       const responseData = response.data;
 
       if (responseData.status === "SUCCESS") {
-        toast.success("Password updated successfully!");
-      } else {
-        toast.error("Failed to update the password!");
+        alert.success("Password updated successfully!");
       }
-    } catch (error: any) {
-      toast.error("An error occurred while updating the password.", error.message);
+      else {
+        alert.error("Failed to update the password!");
+      }
+    }
+    catch (error: any) {
+      alert.error("An error occurred while updating the password." + error.message);
     }
   };
 

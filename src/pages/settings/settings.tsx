@@ -22,7 +22,7 @@ const MainSettings: React.FunctionComponent<SettingsProps> = () => {
               Change Password
             </Button>
           </Link>
-          <Link to="/userPanel/settings/changeEmail">
+          <Link to="/userPanel/settings/send-verification">
             <Button w="100%" h={50} fz={20}>
               Change Email
             </Button>
