@@ -66,7 +66,6 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
     })
       .catch((error: any) => {
         alert.error("❌: " + error);
-        console.error("Ma'lumotlar noto'g'ri: ", error);
       });
   };
 

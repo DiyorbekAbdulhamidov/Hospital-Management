@@ -32,7 +32,8 @@ const Password: React.FunctionComponent = () => {
       if (responseData.status === "SUCCESS") {
         navigate('/login');
         alert.success("Password updated successfully!");
-      } else {
+      }
+      else {
         alert.error("Failed to update the password!");
       }
     }
@@ -40,7 +41,9 @@ const Password: React.FunctionComponent = () => {
       if (error instanceof yup.ValidationError) {
         const errorMessage = error.inner.map((err) => err.message).join(' ');
         seterrorMessage(errorMessage);
-        alert.error('Error updating the password')
+      }
+      else {
+        alert.error("❌" + error.response.data.message);
       }
     }
   };

@@ -5,18 +5,27 @@ import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { alert } from "../../utils";
+import { useAuth } from "../../modules/auth/context";
+import * as yup from "yup";
 
 const ChangePassword: React.FunctionComponent = () => {
   const { control, handleSubmit } = useForm<{ email: string; newPassword: string }>();
+  const { userData } = useAuth();
+
+  const passwordSchema = yup.object().shape({
+    newPassword: yup.string().label('Password').uppercase().lowercase().length(8).required()
+  });
 
   const onSubmit = async (data: { email: string; newPassword: string }) => {
     try {
+      const values = { email: data.email, newPassword: data.newPassword };
+      await passwordSchema.validate(values, { abortEarly: false });
+
       const response = await axios.put(
         "http://188.166.165.2:8082/user/auth/update-password", data,
       );
 
       const responseData = response.data;
-
       if (responseData.status === "SUCCESS") {
         alert.success("Password updated successfully!");
       }
@@ -25,7 +34,13 @@ const ChangePassword: React.FunctionComponent = () => {
       }
     }
     catch (error: any) {
-      alert.error("An error occurred while updating the password." + error.message);
+      if (error instanceof yup.ValidationError) {
+        const errorMessage = error.inner.map((err) => err.message).join(' ');
+        alert.error(errorMessage);
+      }
+      else {
+        alert.error("❌" + error.response.data.message);
+      }
     }
   };
 
@@ -46,10 +61,10 @@ const ChangePassword: React.FunctionComponent = () => {
                   <Input
                     type="email"
                     placeholder="Email"
-                    value={field.value}
+                    value={userData?.email}
+                    disabled
                     onChange={field.onChange}
                     onBlur={field.onBlur}
-                    required
                   />
                 )}
               />
@@ -66,16 +81,15 @@ const ChangePassword: React.FunctionComponent = () => {
                     value={field.value}
                     onChange={field.onChange}
                     onBlur={field.onBlur}
-                    required
                   />
                 )}
               />
             </div>
-            <Button type="submit" w="100%" h={50} fz={30} mt={40}>
+            <Button type="submit" w="100%" h={50} fz={25} mt={40}>
               Update Password
             </Button>
-            <Button type="submit" w="100%" h={50} fz={30} mt={40}>
-              <Link to='/userPanel'> Back to Home</Link>
+            <Button type="submit" w="100%" h={50} fz={25} mt={40}>
+              <Link to="/userPanel">Back to Home</Link>
             </Button>
           </form>
         </Box>
