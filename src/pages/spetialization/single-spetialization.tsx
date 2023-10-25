@@ -57,10 +57,10 @@ const SingleSpetialization: FunctionComponent<SingleSpetializationProps> = () =>
           <Text fw={500}>{spetializationData.name}</Text>
         </Badge>
 
-        <Text><Text color="red" >Who is Cardiolog:</Text> {spetializationData.description}</Text>
+        <Text><Text color="red" >Who is {spetializationData.name}:</Text> {spetializationData.description}</Text>
 
         <Text><Text color="red">Which Treatment:</Text> {spetializationData.diseaseTreatment}</Text>
-        <Button onClick={() => navigate(-1)} h={45} mt={20}  left={200}>Go Back</Button>
+        <Button onClick={() => navigate(-1)} h={45} mt={20} left={200}>Go Back</Button>
 
       </Card>
     </Box>
