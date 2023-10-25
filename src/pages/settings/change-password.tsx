@@ -11,6 +11,7 @@ import * as yup from "yup";
 const ChangePassword: React.FunctionComponent = () => {
   const { control, handleSubmit } = useForm<{ email: string; newPassword: string }>();
   const { userData } = useAuth();
+  const emaill = userData?.email;
 
   const passwordSchema = yup.object().shape({
     newPassword: yup.string().label('Password').uppercase().lowercase().length(8).required()
@@ -22,10 +23,14 @@ const ChangePassword: React.FunctionComponent = () => {
       await passwordSchema.validate(values, { abortEarly: false });
 
       const response = await axios.put(
-        "http://188.166.165.2:8082/user/auth/update-password", data,
+        "http://188.166.165.2:8082/user/auth/update-password", {
+        email: emaill,
+        newPassword: data.newPassword
+      },
       );
 
       const responseData = response.data;
+
       if (responseData.status === "SUCCESS") {
         alert.success("Password updated successfully!");
       }
@@ -56,7 +61,7 @@ const ChangePassword: React.FunctionComponent = () => {
               <Controller
                 name="email"
                 control={control}
-                defaultValue=""
+                defaultValue={userData?.email}
                 render={({ field }) => (
                   <Input
                     type="email"
