@@ -49,6 +49,7 @@ const Login: React.FunctionComponent<LoginProps> = () => {
     }
     else {
       alert.error('Password must have at least 5 letters or Invalid email');
+      setLoading(false);
     }
   };
 

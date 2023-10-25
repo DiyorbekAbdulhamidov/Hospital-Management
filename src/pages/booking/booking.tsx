@@ -16,6 +16,7 @@ const Booking: FunctionComponent<BookingProps> = () => {
   useEffect(() => {
     const savedToken = localStorage.getItem("access_token");
     const token = savedToken ? JSON.parse(savedToken) : null;
+
     if (token) {
       axios
         .get("http://188.166.165.2:8084/hybrid-booking/get-user-bookings", {
