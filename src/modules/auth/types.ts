@@ -65,6 +65,13 @@ export namespace IEntity {
     status: string,
     weekDay: string
   }
+
+  export interface Spetialization {
+    id: string,
+    name: string,
+    description: string,
+    diseaseTreatment: string
+  }
 }
 
 export namespace IForm {

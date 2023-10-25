@@ -1,37 +1,96 @@
-import { Box, Card, Grid, Image, Text } from "@mantine/core";
+import { FunctionComponent, useEffect, useState } from "react";
+import { Box, LoadingOverlay, Grid, Card, Image, Text, Button, Group, Col } from "@mantine/core";
+import axios from "axios";
+import { IEntity } from "../../modules/auth/types";
+import spetializationImg from "../../assets/images/spetialization-img.jpg";
+import { useNavigate } from "react-router";
+import { alert } from "../../utils";
 
-interface SpetializationProps {}
+interface SpetializationProps { }
 
-const Spetialization: React.FunctionComponent<SpetializationProps> = () => {
-  return (
-    <>
+const Spetialization: FunctionComponent<SpetializationProps> = () => {
+  const [spetialization, setSpetialization] = useState<IEntity.Spetialization[]>([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const savedToken = localStorage.getItem("access_token");
+  const token = savedToken ? JSON.parse(savedToken) : null;
+
+  useEffect(() => {
+    async function getSpetialization() {
+      try {
+        const response = await axios.get(
+          "http://188.166.165.2:8082/user/get-all-specialties",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.status === 200) {
+          setSpetialization(response.data.data);
+          setLoading(false);
+          console.log(response.data.data);
+        }
+      }
+      catch (error: any) {
+        alert.error("Xatolik yuz berdi: " + error.message);
+        setLoading(false);
+      }
+    }
+
+    if (token) {
+      getSpetialization();
+    }
+  }, [token]);
+
+  if (loading) {
+    return (
       <Box>
-        <Box>
-          <Grid gutter="xl" justify="center">
-            <Grid.Col bg={"red"} w="200px" h="auto" span={4}>
-              <Card shadow="sm" padding="xl" component="a" target="_blank">
-                <Card.Section>
-                  <Image
-                    src="https://images.unsplash.com/photo-1579227114347-15d08fc37cae?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80"
-                    height={120}
-                    alt="No way!"
-                  />
-                </Card.Section>
- 
-                <Text weight={500} size="lg" mt="md">
-                  You&apos;ve won a million dollars in cash!
-                </Text>
-
-                <Text mt="xs" color="dimmed" size="sm">
-                  Please click anywhere on this card to claim your reward, this
-                  is not a fraud, trust us
-                </Text>
-              </Card>
-            </Grid.Col>
-          </Grid>
-        </Box>
+        <LoadingOverlay visible />
       </Box>
-    </>
+    );
+  }
+
+  return (
+    <Box>
+      <Grid gutter="md">
+        {spetialization.map((spetialization: IEntity.Spetialization) => (
+          <Col span={4} key={spetialization.id}>
+            <Card shadow="sm" padding="lg" radius="md" withBorder>
+              <Card.Section component="a">
+                <Image
+                  src={spetializationImg}
+                  alt="Norway"
+                  height={400}
+                />
+              </Card.Section>
+
+              <Group mt="md" mb="xs">
+                <Text align="center" fw={500}>{spetialization.name}</Text>
+              </Group>
+
+              <Text size="sm" c="dimmed">
+                {spetialization.diseaseTreatment}
+              </Text>
+
+              <Button
+                variant="light"
+                color="blue"
+                fullWidth
+                mt="md"
+                radius="md"
+                onClick={() => {
+                  navigate(`/single-spetialization/${spetialization.id}`);
+                }}
+              >
+                View
+              </Button>
+            </Card>
+          </Col>
+        ))}
+      </Grid>
+    </Box>
   );
 };
 

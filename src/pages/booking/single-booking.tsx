@@ -21,7 +21,7 @@ const SingleBooking: FunctionComponent<SingleBookingProps> = () => {
 
   useEffect(() => {
     if (token) {
-      axios.get("http://134.209.20.129:8084/hybrid-booking/get-booking", {
+      axios.get("http://188.166.165.2:8084/hybrid-booking/get-booking", {
         headers: {
           Authorization: `Bearer ${token}`,
         }, params: { bookingId }
