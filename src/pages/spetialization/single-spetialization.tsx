@@ -3,7 +3,7 @@ import React, { FunctionComponent, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import { IEntity } from "../../modules/auth/types";
 import { alert } from "../../utils";
-import spetializationImg from "../../assets/images/soe.jpg";
+import spetializationImg from "../../assets/images/doctor-s-hand-holding-stethoscope-closeup_53876-105091.avif";
 import { Box, Text, Card, Image, Button, LoadingOverlay, Badge } from "@mantine/core";
 
 interface SingleSpetializationProps {
@@ -53,16 +53,16 @@ const SingleSpetialization: FunctionComponent<SingleSpetializationProps> = () =>
           <Image src={spetializationImg} alt="spetializationImg" />
         </Card.Section>
 
-        <Badge size="80px" fz={20} ml={10} mt="md" mb="xs">
+        <Badge size="80px" fz={20} ml={120} mt="md" mb="xs">
           <Text fw={500}>{spetializationData.name}</Text>
         </Badge>
 
-        <Text ><Text color="red" >Who is Cardiolog:</Text> {spetializationData.description}</Text>
+        <Text><Text color="red" >Who is Cardiolog:</Text> {spetializationData.description}</Text>
 
         <Text><Text color="red">Which Treatment:</Text> {spetializationData.diseaseTreatment}</Text>
+        <Button onClick={() => navigate(-1)} h={45} mt={20}  left={200}>Go Back</Button>
 
       </Card>
-      <Button onClick={() => navigate(-1)} h={45} left={600}>Go Back</Button>
     </Box>
   );
 }
