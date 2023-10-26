@@ -16,7 +16,8 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
   const [hospitalData, setHospitalData] = useState<any | null>(null);
   const [doctorsData, setDoctorsData] = useState<IEntity.Doctor[]>([]);
 
-  console.log(hospitalData);
+  console.log(hospitalData?.location);
+
 
   const [loading, setLoading] = useState(true);
 
@@ -48,7 +49,7 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
         const response = await axios.get('http://188.166.165.2:8082/user/get-all-doctors-from-hospital', {
           params: {
             page: 0,
-            size: 10,
+            size: 30,
             hospitalId,
           },
           headers: {

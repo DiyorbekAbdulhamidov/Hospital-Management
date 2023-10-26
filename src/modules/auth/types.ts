@@ -37,6 +37,10 @@ export namespace IEntity {
     name: string;
   }
 
+  export interface SingleHospital {
+      
+  }
+
   export interface Doctor {
     id: string;
     fullName: string;
