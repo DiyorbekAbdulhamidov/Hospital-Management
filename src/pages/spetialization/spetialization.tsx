@@ -1,15 +1,27 @@
 import { FunctionComponent, useEffect, useState } from "react";
-import { Box, LoadingOverlay, Grid, Card, Image, Text, Button, Group, Col } from "@mantine/core";
+import {
+  Box,
+  LoadingOverlay,
+  Grid,
+  Card,
+  Image,
+  Text,
+  Button,
+  Group,
+  Col,
+} from "@mantine/core";
 import axios from "axios";
 import { IEntity } from "../../modules/auth/types";
 import spetializationImg from "../../assets/images/spetialization-img.jpg";
 import { useNavigate } from "react-router";
 import { alert } from "../../utils";
 
-interface SpetializationProps { }
+interface SpetializationProps {}
 
 const Spetialization: FunctionComponent<SpetializationProps> = () => {
-  const [spetialization, setSpetialization] = useState<IEntity.Spetialization[]>([]);
+  const [spetialization, setSpetialization] = useState<
+    IEntity.Spetialization[]
+  >([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -32,8 +44,7 @@ const Spetialization: FunctionComponent<SpetializationProps> = () => {
           setLoading(false);
           console.log(response.data.data);
         }
-      }
-      catch (error: any) {
+      } catch (error: any) {
         alert.error("Xatolik yuz berdi: " + error.message);
         setLoading(false);
       }
@@ -59,15 +70,13 @@ const Spetialization: FunctionComponent<SpetializationProps> = () => {
           <Col span={4} key={spetialization.id}>
             <Card shadow="sm" padding="lg" radius="md" withBorder>
               <Card.Section component="a">
-                <Image
-                  src={spetializationImg}
-                  alt="Norway"
-                  height={400}
-                />
+                <Image src={spetializationImg} alt="Norway" height={400} />
               </Card.Section>
 
               <Group mt="md" mb="xs">
-                <Text align="center" fw={500}>{spetialization.name}</Text>
+                <Text align="center" fw={500}>
+                  {spetialization.name}
+                </Text>
               </Group>
 
               <Text size="sm" c="dimmed">
