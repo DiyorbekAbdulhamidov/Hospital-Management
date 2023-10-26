@@ -19,7 +19,7 @@ const Booking: FunctionComponent<BookingProps> = () => {
 
     if (token) {
       axios
-        .get("http://188.166.165.2:8084/hybrid-booking/get-user-bookings", {
+        .get("https://docs.diordev.me:8084/hybrid-booking/get-user-bookings", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
