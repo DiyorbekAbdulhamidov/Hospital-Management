@@ -140,7 +140,7 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
         Go Back
       </Button>
 
-      <Modal opened={opened} onClose={close} size="auto" sx={{ borderRadius: 20 }}>
+      <Modal opened={opened} onClose={close} size="xs" sx={{ borderRadius: 20 }}>
         <Text mb={20} size={24} color='black' align='center'>{doctorData?.fullName}'s available times:</Text>
         <Group sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr' }}>
           {bookingTimes?.map((times: any) => (
@@ -154,7 +154,7 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
             </Button>
           ))}
         </Group>
-        <Button size='40' left={100} w={130} h={40} color='red'
+        <Button size='40' left={77} w={130} h={40} color='red'
           mt={20}
           onClick={() => bookAppointment(bookingTimes?.find((time: any) => time.selected))}>
           Booking

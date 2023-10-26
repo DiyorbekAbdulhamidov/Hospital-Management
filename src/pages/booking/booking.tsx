@@ -84,7 +84,7 @@ const Booking: FunctionComponent<BookingProps> = () => {
             </div>
           </Tabs.Panel>
 
-          <Tabs.Panel value="past" mt={20}>
+          <Tabs.Panel value=" past" mt={20}>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 40 }}>
               {pastBookings.map((booking) => (
                 <Card key={booking.bookingId} shadow="sm" padding="lg" radius="md" withBorder w={500} >
