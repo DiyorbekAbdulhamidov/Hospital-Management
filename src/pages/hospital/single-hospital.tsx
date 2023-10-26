@@ -1,11 +1,24 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import axios from 'axios';
-import { Badge, Box, Button, Card, Group, Image, LoadingOverlay, Text, Tabs, Flex, Grid } from '@mantine/core';
-import { Link, useParams } from 'react-router-dom';
-import HospitalImg from '../../assets/images/2.jpg';
+import React, { FunctionComponent, useEffect, useState } from "react";
+import axios from "axios";
+import {
+  Badge,
+  Box,
+  Button,
+  Card,
+  Group,
+  Image,
+  LoadingOverlay,
+  Text,
+  Tabs,
+  Flex,
+  Grid,
+  AspectRatio,
+} from "@mantine/core";
+import { Link, useParams } from "react-router-dom";
+import HospitalImg from "../../assets/images/2.jpg";
 import DoctorImg from "../../assets/images/doctor_1196-269.avif";
-import { alert } from '../../utils';
-import { IEntity } from '../../modules/auth/types';
+import { alert } from "../../utils";
+import { IEntity } from "../../modules/auth/types";
 
 interface SingleHospitalProps {
   hospitalId: string;
@@ -16,30 +29,29 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
   const [hospitalData, setHospitalData] = useState<any | null>(null);
   const [doctorsData, setDoctorsData] = useState<IEntity.Doctor[]>([]);
 
-  console.log(hospitalData?.location);
-
-
   const [loading, setLoading] = useState(true);
-
   const savedToken = localStorage.getItem("access_token");
   const token = savedToken ? JSON.parse(savedToken) : null;
+  console.log(hospitalData?.location);
 
   useEffect(() => {
     async function getHospitalData() {
       try {
-        const response = await axios.get(`http://188.166.165.2:8083/hospital/${hospitalId}/get-hospital`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          `http://188.166.165.2:8083/hospital/${hospitalId}/get-hospital`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         if (response.status === 200) {
           setHospitalData(response.data.data);
           await getDoctorsData();
         }
       } catch (error) {
-        console.error('Xatolik yuz berdi: ', error);
-      }
-      finally {
+        console.error("Xatolik yuz berdi: ", error);
+      } finally {
         setLoading(false);
       }
     }
@@ -49,7 +61,7 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
         const response = await axios.get('http://188.166.165.2:8082/user/get-all-doctors-from-hospital', {
           params: {
             page: 0,
-            size: 30,
+            size: 10,
             hospitalId,
           },
           headers: {
@@ -60,10 +72,9 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
           setDoctorsData(response.data.data.doctors);
           console.log(response.data);
         }
-      }
-      catch (error: any) {
-        alert.error('Error: ' + error.message)
-        console.error('Xatolik yuz berdi: ', error);
+      } catch (error: any) {
+        alert.error("Error: " + error.message);
+        console.error("Xatolik yuz berdi: ", error);
       }
     }
 
@@ -76,7 +87,14 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
         <LoadingOverlay visible />
       ) : (
         <Tabs variant="pills" defaultValue="about-us">
-          <Tabs.List sx={{ display: 'flex', gap: 40, alignItems: 'center', justifyContent: 'center' }}>
+          <Tabs.List
+            sx={{
+              display: "flex",
+              gap: 40,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <Tabs.Tab value="about-us">About Us</Tabs.Tab>
             <Tabs.Tab value="Doctors">Our Doctors</Tabs.Tab>
           </Tabs.List>
@@ -86,7 +104,14 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
 
           <Tabs.Panel value="about-us">
             <Flex p={40} gap={120}>
-              <Card shadow="sm" padding="lg" radius="md" withBorder w={600} h={530}>
+              <Card
+                shadow="sm"
+                padding="lg"
+                radius="md"
+                withBorder
+                w={600}
+                h={530}
+              >
                 <Card.Section component="a">
                   <Image src={HospitalImg} alt="HospitalImage" />
                 </Card.Section>
@@ -100,12 +125,21 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
                   Phone Number : {hospitalData.phoneNumber}
                 </Text>
 
-                <Button variant="light" color="blue" fullWidth mt="md" radius="md">
+                <Button
+                  variant="light"
+                  color="blue"
+                  fullWidth
+                  mt="md"
+                  radius="md"
+                  onClick={() => window.location.href = hospitalData?.location}
+                >
                   {hospitalData.address}
                 </Button>
               </Card>
-              <Flex sx={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-                <Box sx={{ background: '#E7EFC5', borderRadius: 10, padding: 10 }}>
+              <Flex sx={{ display: "flex", flexDirection: "column", gap: 20 }}>
+                <Box
+                  sx={{ background: "#E7EFC5", borderRadius: 10, padding: 10 }}
+                >
                   <Flex gap={60}>
                     <Text color="#1D1A39">Day of the Week</Text>
                     <Text color="#1D1A39">Opening Time ⌚</Text>
@@ -120,6 +154,13 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
                   ))}
                 </Box>
                 <Box>
+                  <AspectRatio ratio={16 / 9}>
+                    <iframe
+                      src={''}
+                      title="Google map"
+                      style={{ border: 0 }}
+                    />
+                  </AspectRatio>
                 </Box>
               </Flex>
             </Flex>
@@ -127,11 +168,24 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
 
           <Tabs.Panel value="Doctors">
             <Box>
-              <h1 style={{ textAlign: 'center' }}>Our Doctors</h1>
-              <Grid columns={2} align='center' justify='center' sx={{ gap: 60 }}>
+              <h1 style={{ textAlign: "center" }}>Our Doctors</h1>
+              <Grid
+                columns={2}
+                align="center"
+                justify="center"
+                sx={{ gap: 60 }}
+              >
                 {doctorsData.map((doctor: IEntity.Doctor) => (
                   <Flex mt={20} gap={20}>
-                    <Card key={doctor.id} shadow="sm" padding="lg" radius="md" withBorder w={500} h={620}>
+                    <Card
+                      key={doctor.id}
+                      shadow="sm"
+                      padding="lg"
+                      radius="md"
+                      withBorder
+                      w={500}
+                      h={620}
+                    >
                       <Card.Section component="a">
                         <Image
                           src={DoctorImg}
@@ -148,7 +202,13 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
                       </Group>
 
                       <Link to={`/doctor/${doctor.id}`}>
-                        <Button variant="light" color="blue" fullWidth mt="md" radius="md">
+                        <Button
+                          variant="light"
+                          color="blue"
+                          fullWidth
+                          mt="md"
+                          radius="md"
+                        >
                           Learn more
                         </Button>
                       </Link>
