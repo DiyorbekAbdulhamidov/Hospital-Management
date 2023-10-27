@@ -57,7 +57,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
 
   const handleSubmit = () => {
     if (form.isValid() && gender !== null) {
-      setLoading(true); // Yuklanishni boshlaymiz
+      setLoading(true); 
       const formattedDateOfBirth = format(
         new Date(form.values.dateOfBirth),
         "dd.MM.yyyy"
@@ -76,7 +76,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
         .post("http://188.166.165.2:8082/user/auth/sign-up", userData)
         .then((response) => {
           console.log("User signed up successfully:", response.data);
-          navigate("/login");
+          navigate("auth/login");
         })
         .catch((error) => {
           if (error.response) {

@@ -30,7 +30,7 @@ const Password: React.FunctionComponent = () => {
       const responseData = response.data;
 
       if (responseData.status === "SUCCESS") {
-        navigate('/login');
+        navigate('auth/login');
         alert.success("Password updated successfully!");
       }
       else {

@@ -105,7 +105,7 @@ const Login: React.FunctionComponent<LoginProps> = () => {
             </Box>
             <Text c="#2972FECC" fw={600} ta="center" fz={15} pt={10}>
               <Text className="forgorPassword">
-                <Link to="/forgot-password">Forgot the password?</Link>
+                <Link to="/auth/forgot-password">Forgot the password?</Link>
               </Text>
             </Text>
             <Text ta="center" pt={10}>
@@ -137,7 +137,7 @@ const Login: React.FunctionComponent<LoginProps> = () => {
             <Title fw={400} ta="center" mt={20} fz={20}>
               Don't have an account?
               <Text span c="blue" inherit>
-                <Link to="/register">Sign Up</Link>
+                <Link to="auth/register">Sign Up</Link>
               </Text>
             </Title>
           </Paper>

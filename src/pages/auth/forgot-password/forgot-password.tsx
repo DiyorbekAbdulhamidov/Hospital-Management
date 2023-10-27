@@ -32,7 +32,7 @@ const ForgotPassword: React.FunctionComponent<ForgotPasswordProps> = () => {
 
       if (responseData.status === "SUCCESS") {
         alert.success("Reset link sent successfully!");
-        navigate('/forgot-password/verify');
+        navigate('/auth/forgot-password/verify');
       }
       else {
         alert.error("Failed to send the reset link.");
