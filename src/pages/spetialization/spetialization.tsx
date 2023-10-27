@@ -90,7 +90,7 @@ const Spetialization: FunctionComponent<SpetializationProps> = () => {
                 mt="md"
                 radius="md"
                 onClick={() => {
-                  navigate(`/single-spetialization/${spetialization.id}`);
+                  navigate(`/userPanel/single-spetialization/${spetialization.id}`);
                 }}
               >
                 View
