@@ -4,7 +4,7 @@ import { Checkbox, Group, LoadingOverlay, PasswordInput, TextInput, Title, } fro
 import { Box, Button, Flex, Paper, Text } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../modules/auth/context";
-import { alert } from "../../utils";
+import { alert, setSession } from "../../utils";
 import axios from "axios";
 
 interface LoginProps { }
@@ -38,6 +38,7 @@ const Login: React.FunctionComponent<LoginProps> = () => {
       })
         .then((response) => {
           login(response.data.data.accessToken);
+          setSession(response.data.data.accessToken)
           navigate("/userPanel");
           setLoading(false);
         })
