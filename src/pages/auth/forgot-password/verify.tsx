@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Button, Container, PinInput } from "@mantine/core";
 import * as yup from 'yup';
-import axios from "axios";
 import { alert } from "../../../utils";
 import { useEmail } from "../../../modules/home/context";
 import { useNavigate } from "react-router";
+import { http } from "../../../services";
 
 interface PinCodeProps { }
 
@@ -23,7 +23,7 @@ const PinCode: React.FC<PinCodeProps> = () => {
       const values = { pin };
       await pinSchema.validate(values, { abortEarly: false });
 
-      const response = await axios.post("http://188.166.165.2:8082/user/auth/verify-code-for-update-password", {
+      const response = await http.post("http://188.166.165.2:8082/user/auth/verify-code-for-update-password", {
         email,
         code: pin
       });

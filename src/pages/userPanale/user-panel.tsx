@@ -5,13 +5,13 @@ import { useDisclosure } from "@mantine/hooks";
 import { Burger } from "@mantine/core";
 import { Header, Text } from "@mantine/core";
 import { useAuth } from "../../modules/auth/context";
-import axios from "axios";
 import { IEntity } from "../../modules/auth/types";
 import { Link } from "react-router-dom";
 import Hospital from "../hospital/hospital";
 import { MainSettings } from "../settings";
 import Spetialization from "../spetialization/spetialization";
 import Booking from "../booking/booking";
+import { http } from "../../services";
 
 interface UserPanelProps { }
 
@@ -43,27 +43,17 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
   useEffect(() => {
     async function getUserData() {
       try {
-        const savedToken = localStorage.getItem("access_token");
-        if (savedToken) {
-          const response = await axios.get(
-            "http://188.166.165.2:8082/user/get-me",
-            {
-              headers: {
-                Authorization: `Bearer ${JSON.parse(savedToken)}`,
-              },
-            }
-          );
-
-          if (response.status === 200) {
-            setData(response.data.data);
-            setUserData(response.data.data);
-          }
-          else {
-            console.log("Error:", response.status);
-            logout();
-          }
+        const response = await http.get("http://188.166.165.2:8082/user/get-me");
+        if (response.status === 200) {
+          setData(response.data.data);
+          setUserData(response.data.data);
         }
-      } catch (error) {
+        else {
+          console.log("Error:", response.status);
+          logout();
+        }
+      } 
+      catch (error) {
         console.error("Error occurred: ", error);
         logout();
       }

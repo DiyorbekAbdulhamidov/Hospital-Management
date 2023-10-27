@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Box, Button, Flex, Text, TextInput } from "@mantine/core";
-import axios from "axios";
 import { alert } from "../../../utils";
 import { useNavigate } from "react-router";
 import { useEmail } from "../../../modules/home/context";
+import { http } from "../../../services";
 
 interface SendVerificationProps { }
 
@@ -13,9 +13,6 @@ const SendVerification: React.FunctionComponent<SendVerificationProps> = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const savedToken = localStorage.getItem("access_token");
-  const token = savedToken ? JSON.parse(savedToken) : null;
-
   const handleSendVerification = async () => {
     try {
       if (!isValidEmail(email)) {
@@ -24,20 +21,12 @@ const SendVerification: React.FunctionComponent<SendVerificationProps> = () => {
       }
       setLoading(true);
 
-      const response = await axios.get("http://188.166.165.2:8082/user/send-verification-for-changing-email", {
-        params: {
-          email
-        },
-        headers: {
-          "Authorization": `Bearer ${token}`,
-        },
-      });
+      const response = await http.get("http://188.166.165.2:8082/user/send-verification-for-changing-email", { params: {email},});
       navigate('/userPanel/settings/change-email');
       console.log(response.data);
       alert.success('Code sent successfully. Check your email');
     }
     catch (error: any) {
-      console.error("Xatolik yuborishda xatolik:", error);
       alert.error('❌:' + error.response.data.message);
     }
     finally {

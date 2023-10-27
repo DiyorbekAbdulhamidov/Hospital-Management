@@ -1,10 +1,10 @@
-import axios from "axios";
 import React, { FunctionComponent, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import { IEntity } from "../../modules/auth/types";
 import { alert } from "../../utils";
 import spetializationImg from "../../assets/images/doctor-s-hand-holding-stethoscope-closeup_53876-105091.avif";
 import { Box, Text, Card, Image, Button, LoadingOverlay, Badge } from "@mantine/core";
+import { http } from "../../services";
 
 interface SingleSpetializationProps {
   spetializationId: string;
@@ -16,31 +16,21 @@ const SingleSpetialization: FunctionComponent<SingleSpetializationProps> = () =>
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const savedToken = localStorage.getItem("access_token");
-  const token = savedToken ? JSON.parse(savedToken) : null;
-
   useEffect(() => {
-    if (token) {
-      axios.get("http://188.166.165.2:8082/user/get-specialty-by-id", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        params: { specialtyId: spetializationId }
+    http.get("http://188.166.165.2:8082/user/get-specialty-by-id", { params: { specialtyId: spetializationId } })
+      .then((response) => {
+        if (response.status === 200) {
+          setSpetializationData(response.data.data);
+        }
       })
-        .then((response) => {
-          if (response.status === 200) {
-            setSpetializationData(response.data.data);
-          }
-        })
-        .catch((error) => {
-          console.error("Xatolik yuz berdi: ", error);
-          alert.error("Xatolik yuz berdi: " + error.message);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    }
-  }, [token, spetializationId]);
+      .catch((error) => {
+        console.error("Xatolik yuz berdi: ", error);
+        alert.error("Xatolik yuz berdi: " + error.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [spetializationId]);
 
   if (loading) return <LoadingOverlay visible />;
 

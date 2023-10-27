@@ -1,7 +1,6 @@
 import { Box, Flex, LoadingOverlay } from "@mantine/core";
 import { Link, useParams } from "react-router-dom"; // useParams ni import qo'shing
 import React, { useState, useRef, ChangeEvent, KeyboardEvent } from "react";
-import { useAuth } from "../../modules/auth/context";
 
 interface VerificationProps {}
 

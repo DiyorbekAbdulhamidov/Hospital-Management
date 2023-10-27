@@ -1,11 +1,11 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import axios from 'axios';
 import { Badge, Box, Button, Card, Flex, Image, LoadingOverlay, Text, Modal, Group } from '@mantine/core';
 import { useParams, useNavigate } from 'react-router-dom';
 import { IEntity } from '../../modules/auth/types';
 import { alert } from '../../utils';
 import doctorImg from "../../assets/images/360_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg";
 import { useDisclosure } from '@mantine/hooks';
+import { http } from '../../services';
 
 interface DoctorProps { }
 
@@ -18,22 +18,13 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
-  const savedToken = localStorage.getItem("access_token");
-  const token = savedToken ? JSON.parse(savedToken) : null;
-
   const getAvailableTimes = async () => {
     try {
-      const response = await axios.post(
-        'http://188.166.165.2:8084/hybrid-booking/get-doctor-available-time',
+      const response = await http.post('http://188.166.165.2:8084/hybrid-booking/get-doctor-available-time',
         {
           bookingDay: '2023-09-19',
           doctorId,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
       );
 
       if (response.status === 200) {
@@ -50,15 +41,7 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
   useEffect(() => {
     async function getDoctorData() {
       try {
-        const response = await axios.get(`http://188.166.165.2:8082/user/get-doctor-by-id`, {
-          params: {
-            doctorId,
-          },
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
+        const response = await http.get(`http://188.166.165.2:8082/user/get-doctor-by-id`, {params: { doctorId,} });
         if (response.status === 200) {
           setDoctorData(response.data.data);
         }
@@ -72,7 +55,7 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
       }
     }
     getDoctorData();
-  }, [doctorId, token]);
+  }, [doctorId]);
 
   const bookAppointment = async (selectedTimeSlot: any) => {
     if (!selectedTimeSlot) {
@@ -81,16 +64,10 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
     }
 
     try {
-      const response = await axios.post(
-        'http://188.166.165.2:8084/hybrid-booking/save',
+      const response = await http.post('http://188.166.165.2:8084/hybrid-booking/save',
         {
           timeSlotId: selectedTimeSlot.id,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
       );
 
       if (response.status === 200) {

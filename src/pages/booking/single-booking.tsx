@@ -1,10 +1,10 @@
-import axios from "axios";
 import React, { FunctionComponent, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import { IEntity } from "../../modules/auth/types";
 import { alert } from "../../utils";
 import doctorImg from "../../assets/images/pleased-young-female-doctor-wearing-medical-robe-stethoscope-around-neck-standing-with-closed-posture_409827-254.avif";
 import { Box, Text, Card, Image, Group, Badge, Button, LoadingOverlay } from "@mantine/core";
+import { http } from "../../services";
 
 interface SingleBookingProps {
   bookingId: string;
@@ -16,37 +16,24 @@ const SingleBooking: FunctionComponent<SingleBookingProps> = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const savedToken = localStorage.getItem("access_token");
-  const token = savedToken ? JSON.parse(savedToken) : null;
-
   useEffect(() => {
-    if (token) {
-      axios.get("http://188.166.165.2:8084/hybrid-booking/get-booking", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        }, params: { bookingId }
+    http.get("http://188.166.165.2:8084/hybrid-booking/get-booking", { params: { bookingId } })
+      .then((response) => {
+        if (response.status === 200) {
+          setBookingData(response.data.data);
+        }
       })
-        .then((response) => {
-          if (response.status === 200) {
-            setBookingData(response.data.data);
-          }
-        })
-        .catch((error) => {
-          console.error("Xatolik yuz berdi: ", error);
-          alert.error("Error in getting Booking information");
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    }
+      .catch((error) => {
+        console.error("Xatolik yuz berdi: ", error);
+        alert.error("Error in getting Booking information");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   });
 
   const handleCancel = () => {
-    axios.get("http://188.166.165.2:8084/hybrid-booking/cancel", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      }, params: { bookingId }
-    })
+    http.get("http://188.166.165.2:8084/hybrid-booking/cancel", { params: { bookingId } })
       .then((response) => {
         if (response.status === 200) {
           alert.success('Booking successfully cancelled')

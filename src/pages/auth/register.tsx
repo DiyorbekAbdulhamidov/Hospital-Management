@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useForm } from "@mantine/form";
-import axios from "axios";
 import { Input, LoadingOverlay, PasswordInput, TextInput, Title, } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
 import { Box, Button, Flex, Paper, Text } from "@mantine/core";
@@ -9,6 +8,7 @@ import { useId } from "@mantine/hooks";
 import { IMaskInput } from "react-imask";
 import { format } from "date-fns";
 import { alert } from "../../utils";
+import { http } from "../../services";
 
 interface RegisterProps { }
 
@@ -57,7 +57,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
 
   const handleSubmit = () => {
     if (form.isValid() && gender !== null) {
-      setLoading(true); 
+      setLoading(true);
       const formattedDateOfBirth = format(
         new Date(form.values.dateOfBirth),
         "dd.MM.yyyy"
@@ -72,8 +72,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
         gender: gender,
       };
 
-      axios
-        .post("http://188.166.165.2:8082/user/auth/sign-up", userData)
+      http.post("http://188.166.165.2:8082/user/auth/sign-up", userData)
         .then((response) => {
           console.log("User signed up successfully:", response.data);
           navigate("auth/login");
@@ -117,7 +116,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                 size="xs"
                 label="Full Name"
                 placeholder="Full Name"
-                
+
                 {...form.getInputProps("fullName")}
               />
               <TextInput
@@ -126,7 +125,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                 size="xs"
                 label="Email"
                 placeholder="Email"
-                
+
                 {...form.getInputProps("email")}
               />
               <PasswordInput
@@ -135,7 +134,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                 radius={70}
                 label="Password"
                 placeholder="Password"
-                
+
                 {...form.getInputProps("password")}
               />
               <DateInput
@@ -145,7 +144,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                 label="Date Of Birth"
                 valueFormat="DD.MM.YYYY"
                 placeholder="Date Of Your Birth (dd.mm.yyyy)"
-                
+
                 maw={400}
                 mx="auto"
                 {...form.getInputProps("dateOfBirth")}
@@ -155,7 +154,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                 mt="sm"
                 id={id}
                 label="Your phone"
-                
+
                 maw={320}
                 mx="auto"
                 size="xs"
@@ -167,7 +166,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                   mask="+998 (00) 000-00-00"
                   id={id}
                   placeholder="Your phone"
-                  
+
                   {...form.getInputProps("phoneNumber")}
                 />
               </Input.Wrapper>
@@ -184,7 +183,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                 </label>
                 <label>
                   <small>Female</small>
-                  <input  name="gender" value="female" type="radio" onChange={() => setGender("FEMALE")} />
+                  <input name="gender" value="female" type="radio" onChange={() => setGender("FEMALE")} />
                 </label>
               </div>
               <Button fz={25} size="md" w="100%" radius={70} type="submit" mt="sm">

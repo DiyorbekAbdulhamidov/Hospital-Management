@@ -1,10 +1,10 @@
 import { Box, Button, Flex, PasswordInput, Text } from "@mantine/core";
 import React, { useState } from "react";
-import axios from "axios";
 import { alert } from "../../../utils";
 import { useEmail } from "../../../modules/home/context";
 import { useNavigate } from "react-router";
 import * as yup from 'yup';
+import { http } from "../../../services";
 
 const Password: React.FunctionComponent = () => {
   const { email } = useEmail();
@@ -23,9 +23,7 @@ const Password: React.FunctionComponent = () => {
       const values = { password };
       await passwordSchema.validate(values, { abortEarly: false });
 
-      const response = await axios.put(
-        "http://188.166.165.2:8082/user/auth/update-password", { email, newPassword: password },
-      );
+      const response = await http.put("http://188.166.165.2:8082/user/auth/update-password", { email, newPassword: password },);
 
       const responseData = response.data;
 

@@ -1,12 +1,12 @@
 import React from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { Box, Button, Flex, Input, Text } from "@mantine/core";
-import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { alert } from "../../utils";
 import { useAuth } from "../../modules/auth/context";
 import * as yup from "yup";
+import { http } from "../../services";
 
 const ChangePassword: React.FunctionComponent = () => {
   const { control, handleSubmit } = useForm<{ email: string; newPassword: string }>();
@@ -22,8 +22,7 @@ const ChangePassword: React.FunctionComponent = () => {
       const values = { email: data.email, newPassword: data.newPassword };
       await passwordSchema.validate(values, { abortEarly: false });
 
-      const response = await axios.put(
-        "http://188.166.165.2:8082/user/auth/update-password", {
+      const response = await http.put("http://188.166.165.2:8082/user/auth/update-password", {
         email: emaill,
         newPassword: data.newPassword
       },

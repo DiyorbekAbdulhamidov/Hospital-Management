@@ -10,50 +10,36 @@ import {
   Group,
   Col,
 } from "@mantine/core";
-import axios from "axios";
 import { IEntity } from "../../modules/auth/types";
 import spetializationImg from "../../assets/images/spetialization-img.jpg";
 import { useNavigate } from "react-router";
 import { alert } from "../../utils";
+import { http } from "../../services";
 
-interface SpetializationProps {}
+interface SpetializationProps { }
 
 const Spetialization: FunctionComponent<SpetializationProps> = () => {
-  const [spetialization, setSpetialization] = useState<
-    IEntity.Spetialization[]
-  >([]);
+  const [spetialization, setSpetialization] = useState<IEntity.Spetialization[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
-  const savedToken = localStorage.getItem("access_token");
-  const token = savedToken ? JSON.parse(savedToken) : null;
 
   useEffect(() => {
     async function getSpetialization() {
       try {
-        const response = await axios.get(
-          "http://188.166.165.2:8082/user/get-all-specialties",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await http.get("http://188.166.165.2:8082/user/get-all-specialties");
         if (response.status === 200) {
           setSpetialization(response.data.data);
           setLoading(false);
-          console.log(response.data.data);
         }
-      } catch (error: any) {
+      }
+      catch (error: any) {
         alert.error("Xatolik yuz berdi: " + error.message);
         setLoading(false);
       }
     }
 
-    if (token) {
-      getSpetialization();
-    }
-  }, [token]);
+    getSpetialization();
+  }, []);
 
   if (loading) {
     return (

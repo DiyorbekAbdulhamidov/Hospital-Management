@@ -1,10 +1,10 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import axios from "axios";
 import { IEntity } from "../../modules/auth/types";
 import { alert } from "../../utils";
 import { Box, Text, Tabs, Card, Image, Group, Badge, Button } from "@mantine/core";
 import doctorImg from "../../assets/images/pleased-young-female-doctor-wearing-medical-robe-stethoscope-around-neck-standing-with-closed-posture_409827-254.avif";
 import { useNavigate } from "react-router";
+import { http } from "../../services";
 
 interface BookingProps { }
 
@@ -14,27 +14,17 @@ const Booking: FunctionComponent<BookingProps> = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const savedToken = localStorage.getItem("access_token");
-    const token = savedToken ? JSON.parse(savedToken) : null;
-
-    if (token) {
-      axios
-        .get("http://docs.diordev.me:8084/hybrid-booking/get-user-bookings", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          if (response.status === 200) {
-            setupcomingBookings(response.data.data.upcoming);
-            setpastBookings(response.data.data.past);
-          }
-        })
-        .catch((error) => {
-          console.error("Xatolik yuz berdi: ", error);
-          alert.error("Error in getting Booking information");
-        });
-    }
+    http.get("http://docs.diordev.me:8084/hybrid-booking/get-user-bookings")
+      .then((response) => {
+        if (response.status === 200) {
+          setupcomingBookings(response.data.data.upcoming);
+          setpastBookings(response.data.data.past);
+        }
+      })
+      .catch((error) => {
+        console.error("Xatolik yuz berdi: ", error);
+        alert.error("Error in getting Booking information");
+      });
   }, []);
 
   return (

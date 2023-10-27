@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Box, Button, Flex, Input, Select, Text } from "@mantine/core";
 import { useAuth } from "../../modules/auth/context";
-import axios from "axios";
 import * as yup from "yup";
 import { useNavigate } from "react-router";
 import { alert } from "../../utils";
+import { http } from "../../services";
 
 const schema = yup.object({
   fullName: yup.string().min(2).required().label("Full Name"),
@@ -39,16 +39,8 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
 
   const handleSaveClick = () => {
     schema.validate(updatedData).then(() => {
-      const savedToken = localStorage.getItem("access_token");
 
-      axios
-        .put("http://188.166.165.2:8082/user/update-user", updatedData, {
-          headers: {
-            //@ts-ignore
-            Authorization: `Bearer ${JSON.parse(savedToken)}`,
-            "Content-Type": "application/json",
-          },
-        })
+      http.put("http://188.166.165.2:8082/user/update-user", updatedData,)
         .then((response) => {
           if (response.status === 200) {
             setIsEditing(false);

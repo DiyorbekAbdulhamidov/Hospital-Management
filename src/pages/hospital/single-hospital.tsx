@@ -1,5 +1,4 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import axios from "axios";
 import {
   Badge,
   Box,
@@ -19,6 +18,7 @@ import HospitalImg from "../../assets/images/2.jpg";
 import DoctorImg from "../../assets/images/doctor_1196-269.avif";
 import { alert } from "../../utils";
 import { IEntity } from "../../modules/auth/types";
+import http from "../../services/http";
 
 interface SingleHospitalProps {
   hospitalId: string;
@@ -30,56 +30,46 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
   const [doctorsData, setDoctorsData] = useState<IEntity.Doctor[]>([]);
 
   const [loading, setLoading] = useState(true);
-  const savedToken = localStorage.getItem("access_token");
-  const token = savedToken ? JSON.parse(savedToken) : null;
-  console.log(hospitalData?.location);
 
   useEffect(() => {
     async function getHospitalData() {
       try {
-        const response = await axios.get(
-          `http://188.166.165.2:8083/hospital/${hospitalId}/get-hospital`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await http.get(`http://188.166.165.2:8083/hospital/${hospitalId}/get-hospital`);
         if (response.status === 200) {
           setHospitalData(response.data.data);
           await getDoctorsData();
         }
-      } catch (error) {
-        console.error("Xatolik yuz berdi: ", error);
-      } finally {
+      } 
+      catch (error: any) {
+        alert.error("Xatolik yuz berdi: "+ error);
+      } 
+      finally {
         setLoading(false);
       }
     }
 
     async function getDoctorsData() {
       try {
-        const response = await axios.get('http://188.166.165.2:8082/user/get-all-doctors-from-hospital', {
+        const response = await http.get('http://188.166.165.2:8082/user/get-all-doctors-from-hospital', {
           params: {
             page: 0,
             size: 10,
             hospitalId,
-          },
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          }
         });
         if (response.status === 200) {
           setDoctorsData(response.data.data.doctors);
           console.log(response.data);
         }
-      } catch (error: any) {
+      } 
+      catch (error: any) {
         alert.error("Error: " + error.message);
         console.error("Xatolik yuz berdi: ", error);
       }
     }
 
     getHospitalData();
-  }, [hospitalId, token]);
+  }, [hospitalId]);
 
   return (
     <Box p={20}>

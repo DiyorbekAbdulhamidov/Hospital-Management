@@ -14,12 +14,13 @@ import {
   Input,
   Select,
 } from "@mantine/core";
-import axios from "axios";
+import http from "../../services/http";
 import { IEntity } from "../../modules/auth/types";
 import hospitalImg from "../../assets/images/hospital-new.jpg";
 import { useNavigate } from "react-router";
+import { alert } from "../../utils";
 
-interface HospitalProps {}
+interface HospitalProps { }
 
 const Hospital: FunctionComponent<HospitalProps> = () => {
   const [hospitals, setHospitals] = useState<IEntity.Hospital[]>([]);
@@ -29,35 +30,23 @@ const Hospital: FunctionComponent<HospitalProps> = () => {
 
   const navigate = useNavigate();
 
-  const savedToken = localStorage.getItem("access_token");
-  const token = savedToken ? JSON.parse(savedToken) : null;
-
   useEffect(() => {
     async function getHospitals() {
       try {
-        const response = await axios.get(
-          "http://188.166.165.2:8083/hospital/get-all",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await http.get("http://188.166.165.2:8083/hospital/get-all");
         if (response.status === 200) {
           setHospitals(response.data.data.hospitals);
-          setLoading(false);
         }
-      } 
+      }
       catch (error) {
-        console.error("Error occurred: ", error);
+        alert.error("Error occurred: " + error);
+      }
+      finally {
         setLoading(false);
       }
     }
-
-    if (token) {
-      getHospitals();
-    }
-  }, [token]);
+    getHospitals();
+  }, []);
 
   if (loading) {
     return (
