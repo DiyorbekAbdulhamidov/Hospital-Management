@@ -32,8 +32,9 @@ const AppRoutes: FunctionComponent = () => {
             <Route index element={<Navigate to="login" />} />
             <Route path="login" element={<Auth.Login />} />
             <Route path="register" element={<Auth.Register />} />
-            <Route path="forgot-password" element={<Auth.ForgotPassword.ForgotPassword />}>
-              <Route index element={<Navigate to="verify" />} />
+            <Route path="forgot-password" element={<Protected allow={!user} navigate="/userPanel" />}>
+              <Route index element={<Navigate to="email" />} />
+              <Route path="email" element={<Auth.ForgotPassword.ForgotPassword />} />
               <Route path="verify" element={<Auth.ForgotPassword.ForgotPasswordVerification />} />
               <Route path="code" element={<Auth.ForgotPassword.ForgotPasswordCode />} />
             </Route>

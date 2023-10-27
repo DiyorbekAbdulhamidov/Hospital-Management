@@ -32,7 +32,7 @@ const PinCode: React.FC<PinCodeProps> = () => {
 
       if (responseData.status === "SUCCESS") {
         alert.success("Enter new Password!");
-        navigate('auth/forgot-password/code');
+        navigate('/auth/forgot-password/code');
       }
       else {
         alert.error("Failed to send pin code.");
