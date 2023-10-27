@@ -5,7 +5,7 @@ import { Box, Button, Flex, Paper, Text } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../modules/auth/context";
 import { alert } from "../../utils";
-import { http } from "../../services";
+import axios from "axios";
 
 interface LoginProps { }
 
@@ -32,7 +32,7 @@ const Login: React.FunctionComponent<LoginProps> = () => {
 
     if (form.isValid()) {
       setLoading(true);
-      http.post("http://188.166.165.2:8082/user/auth/sign-in", {
+      axios.post("http://188.166.165.2:8082/user/auth/sign-in", {
         email: form.values.email,
         password: form.values.password,
       })

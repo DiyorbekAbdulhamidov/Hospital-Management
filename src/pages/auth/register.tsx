@@ -8,7 +8,7 @@ import { useId } from "@mantine/hooks";
 import { IMaskInput } from "react-imask";
 import { format } from "date-fns";
 import { alert } from "../../utils";
-import { http } from "../../services";
+import axios from "axios";
 
 interface RegisterProps { }
 
@@ -72,7 +72,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
         gender: gender,
       };
 
-      http.post("http://188.166.165.2:8082/user/auth/sign-up", userData)
+      axios.post("http://188.166.165.2:8082/user/auth/sign-up", userData)
         .then((response) => {
           console.log("User signed up successfully:", response.data);
           navigate("auth/login");

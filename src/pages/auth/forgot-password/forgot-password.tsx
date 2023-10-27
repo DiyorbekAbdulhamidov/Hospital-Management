@@ -6,7 +6,7 @@ import { IconArrowLeft } from "@tabler/icons-react";
 import classes from "./forgot-password.module.scss";
 import { useEmail } from "../../../modules/home/context";
 import * as yup from "yup";
-import { http } from "../../../services";
+import axios from "axios";
 
 interface ForgotPasswordProps { }
 
@@ -24,7 +24,7 @@ const ForgotPassword: React.FunctionComponent<ForgotPasswordProps> = () => {
       const values = { email };
       await validationSchema.validate(values, { abortEarly: false });
 
-      const response = await http.get("http://188.166.165.2:8082/user/auth/forgot-password", { params: { email } });
+      const response = await axios.get("http://188.166.165.2:8082/user/auth/forgot-password", { params: { email } });
       const responseData = response.data;
 
       if (responseData.status === "SUCCESS") {
