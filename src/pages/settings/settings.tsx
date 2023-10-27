@@ -12,7 +12,7 @@ const MainSettings: React.FunctionComponent<SettingsProps> = () => {
           <Text ta="center" fz={30} fw={600}>
             Profile Settings
           </Text>
-          <Link to="/userPanel/settings/myProfile">
+          <Link to="/userPanel/settings/my-profile">
             <Button w="100%" h={50} fz={20}>
               My Profile
             </Button>

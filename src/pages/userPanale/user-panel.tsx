@@ -104,7 +104,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
                 component="a"
                 target="_blank"
               >
-                <Link to="/userPanel/settings/myProfile">My Profile</Link>
+                <Link to="/userPanel/settings/my-profile">My Profile</Link>
               </Menu.Item>
               <Menu.Item
                 c="red"

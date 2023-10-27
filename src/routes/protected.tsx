@@ -1,7 +1,8 @@
 import { Navigate, Outlet } from 'react-router-dom'
+import { IEntity } from '../modules/auth/types'
 
 interface ProtectedProps {
-  allow: boolean
+  allow: IEntity.User | null | boolean;
   navigate: string
 }
 

@@ -47,7 +47,8 @@ const Hospital: FunctionComponent<HospitalProps> = () => {
           setHospitals(response.data.data.hospitals);
           setLoading(false);
         }
-      } catch (error) {
+      } 
+      catch (error) {
         console.error("Error occurred: ", error);
         setLoading(false);
       }
@@ -126,7 +127,7 @@ const Hospital: FunctionComponent<HospitalProps> = () => {
                   mt="md"
                   radius="md"
                   onClick={() => {
-                    navigate(`/single-hospital/${hospital.id}`);
+                    navigate(`single-hospital/${hospital.id}`);
                   }}
                 >
                   View Med Clinic

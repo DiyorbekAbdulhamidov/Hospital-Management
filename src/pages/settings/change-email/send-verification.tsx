@@ -32,7 +32,7 @@ const SendVerification: React.FunctionComponent<SendVerificationProps> = () => {
           "Authorization": `Bearer ${token}`,
         },
       });
-      navigate('/userPanel/settings/changeEmail');
+      navigate('/userPanel/settings/change-email');
       console.log(response.data);
       alert.success('Code sent successfully. Check your email');
     }

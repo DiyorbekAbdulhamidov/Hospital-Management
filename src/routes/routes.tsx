@@ -16,17 +16,20 @@ const AppRoutes: FunctionComponent = () => {
         <ToastContainer position="top-right" autoClose={5000} />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/userPanel" element={user ? <UserPanel /> : <Navigate to="/login" />} />
-          <Route path="/userPanel/settings" element={user ? <Settings.MainSettings /> : <Navigate to="/login" />} />
-          <Route path="/userPanel/settings/myProfile" element={user ? <Settings.MyProfile /> : <Navigate to="/login" />} />
-          <Route path="/userPanel/settings/change-password" element={user ? <Settings.ChangePassword /> : <Navigate to="/login" />} />
-          <Route path="/userPanel/settings/send-verification" element={user ? <Settings.SendVerification /> : <Navigate to="/login" />} />
-          <Route path="/userPanel/settings/changeEmail" element={user ? <Settings.ChangeEmail /> : <Navigate to="/login" />} />
-          <Route path="/single-hospital/:hospitalId" element={<SingleHospital hospitalId="" />} />
-          <Route path="/doctor/:doctorId" element={<DoctorPage />} />
-          <Route path="/booking/:bookingId" element={<SingleBooking bookingId="" />} />
-          <Route path="/single-spetialization/:spetializationId" element={<SingleSpetialization spetializationId="" />} />
-          <Route path="*" element={<Page404 />} />
+          <Route path="userPanel" element={<Protected allow={user} navigate="/auth/login" />}>
+            <Route index element={<UserPanel />} />
+            <Route path="settings" element={<Protected allow={user} navigate="/auth/login" />}>
+              <Route index element={<Settings.MainSettings />} />
+              <Route path="my-profile" element={<Settings.MyProfile />} />
+              <Route path="change-password" element={<Settings.ChangePassword />} />
+              <Route path="send-verification" element={<Settings.SendVerification />} />
+              <Route path="change-email" element={<Settings.ChangeEmail />} />
+            </Route>
+            <Route path="single-hospital/:hospitalId" element={<SingleHospital hospitalId="" />} />
+            <Route path="doctor/:doctorId" element={<DoctorPage />} />
+            <Route path="booking/:bookingId" element={<SingleBooking bookingId="" />} />
+            <Route path="single-spetialization/:spetializationId" element={<SingleSpetialization spetializationId="" />} />
+          </Route>
 
           <Route path="auth" element={<Protected allow={!user} navigate="/userPanel" />}>
             <Route index element={<Navigate to="login" />} />
@@ -42,7 +45,7 @@ const AppRoutes: FunctionComponent = () => {
             <Route path="*" index element={<Navigate to="login" />} />
           </Route>
 
-
+          <Route path="*" element={<Page404 />} />
         </Routes>
       </EmailProvider>
     </BrowserRouter>

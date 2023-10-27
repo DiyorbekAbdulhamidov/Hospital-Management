@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Button, Flex, Paper, Text } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 
-interface HomeProps {}
+interface HomeProps { }
 
 const Home: React.FunctionComponent<HomeProps> = () => {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ const Home: React.FunctionComponent<HomeProps> = () => {
               direction="column"
             >
               <Button
-                onClick={() => navigate("register")}
+                onClick={() => navigate("/auth/register")}
                 radius="xl"
                 w={300}
                 h={45}
@@ -37,7 +37,7 @@ const Home: React.FunctionComponent<HomeProps> = () => {
                 Register
               </Button>
               <Button
-                onClick={() => navigate("/login")}
+                onClick={() => navigate("/auth/login")}
                 radius="xl"
                 w={300}
                 h={45}

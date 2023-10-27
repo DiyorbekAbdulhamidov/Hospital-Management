@@ -201,7 +201,7 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
                         </Badge>
                       </Group>
 
-                      <Link to={`/doctor/${doctor.id}`}>
+                      <Link to={`/userPanel/doctor/${doctor.id}`}>
                         <Button
                           variant="light"
                           color="blue"
