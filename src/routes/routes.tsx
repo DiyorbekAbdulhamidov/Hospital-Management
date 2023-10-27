@@ -32,12 +32,16 @@ const AppRoutes: FunctionComponent = () => {
             <Route index element={<Navigate to="login" />} />
             <Route path="login" element={<Auth.Login />} />
             <Route path="register" element={<Auth.Register />} />
-            <Route path="forgot-password" element={<Auth.ForgotPassword />}>
-              <Route path="verify" element={<Auth.VerificationEmail />} />
-              <Route path="code" element={<Auth.Password />} />
+            <Route path="forgot-password" element={<Auth.ForgotPassword.ForgotPassword />}>
+              <Route index element={<Navigate to="verify" />} />
+              <Route path="verify" element={<Auth.ForgotPassword.ForgotPasswordVerification />} />
+              <Route path="code" element={<Auth.ForgotPassword.ForgotPasswordCode />} />
             </Route>
             <Route path="verification" element={<Auth.Verification />} />
+            <Route path="*" index element={<Navigate to="login" />} />
           </Route>
+
+
         </Routes>
       </EmailProvider>
     </BrowserRouter>

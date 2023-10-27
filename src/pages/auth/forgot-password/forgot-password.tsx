@@ -75,7 +75,7 @@ const ForgotPassword: React.FunctionComponent<ForgotPasswordProps> = () => {
               <Center inline>
                 <IconArrowLeft style={{ width: rem(12), height: rem(12) }} stroke={1.5} />
                 <Box ml={5}>
-                  <Link to="/login">Back to the login page</Link>
+                  <Link to="/auth/login">Back to the login page</Link>
                 </Box>
               </Center>
             </Anchor>

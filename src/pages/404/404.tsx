@@ -49,7 +49,7 @@ function Page404() {
       <div color="black" className={classes.label}>404</div>
       <Title color="white" sx={{ fontSize: 30 }} className={classes.title}>The page you are looking for not available!</Title>
       <Group position="center">
-        <Button size="md" mt={40} w={300} radius={8} h={50} onClick={() => navigate('/userPanel')}>
+        <Button size="md" mt={40} w={300} radius={8} h={50} onClick={() => navigate(-1)}>
           Go Back
         </Button>
       </Group>

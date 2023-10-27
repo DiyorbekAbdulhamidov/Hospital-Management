@@ -6,7 +6,6 @@ import { alert } from "../../../utils";
 import { useEmail } from "../../../modules/home/context";
 import { useNavigate } from "react-router";
 
-
 interface PinCodeProps { }
 
 const PinCode: React.FC<PinCodeProps> = () => {
@@ -38,7 +37,8 @@ const PinCode: React.FC<PinCodeProps> = () => {
       else {
         alert.error("Failed to send pin code.");
       }
-    } catch (error: any) {
+    } 
+    catch (error: any) {
       if (error instanceof yup.ValidationError) {
         const errorMessage = error.inner.map((err) => err.message).join(' ');
         alert.error(errorMessage);

@@ -209,7 +209,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
           <Title pb={20} fw={400} ta="center" mt={20} fz={20}>
             Already have an account?{" "}
             <Text span c="blue" inherit>
-              <Link to="/login">Sign In</Link>
+              <Link to="/auth/login">Sign In</Link>
             </Text>
           </Title>
         </Paper>
