@@ -26,9 +26,8 @@ export namespace IEntity {
     setUserData: (userData: User) => void;
   }
 
-  export interface Tokens {
-    access: string;
-    refresh: string;
+  export interface Token {
+    access_token: string;
   }
 
   export interface Hospital {
@@ -99,7 +98,7 @@ export namespace IForm {
 export namespace IApi {
   export namespace Login {
     export interface Request extends IForm.Login { }
-    export interface Response extends IEntity.Tokens { }
+    export interface Response extends IEntity.Token { }
   }
 
 }

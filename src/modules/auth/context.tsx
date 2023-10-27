@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { IEntity } from "./types";
+import { clearSession } from "../../utils";
 
 const AuthContext = createContext<IEntity.AuthContextType | undefined>(undefined);
 
@@ -33,7 +34,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   function logout() {
     setUser(null);
-    localStorage.removeItem("access_token");
+    clearSession();
   }
 
   function setUserData(userData: IEntity.User) {

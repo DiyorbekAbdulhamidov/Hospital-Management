@@ -6,9 +6,9 @@ const http = axios.create({ baseURL: config.api.baseURL });
 
 http.interceptors.request.use(
   (request) => {
-    const { access = '' } = getSession();
-    const headers = request.headers as AxiosRequestHeaders; 
-    headers['Authorization'] = access ? `Bearer ${access}` : ''; 
+    const { access_token = '' } = getSession();
+    const headers = request.headers as AxiosRequestHeaders;
+    headers['Authorization'] = access_token ? `Bearer ${access_token}` : '';
     request.headers = headers;
     return request;
   },
