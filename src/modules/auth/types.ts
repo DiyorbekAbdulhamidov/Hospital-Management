@@ -18,14 +18,6 @@ export namespace IEntity {
     gender: string
   }
 
-  export interface AuthContextType {
-    user: User | null;
-    login: (user: User) => void;
-    logout: () => void;
-    userData: User | null;
-    setUserData: (userData: User) => void;
-  }
-
   export interface Token {
     access_token: string;
   }
@@ -77,39 +69,12 @@ export namespace IEntity {
   }
 }
 
-export namespace IForm {
-  export interface Login {
-    username: string;
-    password: string;
-  }
-
-  export interface Register {
-    email: string;
-    username: string;
-    password: string;
-    confirmPassword: string;
-    firstName?: string;
-    lastName?: string;
-    subscription?: boolean;
-    status?: string;
-  }
-}
-
-export namespace IApi {
-  export namespace Login {
-    export interface Request extends IForm.Login { }
-    export interface Response extends IEntity.Token { }
-  }
-
-}
-
 export namespace IContext {
-  export interface Auth {
-    isAuthenticated: boolean;
+  export interface AuthContextType {
     user: IEntity.User | null;
-    methods: {
-      login: (user: IEntity.User) => void;
-      logout: () => void;
-    };
+    login: (user: IEntity.User) => void;
+    logout: () => void;
+    userData: IEntity.User | null;
+    setUserData: (userData: IEntity.User) => void;
   }
 }

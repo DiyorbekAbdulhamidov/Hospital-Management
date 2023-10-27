@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
-import { IEntity } from "./types";
+import { IContext, IEntity } from "./types";
 import { clearSession } from "../../utils";
 
-const AuthContext = createContext<IEntity.AuthContextType | undefined>(undefined);
+const AuthContext = createContext<IContext.AuthContextType | undefined>(undefined);
 
 export function useAuth() {
   const context = useContext(AuthContext);
@@ -41,7 +41,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setUserInformation(userData);
   }
 
-  const value: IEntity.AuthContextType = {
+  const value: IContext.AuthContextType = {
     user,
     login,
     logout,
