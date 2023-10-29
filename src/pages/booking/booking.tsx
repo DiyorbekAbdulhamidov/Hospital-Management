@@ -14,7 +14,7 @@ const Booking: FunctionComponent<BookingProps> = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    http.get("http://docs.diordev.me:8084/hybrid-booking/get-user-bookings")
+    http.get("http://164.92.206.217:8084/hybrid-booking/get-user-bookings")
       .then((response) => {
         if (response.status === 200) {
           setupcomingBookings(response.data.data.upcoming);
