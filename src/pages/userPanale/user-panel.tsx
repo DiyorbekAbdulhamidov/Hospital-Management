@@ -47,16 +47,17 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
         if (response.status === 200) {
           setData(response.data.data);
           setUserData(response.data.data);
+          // window.location.reload();
         }
         else {
           console.log("Error:", response.status);
-          window.location.reload();
+          // window.location.reload();
           logout();
         }
       } 
       catch (error) {
         console.error("Error occurred: ", error);
-        window.location.reload();
+        // window.location.reload();
         logout();
       }
     }
@@ -65,7 +66,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
       getUserData();
       // window.location.reload();
     }
-  }, [logout, setUserData, user]);
+  }, [user]);
 
   return (
     <Box>

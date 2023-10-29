@@ -21,18 +21,26 @@ const SendVerification: React.FunctionComponent<SendVerificationProps> = () => {
       }
       setLoading(true);
 
-      const response = await http.get("http://164.92.206.217:8082/user/send-verification-for-changing-email", { params: {email},});
-      navigate('/userPanel/settings/change-email');
-      console.log(response.data);
-      alert.success('Code sent successfully. Check your email');
+      const response = await http.get("http://164.92.206.217:8082/user/send-verification-for-changing-email", { params: { email } });
+      if (response && response.data) {
+        navigate('/userPanel/settings/change-email');
+        console.log(response.data);
+        alert.success('Code sent successfully. Check your email');
+      }
     }
     catch (error: any) {
-      alert.error('❌:' + error.response.data.message);
+      if (error.response && error.response.data && error.response.data.message) {
+        alert.error('❌:' + error.response.data.message);
+      }
+      else {
+        alert.error('❌: An error occurred');
+      }
     }
     finally {
       setLoading(false);
     }
   };
+
 
   const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewEmail(event.target.value);
