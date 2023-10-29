@@ -17,7 +17,7 @@ const SingleSpetialization: FunctionComponent<SingleSpetializationProps> = () =>
   const navigate = useNavigate();
 
   useEffect(() => {
-    http.get("http://188.166.165.2:8082/user/get-specialty-by-id", { params: { specialtyId: spetializationId } })
+    http.get("http://164.92.206.217:8082/user/get-specialty-by-id", { params: { specialtyId: spetializationId } })
       .then((response) => {
         if (response.status === 200) {
           setSpetializationData(response.data.data);

@@ -33,7 +33,7 @@ const Hospital: FunctionComponent<HospitalProps> = () => {
   useEffect(() => {
     async function getHospitals() {
       try {
-        const response = await http.get("http://188.166.165.2:8083/hospital/get-all");
+        const response = await http.get("http://164.92.206.217:8083/hospital/get-all");
         if (response.status === 200) {
           setHospitals(response.data.data.hospitals);
         }

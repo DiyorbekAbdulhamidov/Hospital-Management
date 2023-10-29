@@ -26,7 +26,7 @@ const Spetialization: FunctionComponent<SpetializationProps> = () => {
   useEffect(() => {
     async function getSpetialization() {
       try {
-        const response = await http.get("http://188.166.165.2:8082/user/get-all-specialties");
+        const response = await http.get("http://164.92.206.217:8082/user/get-all-specialties");
         if (response.status === 200) {
           setSpetialization(response.data.data);
           setLoading(false);

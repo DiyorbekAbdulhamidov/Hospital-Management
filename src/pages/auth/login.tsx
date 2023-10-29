@@ -32,7 +32,7 @@ const Login: React.FunctionComponent<LoginProps> = () => {
 
     if (form.isValid()) {
       setLoading(true);
-      axios.post("http://188.166.165.2:8082/user/auth/sign-in", {
+      axios.post("http://164.92.206.217:8082/user/auth/sign-in", {
         email: form.values.email,
         password: form.values.password,
       })

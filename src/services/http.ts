@@ -8,6 +8,9 @@ const http = axios.create()
 
 const token = getSession();
 
+console.log(token);
+
+
 http.interceptors.request.use(
   request => {
     // @ts-ignore

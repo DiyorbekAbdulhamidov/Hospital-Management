@@ -23,7 +23,7 @@ const Password: React.FunctionComponent = () => {
       const values = { password };
       await passwordSchema.validate(values, { abortEarly: false });
 
-      const response = await axios.put("http://188.166.165.2:8082/user/auth/update-password", { email, newPassword: password },);
+      const response = await axios.put("http://164.92.206.217:8082/user/auth/update-password", { email, newPassword: password },);
 
       const responseData = response.data;
 

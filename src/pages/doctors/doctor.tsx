@@ -20,7 +20,7 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
 
   const getAvailableTimes = async () => {
     try {
-      const response = await http.post('http://188.166.165.2:8084/hybrid-booking/get-doctor-available-time',
+      const response = await http.post('http://164.92.206.217:8084/hybrid-booking/get-doctor-available-time',
         {
           bookingDay: '2023-09-19',
           doctorId,
@@ -41,7 +41,7 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
   useEffect(() => {
     async function getDoctorData() {
       try {
-        const response = await http.get(`http://188.166.165.2:8082/user/get-doctor-by-id`, {params: { doctorId,} });
+        const response = await http.get(`http://164.92.206.217:8082/user/get-doctor-by-id`, {params: { doctorId,} });
         if (response.status === 200) {
           setDoctorData(response.data.data);
         }
@@ -64,7 +64,7 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
     }
 
     try {
-      const response = await http.post('http://188.166.165.2:8084/hybrid-booking/save',
+      const response = await http.post('http://164.92.206.217:8084/hybrid-booking/save',
         {
           timeSlotId: selectedTimeSlot.id,
         },

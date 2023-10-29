@@ -21,7 +21,7 @@ const SendVerification: React.FunctionComponent<SendVerificationProps> = () => {
       }
       setLoading(true);
 
-      const response = await http.get("http://188.166.165.2:8082/user/send-verification-for-changing-email", { params: {email},});
+      const response = await http.get("http://164.92.206.217:8082/user/send-verification-for-changing-email", { params: {email},});
       navigate('/userPanel/settings/change-email');
       console.log(response.data);
       alert.success('Code sent successfully. Check your email');

@@ -22,7 +22,7 @@ const ChangePassword: React.FunctionComponent = () => {
       const values = { email: data.email, newPassword: data.newPassword };
       await passwordSchema.validate(values, { abortEarly: false });
 
-      const response = await http.put("http://188.166.165.2:8082/user/auth/update-password", {
+      const response = await http.put("http://164.92.206.217:8082/user/auth/update-password", {
         email: emaill,
         newPassword: data.newPassword
       },

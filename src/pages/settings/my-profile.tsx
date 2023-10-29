@@ -40,7 +40,7 @@ const MyProfile: React.FunctionComponent<MyProfileProps> = () => {
   const handleSaveClick = () => {
     schema.validate(updatedData).then(() => {
 
-      http.put("http://188.166.165.2:8082/user/update-user", updatedData,)
+      http.put("http://164.92.206.217:8082/user/update-user", updatedData,)
         .then((response) => {
           if (response.status === 200) {
             setIsEditing(false);

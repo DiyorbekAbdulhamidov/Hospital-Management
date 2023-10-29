@@ -72,7 +72,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
         gender: gender,
       };
 
-      axios.post("http://188.166.165.2:8082/user/auth/sign-up", userData)
+      axios.post("http://164.92.206.217:8082/user/auth/sign-up", userData)
         .then((response) => {
           console.log("User signed up successfully:", response.data);
           navigate("auth/login");

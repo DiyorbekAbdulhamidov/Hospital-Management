@@ -24,7 +24,7 @@ const ForgotPassword: React.FunctionComponent<ForgotPasswordProps> = () => {
       const values = { email };
       await validationSchema.validate(values, { abortEarly: false });
 
-      const response = await axios.get("http://188.166.165.2:8082/user/auth/forgot-password", { params: { email } });
+      const response = await axios.get("http://164.92.206.217:8082/user/auth/forgot-password", { params: { email } });
       const responseData = response.data;
 
       if (responseData.status === "SUCCESS") {

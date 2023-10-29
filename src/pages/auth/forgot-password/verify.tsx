@@ -23,7 +23,7 @@ const PinCode: React.FC<PinCodeProps> = () => {
       const values = { pin };
       await pinSchema.validate(values, { abortEarly: false });
 
-      const response = await axios.post("http://188.166.165.2:8082/user/auth/verify-code-for-update-password", {
+      const response = await axios.post("http://164.92.206.217:8082/user/auth/verify-code-for-update-password", {
         email,
         code: pin
       });

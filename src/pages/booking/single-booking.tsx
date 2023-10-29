@@ -17,7 +17,7 @@ const SingleBooking: FunctionComponent<SingleBookingProps> = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    http.get("http://188.166.165.2:8084/hybrid-booking/get-booking", { params: { bookingId } })
+    http.get("http://164.92.206.217:8084/hybrid-booking/get-booking", { params: { bookingId } })
       .then((response) => {
         if (response.status === 200) {
           setBookingData(response.data.data);
@@ -33,7 +33,7 @@ const SingleBooking: FunctionComponent<SingleBookingProps> = () => {
   });
 
   const handleCancel = () => {
-    http.get("http://188.166.165.2:8084/hybrid-booking/cancel", { params: { bookingId } })
+    http.get("http://164.92.206.217:8084/hybrid-booking/cancel", { params: { bookingId } })
       .then((response) => {
         if (response.status === 200) {
           alert.success('Booking successfully cancelled')

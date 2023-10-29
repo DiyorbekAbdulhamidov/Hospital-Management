@@ -22,7 +22,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
   const [showBooking, setshowBooking] = useState(false);
 
   const [showMenu, setShowMenu] = useState(
-    localStorage.getItem("showMenu") === "true" || false
+    localStorage.getItem("showMenu") === "true" || false  
   );
 
   useEffect(() => {
@@ -43,24 +43,27 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
   useEffect(() => {
     async function getUserData() {
       try {
-        const response = await http.get("http://188.166.165.2:8082/user/get-me");
+        const response = await http.get("http://164.92.206.217:8082/user/get-me");
         if (response.status === 200) {
           setData(response.data.data);
           setUserData(response.data.data);
         }
         else {
           console.log("Error:", response.status);
-          logout();
+          // window.location.reload();
+          // logout();
         }
       } 
       catch (error) {
         console.error("Error occurred: ", error);
-        logout();
+        // window.location.reload();
+        // logout();
       }
     }
 
     if (user) {
       getUserData();
+      // window.location.reload();
     }
   }, [user]);
 

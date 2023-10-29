@@ -34,7 +34,7 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
   useEffect(() => {
     async function getHospitalData() {
       try {
-        const response = await http.get(`http://188.166.165.2:8083/hospital/${hospitalId}/get-hospital`);
+        const response = await http.get(`http://164.92.206.217:8083/hospital/${hospitalId}/get-hospital`);
         if (response.status === 200) {
           setHospitalData(response.data.data);
           await getDoctorsData();
@@ -50,7 +50,7 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
 
     async function getDoctorsData() {
       try {
-        const response = await http.get('http://188.166.165.2:8082/user/get-all-doctors-from-hospital', {
+        const response = await http.get('http://164.92.206.217:8082/user/get-all-doctors-from-hospital', {
           params: {
             page: 0,
             size: 10,

@@ -22,7 +22,7 @@ const ChangeEmail: React.FC<ChangeEmailProps> = () => {
       const values = { pin };
       await pinSchema.validate(values, { abortEarly: false });
 
-      const response = await axios.post("http://188.166.165.2:8082/user/verify-code-for-changing-email", { email, code: pin});
+      const response = await axios.post("http://164.92.206.217:8082/user/verify-code-for-changing-email", { email, code: pin});
 
       const responseData = response.data;
 
