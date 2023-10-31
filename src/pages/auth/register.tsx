@@ -13,7 +13,7 @@ interface RegisterProps { }
 const Register: React.FunctionComponent<RegisterProps> = () => {
   const id = useId();
   const [gender, setGender] = useState<string | null>("");
-  const [loading, setLoading] = useState(false);
+  const [, setLoading] = useState(false);
 
   const form = useForm({
     initialValues: {
@@ -157,7 +157,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                             id="form3Example1"
                             className={`form-control`}
                             {...form.getInputProps("fullName")}
-                            placeholder="Full Name"
+                            placeholder="Enter your full name"
                           />
                           <label className="form-label" htmlFor="form3Example1">Full Name</label>
                         </div>
@@ -182,7 +182,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                         id="form3Example3"
                         className={`form-control`}
                         {...form.getInputProps("email")}
-                        placeholder="Email Address"
+                        placeholder="Enter your email address"
                       />
                       <label className="form-label" htmlFor="form3Example3">Email address</label>
                     </div>
@@ -193,7 +193,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                         id="form3Example4"
                         className={`form-control`}
                         {...form.getInputProps("password")}
-                        placeholder="Password"
+                        placeholder="Enter your password"
                       />
                       <label className="form-label" htmlFor="form3Example4">Password</label>
                     </div>
@@ -204,7 +204,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                         id="form3Example2"
                         className={`form-control`}
                         {...form.getInputProps("phoneNumber")}
-                        placeholder="Phone Number"
+                        placeholder="Enter your phone number"
                       />
                       <label className="form-label" htmlFor="form3Example2">Phone Number</label>
                     </div>

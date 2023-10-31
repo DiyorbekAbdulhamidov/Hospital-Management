@@ -111,6 +111,7 @@ const Login: React.FC = () => {
                         className={`form-control ${form.errors.email ? 'is-invalid' : ''}`}
                         value={form.values.email}
                         onChange={(e) => form.setFieldValue('email', e.target.value)}
+                        placeholder="Enter your email address"
                       />
                       <label className="form-label" htmlFor="form3Example3">Email address</label>
                       {form.errors.email && <div className="invalid-feedback">{form.errors.email}</div>}
@@ -120,6 +121,7 @@ const Login: React.FC = () => {
                       <input
                         type="password"
                         id="form3Example4"
+                        placeholder="Enter your password"
                         className={`form-control ${form.errors.password ? 'is-invalid' : ''}`}
                         value={form.values.password}
                         onChange={(e) => form.setFieldValue('password', e.target.value)}
