@@ -134,7 +134,7 @@ const Login: React.FC = () => {
 
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                       <span><Link to='/auth/forgot-password'>Forgot the Passowrd ?</Link></span>
-                      <span><Link to='/auth/register'>Do you have an Account? </Link></span>
+                      <span><Link to='/auth/register'>Don`t you have an Account? </Link></span>
                     </div>
                   </form>
                 </div>
