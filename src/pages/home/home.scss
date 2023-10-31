@@ -10,7 +10,6 @@ section {
   .bottom {
     margin-top: 100px;
 
-
     h1 {
       color: #FFF;
       font-family: Montserrat;
@@ -30,11 +29,11 @@ section {
       letter-spacing: 0.2px;
     }
 
-    .btns{
+    .btns {
       display: flex;
       gap: 20px;
 
-      button{
+      button {
         width: 250px;
         height: 70px;
         background: none;
@@ -42,6 +41,34 @@ section {
         border-radius: 24px;
         font-size: 40px;
         color: white;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 30px;
+
+    .bottom {
+      margin-top: 50px;
+
+      h1 {
+        font-size: 32px;
+        line-height: 40px;
+      }
+
+      p {
+        font-size: 14px;
+        line-height: 20px;
+      }
+
+      .btns {
+        button {
+          width: 200px;
+          height: 60px;
+          font-size: 24px;
+        }
       }
     }
   }
