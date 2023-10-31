@@ -113,6 +113,7 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
           </Button>
         </Card>
       )}
+     
       <Button onClick={() => navigate(-1)} left={600} h={40}>
         Go Back
       </Button>

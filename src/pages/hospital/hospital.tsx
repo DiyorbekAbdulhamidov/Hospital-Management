@@ -87,6 +87,7 @@ const Hospital: FunctionComponent<HospitalProps> = () => {
           onChange={(event) => setHospitalNameFilter(event.target.value)}
         />
       </Flex>
+      
       <Grid gutter="md">
         {filteredHospitals.length === 0 ? (
           <Text>No hospitals found ❌</Text>
