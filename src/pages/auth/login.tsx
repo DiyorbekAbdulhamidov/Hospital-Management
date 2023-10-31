@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "@mantine/form";
 import { Box } from "@mantine/core";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../modules/auth/context";
 import { alert, setSession } from "../../utils";
 import axios from "axios";
@@ -39,7 +39,8 @@ const Login: React.FC = () => {
           alert.error("❌" + error.response.data.message);
           setLoading(false);
         });
-    } else {
+    }
+    else {
       alert.error("Password must have at least 5 letters or Invalid email");
       setLoading(false);
     }
@@ -127,24 +128,14 @@ const Login: React.FC = () => {
                       {form.errors.password && <div className="invalid-feedback">{form.errors.password}</div>}
                     </div>
 
-                    <button type="submit" className="btn btn-primary btn-block mb-4 justify-content-center" style={{width: 497}}>
+                    <button type="submit" className="btn btn-primary btn-block mb-4 justify-content-center" style={{ width: 497 }}>
                       Sign In
                     </button>
 
-                    <div className="form-check d-flex justify-content-center mb-4">
-                      <input
-                        className="form-check-input me-2"
-                        type="checkbox"
-                        value=""
-                        id="form2Example33"
-                        checked={form.values.subscribe}
-                        onChange={(e) => form.setFieldValue('subscribe', e.target.checked)}
-                      />
-                      <label className="form-check-label" htmlFor="form2Example33">
-                        Subscribe to our newsletter
-                      </label>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span><Link to='/auth/forgot-password'>Forgot the Passowrd ?</Link></span>
+                      <span><Link to='/auth/register'>Do you have an Account? </Link></span>
                     </div>
-
                   </form>
                 </div>
               </div>
