@@ -4,7 +4,6 @@ import { Auth, DoctorPage, HomePage, Page404, Settings, SingleBooking, SingleSpe
 import { ToastContainer } from "react-toastify";
 import { useAuth } from "../modules/auth/context";
 import { SingleHospital } from "../pages/hospital";
-import { EmailProvider } from "../modules/home/context";
 import Protected from "./protected";
 
 const AppRoutes: FunctionComponent = () => {
@@ -12,7 +11,6 @@ const AppRoutes: FunctionComponent = () => {
 
   return (
     <BrowserRouter>
-      <EmailProvider>
         <ToastContainer position="top-right" autoClose={5000} />
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -47,7 +45,6 @@ const AppRoutes: FunctionComponent = () => {
 
           <Route path="*" element={<Page404 />} />
         </Routes>
-      </EmailProvider>
     </BrowserRouter>
   );
 };

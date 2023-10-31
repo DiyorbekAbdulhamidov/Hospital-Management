@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { useForm } from "@mantine/form";
-import { Input, LoadingOverlay, PasswordInput, TextInput, Title, } from "@mantine/core";
-import { DateInput } from "@mantine/dates";
-import { Box, Button, Flex, Paper, Text } from "@mantine/core";
+import { Box } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
 import { useId } from "@mantine/hooks";
-import { IMaskInput } from "react-imask";
 import { format } from "date-fns";
 import { alert } from "../../utils";
 import axios from "axios";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface RegisterProps { }
 
@@ -94,125 +92,159 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
     }
   };
 
-  return loading ? (
-    <LoadingOverlay visible />
-  ) : (
+  return (
     <Box>
-      <Flex mt={60} justify="center" align="center">
-        <Paper className="formBox" shadow="xl" pos="relative">
-          <Box mt={10}>
-            <Text ta="center" c="#2972FE" fw={600} fz={40}>
-              Doctor Q
-            </Text>
-            <Text mt={20} fw={600} fz={20} ta="center">
-              Sign up for free!
-            </Text>
-          </Box>
-          <Box maw={320} mx="auto">
-            <form onSubmit={form.onSubmit(handleSubmit)}>
-              <TextInput
-                radius={70}
-                mt="sm"
-                size="xs"
-                label="Full Name"
-                placeholder="Full Name"
+      <section className="background-radial-gradient overflow-hidden">
+        <style>
+          {`.background-radial-gradient {
+                background-color: hsl(218, 41%, 15%);
+                background-image: radial-gradient(650px circle at 0% 0%,
+                    hsl(218, 41%, 35%) 15%,
+                    hsl(218, 41%, 30%) 35%,
+                    hsl(218, 41%, 20%) 75%,
+                    hsl(218, 41%, 19%) 80%,
+                    transparent 100%);
+                height: 100vh;
+              }
 
-                {...form.getInputProps("fullName")}
-              />
-              <TextInput
-                radius={70}
-                mt="sm"
-                size="xs"
-                label="Email"
-                placeholder="Email"
+              #radius-shape-1 {
+                height: 220px;
+                width: 220px;
+                top: -60px;
+                left: -130px;
+                background: radial-gradient(#44006b, #ad1fff);
+                overflow: hidden;
+              }
 
-                {...form.getInputProps("email")}
-              />
-              <PasswordInput
-                mt={20}
-                size="xs"
-                radius={70}
-                label="Password"
-                placeholder="Password"
+              #radius-shape-2 {
+                border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+                bottom: -60px;
+                right: -110px;
+                width: 300px;
+                height: 300px;
+                background: radial-gradient(#44006b, #ad1fff);
+                overflow: hidden;
+              }
 
-                {...form.getInputProps("password")}
-              />
-              <DateInput
-                mt="sm"
-                radius={70}
-                size="xs"
-                label="Date Of Birth"
-                valueFormat="DD.MM.YYYY"
-                placeholder="Date Of Your Birth (dd.mm.yyyy)"
+              .bg-glass {
+                background-color: hsla(0, 0%, 100%, 0.9) !important;
+                backdrop-filter: saturate(200%) blur(25px);
+              }
+            `}
+        </style>
 
-                maw={400}
-                mx="auto"
-                {...form.getInputProps("dateOfBirth")}
-              />
+        <div className="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+          <div className="row gx-lg-5 align-items-start mb-10">
+            <div className="col-lg-6 mb-5 mb-lg-0" style={{ zIndex: 10 }}>
+              <h1 className="my-5 display-5 fw-bold ls-tight" style={{ color: "hsl(218, 81%, 95%)" }}>
+                Sign Up To <br />
+                <span style={{ color: "hsl(218, 81%, 75%)" }}>Hospital Menegemant</span>
+              </h1>
+            </div>
 
-              <Input.Wrapper
-                mt="sm"
-                id={id}
-                label="Your phone"
+            <div className="col-lg-6 mb-5 mb-lg-0 position-relative">
+              <div id="radius-shape-1" className="position-absolute rounded-circle shadow-5-strong"></div>
+              <div id="radius-shape-2" className="position-absolute shadow-5-strong"></div>
 
-                maw={320}
-                mx="auto"
-                size="xs"
-              >
-                <Input
-                  radius={70}
-                  size="xs"
-                  component={IMaskInput}
-                  mask="+998 (00) 000-00-00"
-                  id={id}
-                  placeholder="Your phone"
+              <div className="card bg-glass">
+                <div className="card-body px-4 py-5 px-md-5">
+                  <form onSubmit={(e) => { e.preventDefault(); handleSubmit() }}>
+                    <div className="row">
+                      <div className="col-md-6 mb-4">
+                        <div className="form-outline">
+                          <input
+                            type="text"
+                            id="form3Example1"
+                            className={`form-control`}
+                            {...form.getInputProps("fullName")}
+                            placeholder="Full Name"
+                          />
+                          <label className="form-label" htmlFor="form3Example1">Full Name</label>
+                        </div>
+                      </div>
+                      <div className="col-md-6 mb-4">
+                        <div className="form-outline">
+                          <input
+                            type="date"
+                            id="form3Example2"
+                            className={`form-control`}
+                            {...form.getInputProps("dateOfBirth")}
+                            placeholder="Date of Birth"
+                          />
+                          <label className="form-label" htmlFor="form3Example2">Date of Birth</label>
+                        </div>
+                      </div>
+                    </div>
 
-                  {...form.getInputProps("phoneNumber")}
-                />
-              </Input.Wrapper>
-              <div className="gender">
-                <span>Gender:</span>
-                <label>
-                  <small>Male</small>
-                  <input
-                    type="radio"
-                    name="gender"
-                    value="male"
-                    onChange={() => setGender("MALE")}
-                  />
-                </label>
-                <label>
-                  <small>Female</small>
-                  <input name="gender" value="female" type="radio" onChange={() => setGender("FEMALE")} />
-                </label>
+                    <div className="form-outline mb-4">
+                      <input
+                        type="email"
+                        id="form3Example3"
+                        className={`form-control`}
+                        {...form.getInputProps("email")}
+                        placeholder="Email Address"
+                      />
+                      <label className="form-label" htmlFor="form3Example3">Email address</label>
+                    </div>
+
+                    <div className="form-outline mb-4">
+                      <input
+                        type="password"
+                        id="form3Example4"
+                        className={`form-control`}
+                        {...form.getInputProps("password")}
+                        placeholder="Password"
+                      />
+                      <label className="form-label" htmlFor="form3Example4">Password</label>
+                    </div>
+
+                    <div className="form-outline" style={{ marginTop: 20 }}>
+                      <input
+                        type="tel"
+                        id="form3Example2"
+                        className={`form-control`}
+                        {...form.getInputProps("phoneNumber")}
+                        placeholder="Phone Number"
+                      />
+                      <label className="form-label" htmlFor="form3Example2">Phone Number</label>
+                    </div>
+
+                    <div className="gender">
+                      <span>Gender:</span>
+                      <label>
+                        <small>MALE</small>
+                        <input
+                          type="radio"
+                          name="gender"
+                          value="MALE"
+                          onChange={() => setGender("MALE")}
+                        />
+                      </label>
+                      <label>
+                        <small>FEMALE</small>
+                        <input
+                          name="gender"
+                          value="FEMALE"
+                          type="radio"
+                          onChange={() => setGender("FEMALE")}
+                        />
+                      </label>
+                    </div>
+
+                    <button type="submit" className="btn btn-primary btn-block mb-4 justify-content-center" style={{ width: 497, marginTop: 20 }}>
+                      Sign Up
+                    </button>
+
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span><Link to='/auth/login'>Do you have an Account? </Link></span>
+                    </div>
+                  </form>
+                </div>
               </div>
-              <Button fz={25} size="md" w="100%" radius={70} type="submit" mt="sm">
-                Sign Up
-              </Button>
-            </form>
-          </Box>
-          {/* <Text ta="center" pt={20}>
-            or continue with
-          </Text>
-
-          <Flex mt={20} justify="space around" align={'center'}>
-            <Button className="socialLink" bg="white" c="black" fz={20} w={150}>
-              Facebook
-            </Button>
-            <Group position="center">
-              <Button className="socialLink" bg="white" c="black" fz={20} w={150} >
-                Google
-              </Button>
-            </Group>
-          </Flex> */}
-          <Title pb={20} fw={400} ta="center" mt={20} fz={20}>
-            Already have an account?{" "}
-            <Text span c="blue" inherit>
-              <Link to="/auth/login">Sign In</Link>
-            </Text>
-          </Title>
-        </Paper>
-      </Flex>
+            </div>
+          </div>
+        </div>
+      </section>
     </Box>
   );
 };

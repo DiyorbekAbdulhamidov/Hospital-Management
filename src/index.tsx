@@ -4,6 +4,7 @@ import './index.css';
 import { Routes } from './routes';
 import { AuthProvider } from './modules/auth/context';
 import "./assets/fonts/montserrat.css";
+import { EmailProvider } from './modules/home/context';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,7 +12,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <AuthProvider>
-      <Routes />
+      <EmailProvider>
+        <Routes />
+      </EmailProvider>
     </AuthProvider>
   </React.StrictMode>
 );
