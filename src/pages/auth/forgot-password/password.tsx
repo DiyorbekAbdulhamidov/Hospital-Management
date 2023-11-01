@@ -1,4 +1,4 @@
-import { Box, Button, Flex, PasswordInput, Text } from "@mantine/core";
+import { Box, Button, Flex, PasswordInput, Text, LoadingOverlay } from "@mantine/core";
 import React, { useState } from "react";
 import { alert } from "../../../utils";
 import { useEmail } from "../../../modules/home/context";
@@ -9,7 +9,8 @@ import axios from "axios";
 const Password: React.FunctionComponent = () => {
   const { email } = useEmail();
   const [password, setPassword] = useState("");
-  const [errorMessage, seterrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const passwordSchema = yup.object().shape({
     password: yup.string()
@@ -20,10 +21,11 @@ const Password: React.FunctionComponent = () => {
 
   const handleEmailCheck = async () => {
     try {
+      setLoading(true);
       const values = { password };
       await passwordSchema.validate(values, { abortEarly: false });
 
-      const response = await axios.put("http://164.92.206.217:8082/user/auth/update-password", { email, newPassword: password },);
+      const response = await axios.put("http://164.92.206.217:8082/user/auth/update-password", { email, newPassword: password });
 
       const responseData = response.data;
 
@@ -38,39 +40,47 @@ const Password: React.FunctionComponent = () => {
     catch (error: any) {
       if (error instanceof yup.ValidationError) {
         const errorMessage = error.inner.map((err) => err.message).join(' ');
-        seterrorMessage(errorMessage);
+        setErrorMessage(errorMessage);
       }
       else {
         alert.error("❌" + error.response.data.message);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <>
-      <Flex justify="center" align={"center"} mt={100}>
-        <Box w={400} h={400}>
-          <Text ta={"center"} fz={30}>
-            Enter New Password
-          </Text>
-          <Box mt={70}>
-            <PasswordInput
-              placeholder="Password"
-              label="Enter new password"
-              description="Password must include at least one letter, number, and special character"
-              withAsterisk
-              value={password}
-              error={errorMessage}
-              onChange={(event) => {
-                setPassword(event.target.value);
-              }}
-            />
-            <Button onClick={handleEmailCheck} w={"100%"} h={50} fz={25} mt={40}>
-              Change Password
-            </Button>
+      {loading && <LoadingOverlay visible />}
+      <section className="background-radial-gradient overflow-hidden">
+        <Flex justify="center" align={"center"} mt={100}>
+          <Box w={400} h={400}>
+            <Text ta={"center"} fz={30} color="white">
+              Enter New Password
+            </Text>
+            <Box mt={70}>
+              <PasswordInput
+                placeholder="Password"
+                label="Enter new password"
+                description="Password must include at least one letter, number, and special character"
+                withAsterisk
+                labelProps={{
+                  style: { color: 'white' }
+                }}
+                value={password}
+                error={errorMessage}
+                onChange={(event) => {
+                  setPassword(event.target.value);
+                }}
+              />
+              <Button onClick={handleEmailCheck} w={"100%"} h={50} fz={25} mt={40}>
+                Change Password
+              </Button>
+            </Box>
           </Box>
-        </Box>
-      </Flex>
+        </Flex>
+      </section>
     </>
   );
 };

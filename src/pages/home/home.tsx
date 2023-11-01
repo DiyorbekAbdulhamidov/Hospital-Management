@@ -8,7 +8,7 @@ const Home: React.FunctionComponent<HomeProps> = () => {
   const navigate = useNavigate();
 
   return (
-    <section>
+    <section className="homePage">
       <div className="bottom">
         <h1>
           We are ready to <br /> help your health <br /> problems

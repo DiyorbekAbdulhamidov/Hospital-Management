@@ -1,28 +1,44 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { Box, Button, Container, Flex, Menu, SegmentedControl, rem, } from "@mantine/core";
-import { IconBrandBooking, IconBuildingHospital, IconExternalLink, IconHistory, IconLogout2, IconSettings, } from "@tabler/icons-react";
+import {
+  Box,
+  Button,
+  Container,
+  Flex,
+  Menu,
+  SegmentedControl,
+  rem,
+} from "@mantine/core";
+import {
+  IconBrandBooking,
+  IconBuildingHospital,
+  IconExternalLink,
+  IconHistory,
+  IconLogout2,
+  IconSettings,
+} from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
 import { Burger } from "@mantine/core";
 import { Header, Text } from "@mantine/core";
 import { useAuth } from "../../modules/auth/context";
 import { IEntity } from "../../modules/auth/types";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Hospital from "../hospital/hospital";
 import { MainSettings } from "../settings";
 import Spetialization from "../spetialization/spetialization";
 import Booking from "../booking/booking";
 import { http } from "../../services";
 
-interface UserPanelProps { }
+interface UserPanelProps {}
 
 const UserPanel: FunctionComponent<UserPanelProps> = () => {
   const [showHospital, setHospital] = useState(true);
   const [showSettings, setSettings] = useState(false);
   const [showSpetialization, setSpetialization] = useState(false);
   const [showBooking, setshowBooking] = useState(false);
+  const navigate = useNavigate();
 
   const [showMenu, setShowMenu] = useState(
-    localStorage.getItem("showMenu") === "true" || false  
+    localStorage.getItem("showMenu") === "true" || false
   );
 
   useEffect(() => {
@@ -43,22 +59,22 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
   useEffect(() => {
     async function getUserData() {
       try {
-        const response = await http.get("http://164.92.206.217:8082/user/get-me");
+        const response = await http.get(
+          "http://164.92.206.217:8082/user/get-me"
+        );
         if (response.status === 200) {
           setData(response.data.data);
           setUserData(response.data.data);
           // window.location.reload();
-        }
-        else {
+        } else {
           console.log("Error:", response.status);
-          // window.location.reload();
-          logout();
+          window.location.reload();
+          // logout();
         }
-      } 
-      catch (error) {
+      } catch (error) {
         console.error("Error occurred: ", error);
-        // window.location.reload();
-        logout();
+        window.location.reload();
+        // logout();
       }
     }
 
@@ -70,20 +86,20 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
 
   return (
     <Box>
-      <Header height={{ base: 50, md: 70 }} p="md">
+      <div className="mainHeader">
         <Flex justify="space-around" align="center" h="100%">
           <Flex>
-            <Text fz={25} fw={600}>
+            <Text fz={30} fw={600} color="white">
               Doctor
             </Text>
-            <Text fw={600} color="#2972fe" fz={25}>
+            <Text fw={600} color="#2972fe" fz={30}>
               Q
             </Text>
           </Flex>
           <Menu width={200} shadow="md">
             <Menu.Target>
-              <Button radius="50%" w={50} h={50}>
-                <Text fz={20}>{data?.fullName[0]}</Text>
+              <Button radius="50%" w={45} h={45}>
+                <Text fz={14}>{data?.fullName[0]}</Text>
               </Button>
             </Menu.Target>
             <Menu.Dropdown>
@@ -97,8 +113,9 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
                 icon={<IconExternalLink size={14} />}
                 component="a"
                 target="_blank"
+                onClick={() => navigate("/userPanel/settings/my-profile")}
               >
-                <Link to="/userPanel/settings/my-profile">My Profile</Link>
+                My Profile
               </Menu.Item>
               <Menu.Item
                 c="red"
@@ -111,7 +128,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
             </Menu.Dropdown>
           </Menu>
         </Flex>
-      </Header>
+      </div>
       <Box>
         <Flex>
           <Box
@@ -122,7 +139,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
           >
             <Box mt={20} ml={30}>
               <SegmentedControl
-                bg="rgb(244, 244, 244)"
+                bg="hsl(218, 41%, 15%)"
                 mt={100}
                 w={200}
                 fullWidth
@@ -155,7 +172,11 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
                   {
                     value: "Booking",
                     label: (
-                      <Flex align="center" pl={20} pt={20} pb={20}
+                      <Flex
+                        align="center"
+                        pl={20}
+                        pt={20}
+                        pb={20}
                         onClick={() => {
                           setSettings(false);
                           setHospital(false);
@@ -227,7 +248,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
 
           <Box w={`${!showMenu ? "80%" : "100%"}`} h="auto">
             <Burger
-              color="black"
+              color="red"
               ml={`${showMenu ? `3%` : "-5%"}`}
               mt={20}
               opened={opened}

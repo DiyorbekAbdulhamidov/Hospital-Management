@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "@mantine/form";
-import { Box, Input, PasswordInput, TextInput } from "@mantine/core";
+import { Box, Input, LoadingOverlay, PasswordInput, TextInput } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
 import { useId } from "@mantine/hooks";
 import { format } from "date-fns";
@@ -10,7 +10,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { DateInput } from "@mantine/dates";
 import { IMaskInput } from "react-imask";
 
-interface RegisterProps {}
+interface RegisterProps { }
 
 const Register: React.FunctionComponent<RegisterProps> = () => {
   const id = useId();
@@ -78,14 +78,17 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
         .post("http://164.92.206.217:8082/user/auth/sign-up", userData)
         .then((response) => {
           console.log("User signed up successfully:", response.data);
+          alert.success('Successfully signed');
           navigate("auth/login");
         })
         .catch((error) => {
           if (error.response) {
             alert.error("❌" + error.response.data.message);
-          } else if (error.request) {
+          } 
+          else if (error.request) {
             alert.error("Network error");
-          } else {
+          } 
+          else {
             alert.error("❌" + error.response.data.message);
           }
         })
@@ -97,6 +100,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
 
   return (
     <Box>
+      {loading && <LoadingOverlay visible />}
       <section className="background-radial-gradient overflow-hidden">
         <style>
           {`.background-radial-gradient {
@@ -145,7 +149,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
               >
                 Sign Up To <br />
                 <span style={{ color: "hsl(218, 81%, 75%)" }}>
-                  Hospital Menegemant
+                  Hospital Management
                 </span>
               </h1>
             </div>
@@ -168,7 +172,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                         <div className="form-outline">
                           <TextInput
                             label="Full Name"
-                            placeholder="Full Name"
+                            placeholder="Enter your full name"
                             {...form.getInputProps("fullName")}
                           />
                         </div>
@@ -178,7 +182,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                           <DateInput
                             label="Date Of Birth"
                             valueFormat="DD.MM.YYYY"
-                            placeholder="Date Of Your Birth (dd.mm.yyyy)"
+                            placeholder="(dd.mm.yyyy)"
                             maw={400}
                             mx="auto"
                             {...form.getInputProps("dateOfBirth")}
@@ -190,7 +194,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                     <div className="form-outline mb-4">
                       <TextInput
                         label="Email address"
-                        placeholder="Email address"
+                        placeholder="Enter your email address"
                         {...form.getInputProps("email")}
                       />
                     </div>
@@ -198,18 +202,18 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                     <div className="form-outline mb-4">
                       <PasswordInput
                         label="Password"
-                        placeholder="Password"
+                        placeholder="Enter password"
                         {...form.getInputProps("password")}
                       />
                     </div>
 
                     <div className="form-outline" style={{ marginTop: 20 }}>
-                      <Input.Wrapper id={id} label="Your phone" mx="auto">
+                      <Input.Wrapper id={id} label="Phone Number" mx="auto">
                         <Input
                           component={IMaskInput}
                           mask="+998 (00) 000-00-00"
                           id={id}
-                          placeholder="Phone Number"
+                          placeholder="Enter your phone number"
                           {...form.getInputProps("phoneNumber")}
                         />
                       </Input.Wrapper>

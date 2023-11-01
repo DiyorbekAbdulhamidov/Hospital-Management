@@ -163,7 +163,7 @@ a {
 .left_menu {
   border-right: solid 2px black;
   box-shadow: 0.2px 0.3px black;
-  background-color: rgb(244, 244, 244);
+  background-color: hsl(218, 41%, 15%);
 }
 
 .HomeBoxmain {
@@ -171,4 +171,112 @@ a {
   width: 400px;
   height: auto;
   padding-bottom: 30px;
+}
+
+.background-radial-gradient {
+  background-color: hsl(218, 41%, 15%);
+  background-image: radial-gradient(
+    650px circle at 0% 0%,
+    hsl(218, 41%, 35%) 15%,
+    hsl(218, 41%, 30%) 35%,
+    hsl(218, 41%, 20%) 75%,
+    hsl(218, 41%, 19%) 80%,
+    transparent 100%
+  );
+  height: 100vh;
+}
+
+#radius-shape-1 {
+  height: 220px;
+  width: 220px;
+  top: -60px;
+  left: -130px;
+  background: radial-gradient(#44006b, #ad1fff);
+  overflow: hidden;
+}
+
+#radius-shape-2 {
+  border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+  bottom: -60px;
+  right: -110px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(#44006b, #ad1fff);
+  overflow: hidden;
+}
+
+.bg-glass {
+  background-color: hsla(0, 0%, 100%, 0.9) !important;
+  backdrop-filter: saturate(200%) blur(25px);
+}
+
+.hospitalContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.hospitalCard {
+  width: 350px;
+  height: 400px;
+  background: rgb(255, 255, 255);
+  border-radius: 10px;
+  border: solid 1px black;
+  overflow: hidden;
+  -webkit-box-shadow: 14px 16px 13px 3px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 14px 16px 13px 3px rgba(34, 60, 80, 0.2);
+  box-shadow: 14px 16px 13px 3px rgba(34, 60, 80, 0.2);
+}
+
+.hospitalCard img {
+  width: 350px;
+  height: 50%;
+  object-fit: cover;
+}
+
+.hospitalName {
+  font-family: sans-serif;
+  text-align: center;
+  padding-top: 10px;
+  letter-spacing: 0.8px;
+  height: 50px;
+}
+
+.hospitalCard {
+  .hospitalInfo {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    button {
+      width: 100px;
+      border: none;
+      background: hsl(218, 41%, 15%);
+      height: 40px;
+      border-radius: 10px;
+      color: #fff;
+    }
+  }
+
+  .viweHospitalBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    button {
+      height: 40px;
+      width: 270px;
+      border: none;
+      background: hsl(218, 41%, 15%);
+      border-radius: 10px;
+      color: #fff;
+    }
+  }
+}
+
+.mainHeader {
+  width: 100%;
+  height: 80px;
+  border-bottom: 1px solid black;
+  background-color: hsl(218, 41%, 15%);
 }

@@ -34,35 +34,37 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
   useEffect(() => {
     async function getHospitalData() {
       try {
-        const response = await http.get(`http://164.92.206.217:8083/hospital/${hospitalId}/get-hospital`);
+        const response = await http.get(
+          `http://164.92.206.217:8083/hospital/${hospitalId}/get-hospital`
+        );
         if (response.status === 200) {
           setHospitalData(response.data.data);
           await getDoctorsData();
         }
-      }
-      catch (error: any) {
+      } catch (error: any) {
         alert.error("Xatolik yuz berdi: " + error);
-      }
-      finally {
+      } finally {
         setLoading(false);
       }
     }
 
     async function getDoctorsData() {
       try {
-        const response = await http.get('http://164.92.206.217:8082/user/get-all-doctors-from-hospital', {
-          params: {
-            page: 0,
-            size: 10,
-            hospitalId,
+        const response = await http.get(
+          "http://164.92.206.217:8082/user/get-all-doctors-from-hospital",
+          {
+            params: {
+              page: 0,
+              size: 10,
+              hospitalId,
+            },
           }
-        });
+        );
         if (response.status === 200) {
           setDoctorsData(response.data.data.doctors);
           console.log(response.data);
         }
-      }
-      catch (error: any) {
+      } catch (error: any) {
         alert.error("Error: " + error.message);
         console.error("Xatolik yuz berdi: ", error);
       }
@@ -121,7 +123,9 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
                   fullWidth
                   mt="md"
                   radius="md"
-                  onClick={() => window.location.href = hospitalData?.location}
+                  onClick={() =>
+                    (window.location.href = hospitalData?.location)
+                  }
                 >
                   {hospitalData.address}
                 </Button>
@@ -146,7 +150,7 @@ const SingleHospital: FunctionComponent<SingleHospitalProps> = () => {
                 <Box>
                   <AspectRatio ratio={16 / 9}>
                     <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3025.3063874233135!2d-74.04668908358428!3d40.68924937933441!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25090129c363d%3A0x40c6a5770d25022b!2sStatue%20of%20Liberty%20National%20Monument!5e0!3m2!1sen!2sru!4v1644262070010!5m2!1sen!2sru"
+                      src={hospitalData?.location}
                       title="Google map"
                       style={{ border: 0 }}
                     />

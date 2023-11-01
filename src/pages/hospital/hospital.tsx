@@ -1,26 +1,12 @@
 import { FunctionComponent, useEffect, useState } from "react";
-import {
-  Box,
-  LoadingOverlay,
-  Grid,
-  Card,
-  Image,
-  Text,
-  Badge,
-  Button,
-  Group,
-  Col,
-  Flex,
-  Input,
-  Select,
-} from "@mantine/core";
+import { Box, LoadingOverlay, Text, Flex, Input, Select } from "@mantine/core";
 import http from "../../services/http";
 import { IEntity } from "../../modules/auth/types";
 import hospitalImg from "../../assets/images/hospital-new.jpg";
 import { useNavigate } from "react-router";
 import { alert } from "../../utils";
 
-interface HospitalProps { }
+interface HospitalProps {}
 
 const Hospital: FunctionComponent<HospitalProps> = () => {
   const [hospitals, setHospitals] = useState<IEntity.Hospital[]>([]);
@@ -33,15 +19,15 @@ const Hospital: FunctionComponent<HospitalProps> = () => {
   useEffect(() => {
     async function getHospitals() {
       try {
-        const response = await http.get("http://164.92.206.217:8083/hospital/get-all");
+        const response = await http.get(
+          "http://164.92.206.217:8083/hospital/get-all"
+        );
         if (response.status === 200) {
           setHospitals(response.data.data.hospitals);
         }
-      }
-      catch (error) {
+      } catch (error) {
         alert.error("Error occurred: " + error);
-      }
-      finally {
+      } finally {
         setLoading(false);
       }
     }
@@ -71,9 +57,9 @@ const Hospital: FunctionComponent<HospitalProps> = () => {
 
   return (
     <Box>
-      <Flex mb={30} gap={100}>
+      <Flex justify={"space-around"} mb={30} gap={100}>
         <Select
-          w={300}
+          w={400}
           placeholder="Pick City"
           data={cities}
           value={selectedCity}
@@ -81,52 +67,38 @@ const Hospital: FunctionComponent<HospitalProps> = () => {
         />
 
         <Input
-          w={300}
+          w={400}
           placeholder="Enter Hospital Name"
           value={hospitalNameFilter}
           onChange={(event) => setHospitalNameFilter(event.target.value)}
         />
       </Flex>
-      
-      <Grid gutter="md">
+
+      <div className="hospitalContainer">
         {filteredHospitals.length === 0 ? (
           <Text>No hospitals found ❌</Text>
         ) : (
           filteredHospitals.map((hospital: IEntity.Hospital) => (
-            <Col span={4} key={hospital.id}>
-              <Card shadow="sm" padding="lg" radius="md" withBorder>
-                <Card.Section component="a">
-                  <Image src={hospitalImg} alt="Hospital" />{" "}
-                </Card.Section>
-
-                <Group mt="md" mb="xs">
-                  <Text fw={500}>{hospital.name}</Text>
-                  <Badge color="pink" variant="light">
-                    OPEN
-                  </Badge>
-                </Group>
-
-                <Text size="sm" color="dimmed">
-                  {hospital.city}
-                </Text>
-
-                <Button
-                  variant="light"
-                  color="blue"
-                  fullWidth
-                  mt="md"
-                  radius="md"
-                  onClick={() => {
-                    navigate(`single-hospital/${hospital.id}`);
-                  }}
-                >
-                  View Med Clinic
-                </Button>
-              </Card>
-            </Col>
+            <Box key={hospital.id}>
+              <div className="hospitalCard">
+                <img src={hospitalImg} alt="" />
+                <p className="hospitalName">{hospital.name}</p>
+                <div className="hospitalInfo">
+                  <button>OPEN</button>
+                  <button>{hospital.city}</button>
+                </div>
+                <div className="viweHospitalBtn">
+                  <button
+                    onClick={() => navigate(`single-hospital/${hospital.id}`)}
+                  >
+                    View Med Clinic
+                  </button>
+                </div>
+              </div>
+            </Box>
           ))
         )}
-      </Grid>
+      </div>
     </Box>
   );
 };
