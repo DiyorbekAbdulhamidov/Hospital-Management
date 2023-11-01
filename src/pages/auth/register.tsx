@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import { useForm } from "@mantine/form";
-import { Box } from "@mantine/core";
+import { Box, Input, PasswordInput, TextInput } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
 import { useId } from "@mantine/hooks";
 import { format } from "date-fns";
 import { alert } from "../../utils";
 import axios from "axios";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import { DateInput } from "@mantine/dates";
+import { IMaskInput } from "react-imask";
 
-interface RegisterProps { }
+interface RegisterProps {}
 
 const Register: React.FunctionComponent<RegisterProps> = () => {
   const id = useId();
   const [gender, setGender] = useState<string | null>("");
-  const [, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const form = useForm({
     initialValues: {
@@ -46,7 +48,9 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
         return null;
       },
       phoneNumber: (value) => {
-        return /^\+998 \(\d{2}\) \d{3}-\d{2}-\d{2}$/.test(value) ? null : 'Invalid phone number format'
+        return /^\+998 \(\d{2}\) \d{3}-\d{2}-\d{2}$/.test(value)
+          ? null
+          : "Invalid phone number format";
       },
     },
   });
@@ -70,7 +74,8 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
         gender: gender,
       };
 
-      axios.post("http://164.92.206.217:8082/user/auth/sign-up", userData)
+      axios
+        .post("http://164.92.206.217:8082/user/auth/sign-up", userData)
         .then((response) => {
           console.log("User signed up successfully:", response.data);
           navigate("auth/login");
@@ -78,11 +83,9 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
         .catch((error) => {
           if (error.response) {
             alert.error("❌" + error.response.data.message);
-          }
-          else if (error.request) {
+          } else if (error.request) {
             alert.error("Network error");
-          }
-          else {
+          } else {
             alert.error("❌" + error.response.data.message);
           }
         })
@@ -133,80 +136,83 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
             `}
         </style>
 
-        <div className="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+        <div className="container  px-4 py-5 px-md-5 text-center text-lg-start ">
           <div className="row gx-lg-5 align-items-start mb-10">
             <div className="col-lg-6 mb-5 mb-lg-0" style={{ zIndex: 10 }}>
-              <h1 className="my-5 display-5 fw-bold ls-tight" style={{ color: "hsl(218, 81%, 95%)" }}>
+              <h1
+                className="my-5 display-5 fw-bold ls-tight"
+                style={{ color: "hsl(218, 81%, 95%)" }}
+              >
                 Sign Up To <br />
-                <span style={{ color: "hsl(218, 81%, 75%)" }}>Hospital Menegemant</span>
+                <span style={{ color: "hsl(218, 81%, 75%)" }}>
+                  Hospital Menegemant
+                </span>
               </h1>
             </div>
 
             <div className="col-lg-6 mb-5 mb-lg-0 position-relative">
-              <div id="radius-shape-1" className="position-absolute rounded-circle shadow-5-strong"></div>
-              <div id="radius-shape-2" className="position-absolute shadow-5-strong"></div>
+              <div
+                id="radius-shape-1"
+                className="position-absolute rounded-circle shadow-5-strong"
+              ></div>
+              <div
+                id="radius-shape-2"
+                className="position-absolute shadow-5-strong"
+              ></div>
 
               <div className="card bg-glass">
                 <div className="card-body px-4 py-5 px-md-5">
-                  <form onSubmit={(e) => { e.preventDefault(); handleSubmit() }}>
+                  <form onSubmit={form.onSubmit(handleSubmit)}>
                     <div className="row">
                       <div className="col-md-6 mb-4">
                         <div className="form-outline">
-                          <input
-                            type="text"
-                            id="form3Example1"
-                            className={`form-control`}
+                          <TextInput
+                            label="Full Name"
+                            placeholder="Full Name"
                             {...form.getInputProps("fullName")}
-                            placeholder="Enter your full name"
                           />
-                          <label className="form-label" htmlFor="form3Example1">Full Name</label>
                         </div>
                       </div>
                       <div className="col-md-6 mb-4">
                         <div className="form-outline">
-                          <input
-                            type="date"
-                            id="form3Example2"
-                            className={`form-control`}
+                          <DateInput
+                            label="Date Of Birth"
+                            valueFormat="DD.MM.YYYY"
+                            placeholder="Date Of Your Birth (dd.mm.yyyy)"
+                            maw={400}
+                            mx="auto"
                             {...form.getInputProps("dateOfBirth")}
-                            placeholder="Date of Birth"
                           />
-                          <label className="form-label" htmlFor="form3Example2">Date of Birth</label>
                         </div>
                       </div>
                     </div>
 
                     <div className="form-outline mb-4">
-                      <input
-                        type="email"
-                        id="form3Example3"
-                        className={`form-control`}
+                      <TextInput
+                        label="Email address"
+                        placeholder="Email address"
                         {...form.getInputProps("email")}
-                        placeholder="Enter your email address"
                       />
-                      <label className="form-label" htmlFor="form3Example3">Email address</label>
                     </div>
 
                     <div className="form-outline mb-4">
-                      <input
-                        type="password"
-                        id="form3Example4"
-                        className={`form-control`}
+                      <PasswordInput
+                        label="Password"
+                        placeholder="Password"
                         {...form.getInputProps("password")}
-                        placeholder="Enter your password"
                       />
-                      <label className="form-label" htmlFor="form3Example4">Password</label>
                     </div>
 
                     <div className="form-outline" style={{ marginTop: 20 }}>
-                      <input
-                        type="tel"
-                        id="form3Example2"
-                        className={`form-control`}
-                        {...form.getInputProps("phoneNumber")}
-                        placeholder="Enter your phone number"
-                      />
-                      <label className="form-label" htmlFor="form3Example2">Phone Number</label>
+                      <Input.Wrapper id={id} label="Your phone" mx="auto">
+                        <Input
+                          component={IMaskInput}
+                          mask="+998 (00) 000-00-00"
+                          id={id}
+                          placeholder="Phone Number"
+                          {...form.getInputProps("phoneNumber")}
+                        />
+                      </Input.Wrapper>
                     </div>
 
                     <div className="gender">
@@ -216,7 +222,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                         <input
                           type="radio"
                           name="gender"
-                          value="MALE"
+                          value="male"
                           onChange={() => setGender("MALE")}
                         />
                       </label>
@@ -224,19 +230,30 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
                         <small>FEMALE</small>
                         <input
                           name="gender"
-                          value="FEMALE"
+                          value="female"
                           type="radio"
                           onChange={() => setGender("FEMALE")}
                         />
                       </label>
                     </div>
 
-                    <button type="submit" className="btn btn-primary btn-block mb-4 justify-content-center" style={{ width: 497, marginTop: 20 }}>
+                    <button
+                      type="submit"
+                      className="btn btn-primary btn-block mb-4 justify-content-center"
+                      style={{ width: 497, marginTop: 20 }}
+                    >
                       Sign Up
                     </button>
 
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span><Link to='/auth/login'>Do you have an Account? </Link></span>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <span>
+                        <Link to="/auth/login">Do you have an Account? </Link>
+                      </span>
                     </div>
                   </form>
                 </div>
