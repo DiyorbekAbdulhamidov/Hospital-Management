@@ -78,14 +78,17 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
         .post("http://164.92.206.217:8082/user/auth/sign-up", userData)
         .then((response) => {
           console.log("User signed up successfully:", response.data);
+          alert.success('Successfully signed');
           navigate("auth/login");
         })
         .catch((error) => {
           if (error.response) {
             alert.error("❌" + error.response.data.message);
-          } else if (error.request) {
+          } 
+          else if (error.request) {
             alert.error("Network error");
-          } else {
+          } 
+          else {
             alert.error("❌" + error.response.data.message);
           }
         })
