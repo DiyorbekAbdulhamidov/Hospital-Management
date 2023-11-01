@@ -22,7 +22,7 @@ const ChangeEmail: React.FC<ChangeEmailProps> = () => {
       const values = { pin };
       await pinSchema.validate(values, { abortEarly: false });
 
-      const response = await axios.post("http://164.92.206.217:8082/user/verify-code-for-changing-email", { email, code: pin});
+      const response = await axios.post("http://164.92.206.217:8082/user/verify-code-for-changing-email", { email, code: pin });
 
       const responseData = response.data;
 
@@ -38,19 +38,22 @@ const ChangeEmail: React.FC<ChangeEmailProps> = () => {
       if (error instanceof yup.ValidationError) {
         const errorMessage = error.inner.map((err) => err.message).join(' ');
         alert.error(errorMessage);
-      } else {
+      } 
+      else {
         alert.error("❌: " + error.response.data.message);
       }
     }
   };
 
   return (
-    <Container>
-      <PinInput required pl={280} mt={190} size="xl" length={6} placeholder="0" type="number" value={pin} onChange={(value) => setPin(value)} />
-      <Button ml={360} w={180} h={50} mt={20} onClick={handleSendCode}>
-        Send Code
-      </Button>
-    </Container>
+    <section className="background-radial-gradient overflow-hidden">
+      <Container>
+        <PinInput required pl={280} mt={190} size="xl" length={6} placeholder="0" type="number" value={pin} onChange={(value) => setPin(value)} />
+        <Button ml={360} w={180} h={50} mt={20} onClick={handleSendCode}>
+          Send Code
+        </Button>
+      </Container>
+    </section>
   );
 };
 
