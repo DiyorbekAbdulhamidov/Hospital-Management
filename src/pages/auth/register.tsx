@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "@mantine/form";
-import { Box } from "@mantine/core";
+import { Box, LoadingOverlay } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
 import { useId } from "@mantine/hooks";
 import { format } from "date-fns";
@@ -13,7 +13,7 @@ interface RegisterProps { }
 const Register: React.FunctionComponent<RegisterProps> = () => {
   const id = useId();
   const [gender, setGender] = useState<string | null>("");
-  const [, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const form = useForm({
     initialValues: {
@@ -94,6 +94,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
 
   return (
     <Box>
+      {loading && <LoadingOverlay visible />}
       <section className="background-radial-gradient overflow-hidden">
         <style>
           {`.background-radial-gradient {

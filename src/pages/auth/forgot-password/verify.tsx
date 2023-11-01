@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Container, PinInput } from "@mantine/core";
+import { Button, Container, LoadingOverlay, PinInput } from "@mantine/core";
 import * as yup from 'yup';
 import { alert } from "../../../utils";
 import { useEmail } from "../../../modules/home/context";
@@ -11,6 +11,7 @@ interface PinCodeProps { }
 const PinCode: React.FC<PinCodeProps> = () => {
 
   const [pin, setPin] = useState("");
+  const [loading, setLoading] = useState(false);
   const { email } = useEmail();
   const navigate = useNavigate();
 
@@ -20,6 +21,7 @@ const PinCode: React.FC<PinCodeProps> = () => {
 
   const handleSendCode = async () => {
     try {
+      setLoading(true);
       const values = { pin };
       await pinSchema.validate(values, { abortEarly: false });
 
@@ -46,18 +48,24 @@ const PinCode: React.FC<PinCodeProps> = () => {
       else {
         alert.error("❌" + error.response.data.message);
       }
+    } 
+    finally {
+      setLoading(false);
     }
   };
 
   return (
-    <section className="background-radial-gradient overflow-hidden">
-      <Container>
-        <PinInput pl={280} mt={190} size="xl" length={6} placeholder="0" type="number" value={pin} onChange={(value) => setPin(value)} />
-        <Button ml={360} w={180} h={50} mt={20} onClick={handleSendCode}>
-          Send Code
-        </Button>
-      </Container>
-    </section>
+    <>
+      {loading && <LoadingOverlay visible />}
+      <section className="background-radial-gradient overflow-hidden">
+        <Container>
+          <PinInput pl={280} mt={190} size="xl" length={6} placeholder="0" type="number" value={pin} onChange={(value) => setPin(value)} />
+          <Button ml={360} w={180} h={50} mt={20} onClick={handleSendCode}>
+            Send Code
+          </Button>
+        </Container>
+      </section>
+    </>
   );
 };
 
