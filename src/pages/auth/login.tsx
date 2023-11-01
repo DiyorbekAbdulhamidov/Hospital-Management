@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../modules/auth/context";
 import { alert, setSession } from "../../utils";
 import axios from "axios";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Login: React.FC = () => {
   const { login } = useAuth();
@@ -57,7 +57,9 @@ const Login: React.FC = () => {
                 style={{ color: "hsl(218, 81%, 95%)" }}
               >
                 Sign In To <br />
-                <span style={{ color: "hsl(218, 81%, 75%)" }}>Hospital Menegemant</span>
+                <span style={{ color: "hsl(218, 81%, 75%)" }}>
+                  Hospital Menegemant
+                </span>
               </h1>
             </div>
 
@@ -92,7 +94,11 @@ const Login: React.FC = () => {
                       />
                     </div>
 
-                    <button type="submit" className="btn btn-primary btn-block mb-4 justify-content-center" style={{ width: '100%' }}>
+                    <button
+                      type="submit"
+                      className="btn btn-primary btn-block mb-4 justify-content-center"
+                      style={{ width: "100%" }}
+                    >
                       Sign In
                     </button>
 

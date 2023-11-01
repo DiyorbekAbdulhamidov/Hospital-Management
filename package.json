@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.1",
+    "@googlemaps/react-wrapper": "^1.1.35",
     "@mantine/carousel": "^6.0.20",
     "@mantine/core": "^6.0.20",
     "@mantine/dates": "^6.0.20",
