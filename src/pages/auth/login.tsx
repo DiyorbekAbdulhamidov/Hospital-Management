@@ -56,7 +56,7 @@ const Login: React.FC = () => {
             <div className="col-lg-6 mb-5 mb-lg-0" style={{ zIndex: 10 }}>
               <h1 className="my-5 display-5 fw-bold ls-tight" style={{ color: "hsl(218, 81%, 95%)" }}>
                 Sign In To <br />
-                <span style={{ color: "hsl(218, 81%, 75%)" }}>Hospital Menegemant</span>
+                <span style={{ color: "hsl(218, 81%, 75%)" }}>Hospital Management</span>
               </h1>
             </div>
 

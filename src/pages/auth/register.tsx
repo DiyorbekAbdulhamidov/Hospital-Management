@@ -149,7 +149,7 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
               >
                 Sign Up To <br />
                 <span style={{ color: "hsl(218, 81%, 75%)" }}>
-                  Hospital Menegemant
+                  Hospital Management
                 </span>
               </h1>
             </div>
