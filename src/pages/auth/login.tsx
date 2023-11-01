@@ -92,7 +92,7 @@ const Login: React.FC = () => {
                       />
                     </div>
 
-                    <button type="submit" className="btn btn-primary btn-block mb-4 justify-content-center" style={{ width: 497 }}>
+                    <button type="submit" className="btn btn-primary btn-block mb-4 justify-content-center" style={{ width: '100%' }}>
                       Sign In
                     </button>
 
