@@ -98,8 +98,8 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
           </Flex>
           <Menu width={200} shadow="md">
             <Menu.Target>
-              <Button radius="50%" w={45} h={45}>
-                <Text fz={14}>{data?.fullName[0]}</Text>
+              <Button radius="50%" w={55} h={55}>
+                <Text fz={20}>{data?.fullName[0]}</Text>
               </Button>
             </Menu.Target>
             <Menu.Dropdown>
