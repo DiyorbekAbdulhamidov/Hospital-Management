@@ -51,14 +51,14 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
         }
         else {
           console.log("Error:", response.status);
-          // window.location.reload();
-          logout();
+          window.location.reload();
+          // logout();
         }
       } 
       catch (error) {
         console.error("Error occurred: ", error);
-        // window.location.reload();
-        logout();
+        window.location.reload();
+        // logout();
       }
     }
 

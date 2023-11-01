@@ -37,7 +37,7 @@ const PinCode: React.FC<PinCodeProps> = () => {
       else {
         alert.error("Failed to send pin code.");
       }
-    } 
+    }
     catch (error: any) {
       if (error instanceof yup.ValidationError) {
         const errorMessage = error.inner.map((err) => err.message).join(' ');
@@ -50,12 +50,14 @@ const PinCode: React.FC<PinCodeProps> = () => {
   };
 
   return (
-    <Container>
-      <PinInput pl={280} mt={190} size="xl" length={6} placeholder="0" type="number" value={pin} onChange={(value) => setPin(value)} />
-      <Button ml={360} w={180} h={50} mt={20} onClick={handleSendCode}>
-        Send Code
-      </Button>
-    </Container>
+    <section className="background-radial-gradient overflow-hidden">
+      <Container>
+        <PinInput pl={280} mt={190} size="xl" length={6} placeholder="0" type="number" value={pin} onChange={(value) => setPin(value)} />
+        <Button ml={360} w={180} h={50} mt={20} onClick={handleSendCode}>
+          Send Code
+        </Button>
+      </Container>
+    </section>
   );
 };
 

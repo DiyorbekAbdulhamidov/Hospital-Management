@@ -48,41 +48,43 @@ const ForgotPassword: React.FunctionComponent<ForgotPasswordProps> = () => {
   };
 
   return (
-    <Box mt={100}>
-      <Container size={460} my={30}>
-        <Title className={classes.title} ta="center">
-          Forgot your password?
-        </Title>
-        <Text c="dimmed" fz="sm" ta="center">
-          Enter your email to get a reset link
-        </Text>
+    <section className="background-radial-gradient overflow-hidden">
+      <Box mt={100}>
+        <Container size={460} my={30}>
+          <Title className='  fw-bold ls-tight' style={{ color: "hsl(218, 81%, 95%)" }} ta="center">
+            Forgot your password?
+          </Title>
+          <Text c="dimmed" fz="sm" ta="center">
+            Enter your email to get a reset link
+          </Text>
 
-        <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
-          <TextInput
-            label="Your email"
-            required
-            placeholder="youremail@gmail.com"
-            onChange={(event) => setNewEmail(event.target.value)}
-            value={email}
-            error={errorMessage}
-          />
+          <Paper className="card bg-glass" withBorder shadow="md" p={30} radius="md" mt="xl">
+            <TextInput
+              label="Your email"
+              required
+              placeholder="youremail@gmail.com"
+              onChange={(event) => setNewEmail(event.target.value)}
+              value={email}
+              error={errorMessage}
+            />
 
-          <Group mt="lg" className={classes.controls}>
-            <Anchor c="dimmed" size="sm" className={classes.control}>
-              <Center inline>
-                <IconArrowLeft style={{ width: rem(12), height: rem(12) }} stroke={1.5} />
-                <Box ml={5}>
-                  <Link to="/auth/login">Back to the login page</Link>
-                </Box>
-              </Center>
-            </Anchor>
-            <Button className={classes.control} onClick={handleSubmit}>
-              Reset password
-            </Button>
-          </Group>
-        </Paper>
-      </Container>
-    </Box>
+            <Group mt="lg" className={classes.controls}>
+              <Anchor c="dimmed" size="sm" className={classes.control}>
+                <Center inline>
+                  <IconArrowLeft style={{ width: rem(14), height: rem(17), color: 'blue' }} stroke={1.5} />
+                  <Box ml={5}>
+                    <Link color="black" to="/auth/login">Back to the login page</Link>
+                  </Box>
+                </Center>
+              </Anchor>
+              <Button className={classes.control} onClick={handleSubmit}>
+                Reset password
+              </Button>
+            </Group>
+          </Paper>
+        </Container>
+      </Box>
+    </section>
   );
 };
 

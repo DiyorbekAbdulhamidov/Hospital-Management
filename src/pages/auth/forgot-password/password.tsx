@@ -47,10 +47,10 @@ const Password: React.FunctionComponent = () => {
   };
 
   return (
-    <>
+    <section className="background-radial-gradient overflow-hidden">
       <Flex justify="center" align={"center"} mt={100}>
         <Box w={400} h={400}>
-          <Text ta={"center"} fz={30}>
+          <Text ta={"center"} fz={30} color="white">
             Enter New Password
           </Text>
           <Box mt={70}>
@@ -59,6 +59,9 @@ const Password: React.FunctionComponent = () => {
               label="Enter new password"
               description="Password must include at least one letter, number, and special character"
               withAsterisk
+              labelProps={{
+                style: { color: 'white' }
+              }}
               value={password}
               error={errorMessage}
               onChange={(event) => {
@@ -71,7 +74,7 @@ const Password: React.FunctionComponent = () => {
           </Box>
         </Box>
       </Flex>
-    </>
+    </section>
   );
 };
 
