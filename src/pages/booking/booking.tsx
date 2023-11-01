@@ -11,6 +11,7 @@ interface BookingProps { }
 const Booking: FunctionComponent<BookingProps> = () => {
   const [upcomingBookings, setupcomingBookings] = useState<IEntity.Booking[]>([]);
   const [pastBookings, setpastBookings] = useState<IEntity.Booking[]>([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -66,7 +67,7 @@ const Booking: FunctionComponent<BookingProps> = () => {
 
                   <Text>Room Number: {booking.roomNumber}</Text>
 
-                  <Button variant="light" color="blue" fullWidth mt="md" radius="md" onClick={() => navigate(`/booking/${booking.bookingId}`)}>
+                  <Button variant="light" color="blue" fullWidth mt="md" radius="md" onClick={() => navigate(`/userPanel/booking/${booking.bookingId}`)}>
                     View
                   </Button>
                 </Card>
@@ -74,9 +75,9 @@ const Booking: FunctionComponent<BookingProps> = () => {
             </div>
           </Tabs.Panel>
 
-          <Tabs.Panel value=" past" mt={20}>
+          <Tabs.Panel value="past" mt={20}>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 40 }}>
-              {pastBookings.map((booking) => (
+            {pastBookings.map((booking) => (
                 <Card key={booking.bookingId} shadow="sm" padding="lg" radius="md" withBorder w={500} >
                   <Card.Section component="a">
                     <Image src={doctorImg} alt="DoctorImg" />
@@ -97,8 +98,9 @@ const Booking: FunctionComponent<BookingProps> = () => {
 
                   <Text>Room Number: {booking.roomNumber}</Text>
 
-
-                  <Button variant="light" color="blue" fullWidth mt="md" radius="md" onClick={() => { navigate(`/booking/${booking.bookingId}`); console.log(true); }} >  View </Button>
+                  <Button variant="light" color="blue" fullWidth mt="md" radius="md" onClick={() => navigate(`/userPanel/booking/${booking.bookingId}`)}>
+                    View
+                  </Button>
                 </Card>
               ))}
             </div>

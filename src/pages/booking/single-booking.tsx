@@ -30,6 +30,7 @@ const SingleBooking: FunctionComponent<SingleBookingProps> = () => {
       .finally(() => {
         setLoading(false);
       });
+      
   });
 
   const handleCancel = () => {
@@ -52,7 +53,7 @@ const SingleBooking: FunctionComponent<SingleBookingProps> = () => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '80px', alignItems: 'center' }}>
       <Card shadow="sm" padding="lg" radius="md" withBorder w={550} mt={40}>
-        <Card.Section component="a" href={`/doctor/${bookingData.doctorId}`}>
+        <Card.Section component="a" href={`/userPanel/doctor/${bookingData.doctorId}`}>
           <Image src={doctorImg} alt="DoctorImg" />
         </Card.Section>
 

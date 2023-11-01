@@ -20,12 +20,10 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
 
   const getAvailableTimes = async () => {
     try {
-      const response = await http.post('http://164.92.206.217:8084/hybrid-booking/get-doctor-available-time',
-        {
-          bookingDay: '2023-09-19',
-          doctorId,
-        },
-      );
+      const response = await http.post('http://docs.diordev.me:8084/hybrid-booking/get-doctor-available-time', {
+        bookingDay: '2023-11-02',
+        doctorId,
+      });
 
       if (response.status === 200) {
         const timesWithSelection = response.data.data.map((time: any) => ({ ...time, selected: false }));
@@ -41,7 +39,7 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
   useEffect(() => {
     async function getDoctorData() {
       try {
-        const response = await http.get(`http://164.92.206.217:8082/user/get-doctor-by-id`, {params: { doctorId,} });
+        const response = await http.get(`http://164.92.206.217:8082/user/get-doctor-by-id`, { params: { doctorId, } });
         if (response.status === 200) {
           setDoctorData(response.data.data);
         }
@@ -64,11 +62,9 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
     }
 
     try {
-      const response = await http.post('http://164.92.206.217:8084/hybrid-booking/save',
-        {
-          timeSlotId: selectedTimeSlot.id,
-        },
-      );
+      const response = await http.post('http://164.92.206.217:8084/hybrid-booking/save', {
+        timeSlotId: selectedTimeSlot.id,
+      });
 
       if (response.status === 200) {
         alert.success('Appointment booked successfully.');
@@ -104,21 +100,17 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
             {doctorData?.info}
           </Text>
 
-          <Text size="sm" color="dimmed">
-            Working Days: {doctorData?.workingDays}
-          </Text>
-
           <Button color='red' w={200} h={50} mt={70} left={180} onClick={() => { getAvailableTimes(); open(); }}>
             See available Time
           </Button>
         </Card>
       )}
-     
+
       <Button onClick={() => navigate(-1)} left={600} h={40}>
         Go Back
       </Button>
 
-      <Modal opened={opened} onClose={close} size="xs" sx={{ borderRadius: 20 }}>
+      <Modal opened={opened} onClose={close} size="md" sx={{ borderRadius: 20 }}>
         <Text mb={20} size={24} color='black' align='center'>{doctorData?.fullName}'s available times:</Text>
         <Group sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr' }}>
           {bookingTimes?.map((times: any) => (
@@ -126,15 +118,19 @@ const Doctor: FunctionComponent<DoctorProps> = () => {
               key={times.id}
               style={{ margin: '5px' }}
               color={times.selected ? 'green' : 'blue'}
-              onClick={() => { const updatedTimes = bookingTimes.map((time) => ({ ...time, selected: time.id === times.id ? !times.selected : false, })); setBookingTimes(updatedTimes); }}
+              onClick={() => {
+                const updatedTimes = bookingTimes.map((time) => ({
+                  ...time,
+                  selected: time.id === times.id ? !times.selected : false,
+                }));
+                setBookingTimes(updatedTimes);
+              }}
             >
               {times.bookingTime}
             </Button>
           ))}
         </Group>
-        <Button size='40' left={77} w={130} h={40} color='red'
-          mt={20}
-          onClick={() => bookAppointment(bookingTimes?.find((time: any) => time.selected))}>
+        <Button size='40' left={77} w={130} h={40} color='red' mt={20} onClick={() => bookAppointment(bookingTimes?.find((time: any) => time.selected))}>
           Booking
         </Button>
       </Modal>
