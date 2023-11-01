@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { useForm } from "@mantine/form";
-import { Box } from "@mantine/core";
+import { Box, LoadingOverlay } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../modules/auth/context";
 import { alert, setSession } from "../../utils";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 const Login: React.FC = () => {
   const { login } = useAuth();
-  const [, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const form = useForm({
@@ -48,6 +49,7 @@ const Login: React.FC = () => {
 
   return (
     <Box>
+      {loading && <LoadingOverlay visible />}
       <section className="background-radial-gradient overflow-hidden">
         <div className="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
           <div className="row gx-lg-5 align-items-start mb-5">
