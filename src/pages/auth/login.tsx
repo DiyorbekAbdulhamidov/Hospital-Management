@@ -76,9 +76,9 @@ const Login: React.FC = () => {
                   <form onSubmit={form.onSubmit(handleSignIn)}>
                     <div className="form-outline mb-4">
                       <TextInput
-                        label="Email"
+                        label="Email address"
                         error={form.errors.email}
-                        placeholder="Email"
+                        placeholder="Enter your email address"
                         {...form.getInputProps("email")}
                       />
                     </div>
@@ -87,7 +87,7 @@ const Login: React.FC = () => {
                       <PasswordInput
                         label="Password"
                         error={form.errors.password}
-                        placeholder="Password"
+                        placeholder="Enter your password"
                         {...form.getInputProps("password")}
                       />
                     </div>
