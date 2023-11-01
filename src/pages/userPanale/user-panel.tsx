@@ -6,7 +6,7 @@ import { Burger } from "@mantine/core";
 import { Header, Text } from "@mantine/core";
 import { useAuth } from "../../modules/auth/context";
 import { IEntity } from "../../modules/auth/types";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Hospital from "../hospital/hospital";
 import { MainSettings } from "../settings";
 import Spetialization from "../spetialization/spetialization";
@@ -20,9 +20,10 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
   const [showSettings, setSettings] = useState(false);
   const [showSpetialization, setSpetialization] = useState(false);
   const [showBooking, setshowBooking] = useState(false);
+  const navigate = useNavigate();
 
   const [showMenu, setShowMenu] = useState(
-    localStorage.getItem("showMenu") === "true" || false  
+    localStorage.getItem("showMenu") === "true" || false
   );
 
   useEffect(() => {
@@ -54,7 +55,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
           window.location.reload();
           // logout();
         }
-      } 
+      }
       catch (error) {
         console.error("Error occurred: ", error);
         window.location.reload();
@@ -73,16 +74,16 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
       <Header height={{ base: 50, md: 70 }} p="md">
         <Flex justify="space-around" align="center" h="100%">
           <Flex>
-            <Text fz={25} fw={600}>
+            <Text fz={30} fw={600} color="black">
               Doctor
             </Text>
-            <Text fw={600} color="#2972fe" fz={25}>
+            <Text fw={600} color="#2972fe" fz={30}>
               Q
             </Text>
           </Flex>
           <Menu width={200} shadow="md">
             <Menu.Target>
-              <Button radius="50%" w={50} h={50}>
+              <Button radius="50%" w={55} h={55}>
                 <Text fz={20}>{data?.fullName[0]}</Text>
               </Button>
             </Menu.Target>
@@ -97,8 +98,9 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
                 icon={<IconExternalLink size={14} />}
                 component="a"
                 target="_blank"
+                onClick={() => navigate('/userPanel/settings/my-profile')}
               >
-                <Link to="/userPanel/settings/my-profile">My Profile</Link>
+                My Profile
               </Menu.Item>
               <Menu.Item
                 c="red"
