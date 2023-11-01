@@ -53,16 +53,19 @@ const SendVerification: React.FunctionComponent<SendVerificationProps> = () => {
   };
 
   return (
-    <>
+    <section className="background-radial-gradient overflow-hidden">
       <Flex justify="center" align="center" mt={100}>
         <Box w={400} h={400}>
-          <Text ta="center" fz={30}>
+          <Text color="white" ta="center" fz={40}>
             Send Verification
           </Text>
           <Box mt={70}>
             <TextInput
               placeholder="Email"
               label="Enter new email"
+              labelProps={{
+                style: { color: 'white' }
+              }}
               value={email}
               onChange={handleChangeEmail}
               required
@@ -81,7 +84,7 @@ const SendVerification: React.FunctionComponent<SendVerificationProps> = () => {
           </Box>
         </Box>
       </Flex>
-    </>
+    </section>
   );
 };
 
