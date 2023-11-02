@@ -85,7 +85,7 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
   }, [user]);
 
   return (
-    <Box>
+    <Box h={"100%"} bg={"hsl(218, 41%, 15%)"}>
       <div className="mainHeader">
         <Flex justify="space-around" align="center" h="100%">
           <Flex>
@@ -137,8 +137,9 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
             w="20%"
             className="left_menu"
           >
-            <Box mt={20} ml={30}>
+            <Box mt={20} ml={30} sx={{ border: "none" }}>
               <SegmentedControl
+                sx={{ border: "none" }}
                 bg="hsl(218, 41%, 15%)"
                 mt={100}
                 w={200}
@@ -286,7 +287,11 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
             </Box>
           </Box>
 
-          <Box w={`${!showMenu ? "80%" : "100%"}`} h="auto">
+          <Box
+            bg={"hsl(218, 41%, 10%)"}
+            w={`${!showMenu ? "80%" : "100%"}`}
+            h="auto"
+          >
             <Burger
               color="red"
               ml={`${showMenu ? `3%` : "-5%"}`}

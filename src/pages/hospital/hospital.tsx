@@ -56,7 +56,7 @@ const Hospital: FunctionComponent<HospitalProps> = () => {
   });
 
   return (
-    <Box>
+    <Box mb={30}>
       <Flex justify={"space-around"} mb={30} gap={100}>
         <Select
           w={400}
