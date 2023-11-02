@@ -161,9 +161,19 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
                         }}
                       >
                         <IconBuildingHospital
-                          style={{ width: rem(16), height: rem(40) }}
+                          style={{
+                            width: rem(16),
+                            height: rem(40),
+                            color: showHospital ? "" : "white",
+                          }}
                         />
-                        <Box fz={17} ml={10}>
+                        <Box
+                          style={{
+                            color: showHospital ? "" : "white",
+                          }}
+                          fz={17}
+                          ml={10}
+                        >
                           Hospitals
                         </Box>
                       </Flex>
@@ -185,9 +195,19 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
                         }}
                       >
                         <IconBrandBooking
-                          style={{ width: rem(16), height: rem(40) }}
+                          style={{
+                            width: rem(16),
+                            height: rem(40),
+                            color: showBooking ? "" : "white",
+                          }}
                         />
-                        <Box fz={17} ml={10}>
+                        <Box
+                          style={{
+                            color: showBooking ? "" : "white",
+                          }}
+                          fz={17}
+                          ml={10}
+                        >
                           Booking
                         </Box>
                       </Flex>
@@ -209,9 +229,19 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
                         pb={20}
                       >
                         <IconHistory
-                          style={{ width: rem(16), height: rem(40) }}
+                          style={{
+                            width: rem(16),
+                            height: rem(40),
+                            color: showSpetialization ? "" : "white",
+                          }}
                         />
-                        <Box fz={17} ml={10}>
+                        <Box
+                          style={{
+                            color: showSpetialization ? "" : "white",
+                          }}
+                          fz={17}
+                          ml={10}
+                        >
                           Spetialization
                         </Box>
                       </Flex>
@@ -233,9 +263,19 @@ const UserPanel: FunctionComponent<UserPanelProps> = () => {
                         }}
                       >
                         <IconSettings
-                          style={{ width: rem(16), height: rem(40) }}
+                          style={{
+                            width: rem(16),
+                            height: rem(40),
+                            color: showSettings ? "" : "white",
+                          }}
                         />
-                        <Box fz={17} ml={10}>
+                        <Box
+                          style={{
+                            color: showSettings ? "" : "white",
+                          }}
+                          fz={17}
+                          ml={10}
+                        >
                           Profile Settings
                         </Box>
                       </Flex>
