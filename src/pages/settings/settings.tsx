@@ -9,7 +9,7 @@ const MainSettings: React.FunctionComponent<SettingsProps> = () => {
     <>
       <Flex justify="center" align="center">
         <Flex mt={100} direction="column" w={500} h={500} gap={20}>
-          <Text ta="center" fz={30} fw={600}>
+          <Text color="white" ta="center" fz={30} fw={600}>
             Profile Settings
           </Text>
           <Link to="/userPanel/settings/my-profile">
