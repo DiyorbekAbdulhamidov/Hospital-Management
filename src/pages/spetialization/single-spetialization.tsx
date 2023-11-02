@@ -5,7 +5,7 @@ import { alert } from "../../utils";
 import spetializationImg from "../../assets/images/doctor-s-hand-holding-stethoscope-closeup_53876-105091.avif";
 import { Box, Text, Card, Image, Button, LoadingOverlay, Badge } from "@mantine/core";
 import { http } from "../../services";
-
+import "./spetialization.scss";
 interface SingleSpetializationProps {
   spetializationId: string;
 }
@@ -37,23 +37,45 @@ const SingleSpetialization: FunctionComponent<SingleSpetializationProps> = () =>
   if (!spetializationData) return null;
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '80px', alignItems: 'center' }}>
-      <Card shadow="sm" padding="lg" radius="md" withBorder w={550} mt={40}>
-        <Card.Section component="a" >
-          <Image src={spetializationImg} alt="spetializationImg" />
-        </Card.Section>
+    <div className="spetialization-page">
+      <div className="spetialization-card">
+        <img className=".spetialization-img" src="https://cdn.create.vista.com/api/media/small/193013052/stock-photo-smiling-doctor-wearing-white-coat-stethoscope-holding-toy-heart-isolated" alt="" />
+        <div className="spetialization-info">
+          <h1>{spetializationData.name}</h1>
 
-        <Badge size="80px" fz={20} ml={120} mt="md" mb="xs">
-          <Text fw={500}>{spetializationData.name}</Text>
-        </Badge>
 
-        <Text><Text color="red" >Who is {spetializationData.name}:</Text> {spetializationData.description}</Text>
+          <label htmlFor="">
+            <h5 color="red" >Who is {spetializationData.name}:</h5>
+            <p>{spetializationData.description}</p>
+          </label>
+          <label>
+            <h5 color="red">Which Treatment:</h5>
+            <p>{spetializationData.diseaseTreatment}</p>
+          </label>
+          <div>
+            <Button w={200} onClick={() => navigate(-1)} h={45} mt={20} left={120}>Go Back</Button>
 
-        <Text><Text color="red">Which Treatment:</Text> {spetializationData.diseaseTreatment}</Text>
-        <Button onClick={() => navigate(-1)} h={45} mt={20} left={200}>Go Back</Button>
-
-      </Card>
-    </Box>
+          </div>
+        </div>
+      </div>
+    </div>
+    /* <Box sx={{ width: "100%", height: "100vh", display: 'flex', flexDirection: 'column', gap: '80px', alignItems: 'center' }}>
+       <Card shadow="sm" padding="lg" radius="md" withBorder w={1000} mt={30} >
+         <Card.Section component="a" >
+           <img src={spetializationImg} alt="spetializationImg" />
+         </Card.Section>
+ 
+         <Badge size="80px" fz={20} ml={120} mt="md" mb="xs">
+           <Text fw={500}>{spetializationData.name}</Text>
+         </Badge>
+ 
+         <Text><Text color="red" >Who is {spetializationData.name}:</Text> {spetializationData.description}</Text>
+ 
+         <Text><Text color="red">Which Treatment:</Text> {spetializationData.diseaseTreatment}</Text>
+         <Button onClick={() => navigate(-1)} h={45} mt={20} left={200}>Go Back</Button>
+ 
+       </Card>
+     </Box>*/
   );
 }
 
