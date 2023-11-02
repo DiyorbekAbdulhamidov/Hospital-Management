@@ -14,7 +14,7 @@ const SingleBooking: FunctionComponent<SingleBookingProps> = () => {
   const { bookingId } = useParams<{ bookingId: string }>();
   const [bookingData, setBookingData] = useState<IEntity.Booking | null>(null);
   const [loading, setLoading] = useState(true);
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
