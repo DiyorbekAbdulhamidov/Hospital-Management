@@ -28,7 +28,7 @@ import Spetialization from "../spetialization/spetialization";
 import Booking from "../booking/booking";
 import { http } from "../../services";
 
-interface UserPanelProps {}
+interface UserPanelProps { }
 
 const UserPanel: FunctionComponent<UserPanelProps> = () => {
   const [showHospital, setHospital] = useState(true);
