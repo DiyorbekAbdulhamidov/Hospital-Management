@@ -20,6 +20,7 @@ http.interceptors.request.use(
   },
 
   error => Promise.reject(error)
+  
 )
 
 http.interceptors.response.use(null, err => {
