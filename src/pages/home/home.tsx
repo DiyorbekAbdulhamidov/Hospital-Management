@@ -15,8 +15,8 @@ const Home: React.FunctionComponent<HomeProps> = () => {
         </h1>
         <p>
           Your one-stop destination for credible medical information and expert{" "}
-          <br /> insights. Explore, learn, and take control of your health with
-          us.
+          <br /> insights. <br /> Explore, learn, and take control of your
+          health with us.
         </p>
         <div className="btns">
           <button onClick={() => navigate("/auth/login")}>Sign In</button>
